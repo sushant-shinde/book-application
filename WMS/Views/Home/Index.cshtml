@@ -1,0 +1,339 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    <script src="~/Scripts/Chart/amcharts.js" type="text/javascript"></script>
+    <script src="~/Scripts/Chart/pie.js" type="text/javascript"></script>
+    <script src="~/Scripts/Chart/highcharts.js" type="text/javascript"></script>
+    <script src="~/Scripts/Chart/highcharts-3d.js" type="text/javascript"></script>
+    <script src="~/Scripts/Chart/exporting.js" type="text/javascript"></script>
+
+    @Scripts.Render("~/CustomScripts/Home.js?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Styles.Render("~/BookGallery/css/style.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/BookGallery/js/modernizr.custom.53451.js?t=" + @DateTime.Now.Ticks.ToString())
+
+}
+
+<style type="text/css">
+    .highcharts-credits {
+        display: none !important;
+    }
+
+    .highcharts-legend-item .highcharts-column-series .highcharts-color-0 .highcharts-series-0 {
+        display: none !important;
+    }
+
+    .highcharts-axis-labels .highcharts-yaxis-labels, .highcharts-button-box, .highcharts-button-symbol {
+        display: none !important;
+    }
+
+    .divMain {
+        height: calc(100vh - 180px);
+    }
+
+    .divSubCT {
+        background-color: #FFFFFF;
+    }
+
+    .inner {
+        text-align: right;
+    }
+
+    #chartdiv {
+        width: 100%;
+        height: 400px;
+    }
+
+    .imgstamp {
+        cursor: pointer;
+        width: 40px;
+        height: 40px;
+    }
+
+    .small-box {
+        color: #FFF !important;
+    }
+
+    .bg-NewBook {
+        background-color: #63caff !important;
+        background-color: #90CCF4 !important;
+    }
+
+    .bg-WIP {
+        background-color: #3bb7ff !important;
+        background-color: #F3D250 !important;
+    }
+
+    .bg-billed {
+        background-color: #2192d6 !important;
+        background-color: #AAAAF9 !important;
+    }
+
+    .bg-WithDrwan {
+        background-color: #1770a8 !important;
+        background-color: #F78888 !important;
+        color: #fbfbfb !important;
+    }
+
+    .divDashBox {
+        height: 120px;
+        padding: 10px;
+        text-align: center;
+        background-color: #fbfbfb;
+        /*border: 1px solid #fff;*/
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+    .marDiv {
+        height: auto !important;
+        line-height: 25px;
+        border-radius: 0px !important;
+        background: linear-gradient(40deg,#2196F3,#cfe8f7) !important;
+        color: #041828;
+    }
+
+
+    .small-box:hover {
+        text-decoration: none;
+    }
+
+    .small-box .icon {
+        -webkit-transition: all .3s linear;
+        -o-transition: all .3s linear;
+        transition: all .3s linear;
+        position: absolute;
+        top: -10px;
+        /*right: 10px;*/
+        z-index: 0;
+        font-size: 90px;
+        color: rgba(0,0,0,0.15);
+    }
+
+    .spOverDue {
+        color: #E98074;
+        /*font-size: 20px !important;*/
+        /*float: right;*/
+        /*bottom: 50px;
+        position: relative;
+         transform: rotate(270deg);*/
+        left: 40px;
+        letter-spacing: 2px;
+    }
+
+    .spTodayDue {
+        color: #5680E9;
+    }
+
+    .spTodayDue {
+        color: green;
+    }
+
+    tspan {
+        font-weight: bold;
+    }
+
+    .books-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .book-list-in-box > .item {
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        border-radius: 0;
+        border-bottom: 1px solid #f4f4f4;
+    }
+
+    .books-list > .item {
+        border-radius: 3px;
+        -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+        box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+        padding: 20px 0;
+        /*background: #fff;*/
+    }
+
+    .books-list .book-img {
+        float: left;
+    }
+
+        .books-list .book-img img {
+            width: 50px;
+            height: 50px;
+            border-radius: 5px;
+        }
+
+    .books-list .book-info {
+        margin-left: 60px;
+        font-weight: bold;
+    }
+
+    .books-list .book-description {
+        display: block;
+        color: #999;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .fa-star {
+        font-size: 15px;
+    }
+
+    .iright {
+        top: 00px !important
+    }
+</style>
+
+<input id="hf_GetSummary" type="hidden" value='@Url.Action("GetSummary", "home")'>
+
+<div class="page-content">
+    <div class="jumbotron content" style="overflow:auto">
+        @*<h2>Dashboard</h2>
+            <hr />*@
+        <br />
+        <div>
+            <div class="divCenterDash col-sm-12">
+
+                <div class="row">
+                    <div class="col-sm-3">
+
+                        <div class="divDashBox bg-NewBook">
+                            <a class="small-box Li_NewBook" href="javascript:void(0)" title="New Book">
+                                <div class="inner">
+                                    <p class="prd" id="H_NewBooks"></p>
+                                    <p>New Books</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fa fa-book"></i>
+                                </div>
+
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="divDashBox bg-WIP">
+                            <a class="small-box Li_BookMaster" href=javascript:void(0) title="Book Master">
+                                <div class="inner">
+                                    <p class="prd" id="H_WIP"></p>
+                                    <p>WIP</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fa fa-cogs"></i>
+                                </div>
+
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="divDashBox bg-billed">
+                            <a class="small-box Li_BookMaster" href='javascript:void(0)' title="Book Master">
+                                <div class="inner">
+                                    <p class="prd" id="h_Billed"></p>
+                                    <p>Billed</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fa fa-wallet"></i>
+                                </div>
+
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="divDashBox bg-WithDrwan">
+                            <a class="small-box Li_BookMaster" href='javascript:void(0)' title="Book Master">
+                                <div class="inner">
+                                    <p class="prd" id="H_WithDrwan"></p>
+                                    <p>Withdrawn</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fa fa-ban"></i>
+                                </div>
+
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+            </div>
+            <div>
+
+                <div class="col-sm-9">
+                    <i class="fas fa-chart-bar iright" title="Chart View"  id="iChart" onclick="ShowBookMaster('container','iChart')"></i>
+                    <i class="fa fa-book iright" title="Book View" id="iBook" style="color:#2196f3;cursor:not-allowed" onclick="ShowBookMaster('dg-container','iBook')"></i>
+                    <div id="container" class="ViewList" style="display:none">
+                    </div>
+                    <section id="dg-container" class="dg-container ViewList">
+                        <nav>
+                            <span class="dg-prev">&lt;</span>
+                            <span class="dg-next">&gt;</span>
+                            @*<i class="fas fa-pause-circle iplay" id="pause">&nbsp;</i>
+                                <i class="fa fa-play-circle iplay" id="play" style="display:none">&nbsp;</i>*@
+                        </nav>
+
+                        <div class="dg-wrapper">
+                            @*<a href="#"><img src="images/1.jpg" alt="image01"><div>http://www.colazionedamichy.it/</div></a>*@
+                        </div>
+                    </section>
+                </div>
+                <div class="col-sm-3">
+                    <a href=@Url.Action("index", "wish") title="Wish">
+                        <h4><i class="fa fa-flag"></i>&nbsp;<strong>Schedule Book List</strong></h4>
+                    </a>
+                    <hr />
+                    <div></div>
+                    @*<marquee behavior="scroll" direction="up" scrollamount="5" id="marBookList">
+                            <div id="divScheduleBookList">
+                                &nbsp;
+                            </div>
+                        </marquee>*@
+                    <div class="box-body">
+                        <div id="divScheduleBookList" style="overflow:auto">
+                            &nbsp;
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script type="text/javascript" src="~/BookGallery/js/jquery.gallery.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('.iplay').click(function () {
+            var zhtml = $('.dg-wrapper').html();
+            $('.dg-wrapper').html('');
+            $('.dg-wrapper').html(zhtml);
+            if ($(this)[0].id == 'pause') {
+                $('#play').show(); $('#pause').hide();
+                $('#dg-container').gallery({
+                    autoplay: false
+                });
+
+            }
+            else {
+                $('#pause').show(); $('#play').hide();
+                $('#dg-container').gallery({
+                    autoplay: true
+                });
+                $('#dg-container').gallery("next");
+            }
+        });
+    });
+
+    function ShowBookMaster(zID, itemP) {
+        $('.ViewList').hide();
+        $('#' + zID).show();
+        $('.iright').css('color', '#1d2c99');
+        $('.iright').css('cursor', 'pointer');
+        $('#' + itemP).css('color', '#2196f3');
+        $('#' + itemP).css('cursor', 'not-allowed');
+        if (zID == 'dg-container') {
+        }
+        //LoadDashboardData();
+    }
+</script>

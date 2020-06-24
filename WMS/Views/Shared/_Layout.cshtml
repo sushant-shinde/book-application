@@ -1,0 +1,464 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
+    <title>@ViewBag.Title - Sesame</title>
+    <link rel="shortcut icon" href="~/Images/sesame.png">
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css?t=@DateTime.Now.Ticks.ToString()">
+    <link rel="stylesheet" href="~/Content/css/all.css?t=@DateTime.Now.Ticks.ToString()">
+    <link rel="stylesheet" href="~/Content/css/custom.css?t=@DateTime.Now.Ticks.ToString()">
+    <link rel="stylesheet" href="~/Content/css/custom-themes.css?t=@DateTime.Now.Ticks.ToString()">
+    <link rel="stylesheet" href="~/Content/css/main.css?t=@DateTime.Now.Ticks.ToString()">
+    <link href="~/css/notification.css" rel="stylesheet" />
+
+    @Scripts.Render("~/Scripts/moment.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/jquery.min.js")
+    @Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
+    @Scripts.Render("~/Scripts/jquery.validate.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/jquery.validate.unobtrusive.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/datetimepicker_css.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/Editor/jquery-te-1.4.0.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/Scripts/Editor/jquery-te-1.4.0.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/Sidebar/sidenavi-right.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/jquery.tabletojson.js?t=" + @DateTime.Now.Ticks.ToString())
+
+    <style type="text/css">
+        .page-wrapper {
+            background: url(../img/bg.jpg) no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            height: 100%;
+        }
+        /*Hide all Menu on Load time*/
+        .Mainmenu {
+            display: none;
+        }
+
+        .jumbotron {
+            background-color: rgba(255, 255, 255, 0.99) !important;
+            color: #000 !important;
+        }
+
+            /*.page-wrapper .page-content {
+            overflow: hidden !important;
+            background: #5DA2D5;
+        }*/
+
+            .jumbotron > hr {
+                background-color: #000 !important;
+            }
+
+        .page-wrapper .page-content {
+            padding-left: 40px !important;
+        }
+
+        .ImgLogo {
+            height: 40px;
+            position: relative;
+            top: -12px;
+            /*background: repeating-radial-gradient(#ffffff, transparent 121px);*/
+        }
+
+        #divLogo {
+            height: 40px;
+            left: -20px;
+            position: relative;
+        }
+
+        .spTitle {
+            position: relative;
+            top: -5px;
+        }
+
+        .divHeight {
+            height: 45px !important;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin: 0.67em 0;
+            font-weight: bold;
+        }
+
+        #myModalView_Pending {
+            font-size: 12px;
+        }
+
+        .bootbox .modal-dialog {
+            /*width: 100% !important;*/
+        }
+
+        .divLogoHeader {
+            background: linear-gradient(40deg,#68b0db,#096e8a);
+            background: linear-gradient(40deg,#68b0db,#096e8a05);
+            margin-left: 0px !important;
+        }
+    </style>
+    <script type="text/javascript">
+        //$(document).keydown(function (event) {
+        //    if (event.keyCode == 123) { // Prevent F12
+        //        return false;
+        //    } else if (event.ctrlKey && event.shiftKey && event.keyCode == 73) { // Prevent Ctrl+Shift+I
+        //        return false;
+        //    }
+        //});
+        window.history.forward(-1);
+        window.history.pushState(null, "", window.location.href);
+        window.onpopstate = function () {
+            window.history.pushState(null, "", window.location.href);
+        };
+        $(window).load(function () {
+            if ($('#hf_UserType').val() == 'Author' || $('#hf_UserType').val() == 'Editor'  || $('#hf_UserType').val() == 'AuthorEditor' || $('#hf_UserType').val() == 'Freelancer') {
+                $('.aNofify').hide();
+                $('#helpdesk').show();
+            }
+
+            else {
+                $('.aNofify').show();
+                $('#helpdesk').show();
+            }
+
+
+            //if ($('#hf_UserType').val() == 'Manager')
+            //    $('#aiMgrTracking').show()
+            //else
+            //    $('#aiMgrTracking').hide();
+        });
+        history.go(1);
+    </script>
+</head>
+
+<body oncontextmenu="return false;">
+    <div class="page-wrapper chiller-theme sidebar-bg bg1 toggle">
+        <div>
+            <span id="show-sidebar" class="">
+                <i class="fas fa-bars" title="Open"></i><br /><br />
+            </span>
+        </div>
+
+        <main class="page-content container-fluid">
+            <div class="row divLogoHeader">
+                <div class="col-md-5 divHeight">
+                    <div id="divLogo">
+                        <h1 class="heading"><img class="ImgLogo" src="~/Images/sesame_logo.png" /></h1>
+                    </div>
+                </div>
+                <div class="col-md-4 divHeight"><h1 class="heading"><span class="spTitle">@ViewBag.Title</span></h1></div>
+                <div class="col-md-3 headerUserName">
+                    <span class="nav">
+                        <a class="btn" style="display:none" title="Manager Tracking" id="aiMgrTracking" href=@Url.Action("list", "tracking")><i class="fa fa-th" aria-hidden="true"></i></a>
+                        <a class="btn aNofify" style="display:none" id="Nofify" title="Notification"><i class="fa fa-bell"><span id="NotificationCount" class="icon_counter icon_counter_red"></span></i></a>
+                        @*<a class="btn aNofify" style="display:none" id="helpdesk" title="Helpdesk" href=@Url.Action("Display", "HelpDesk")><i class="fa fa-hourglass-half"><span id="HelpdeskCount" class="icon_counter icon_counter_red"></span></i></a>*@
+                        
+                        <a class="btn aNofify" style="display:none" id="helpdesk" title="Helpdesk" href=@Url.Action("Display", "HelpDesk")>
+                        <img src="~/img/support.png" class="imgHelpdesk" /><span id="HelpdeskCount" class="icon_counter icon_counter_red"></span></a>
+                        <a class="btn aNofify" style="display:none" href=@Url.Action("taskCalendar", "settings") title="Task Calendar"><i class="fa fa-calendar-alt"></i></a>
+                        <a href=@Url.Action("UserProfile", "user") title="Profile">
+                            <img class="imgProfile" title="Profile" src="~/img/user.jpg" onError="this.onerror=null;this.src='../../img/user.jpg';">
+                        </a>
+                        <a href=@Url.Action("logout", "home") title="Logout">
+                            <i class="fa fa-power-off"></i>
+                        </a>
+                    </span>
+                </div>
+            </div>
+        </main>
+
+        <nav id="sidebar" class="sidebar-wrapper">
+            <div class="sidebar-content">
+                <div class="sidebar-header" style="cursor:default">
+                    <div class="sidebar-brand">
+                        <div id="close-sidebar">
+                            <i class="fas fa-times"></i>
+                        </div>
+                    </div>
+
+                    <a href=@Url.Action("UserProfile", "user") title="Profile">
+                        <div class="user-pic">
+                            <img class="img-responsive img-rounded" src="~/img/user.jpg" alt="User picture" id="imgUserDP" onError="this.onerror=null;this.src='../../img/user.jpg';">
+                        </div>
+
+                        <div class="user-info">
+                            <span class="user-name">
+                                <span class="spsmiley"><i class="fas fa-smile"></i></span> <strong class="spUserName">User Name</strong>
+                            </span>
+                        </div>
+                    </a>
+                    <div class="sidebar-brand divlogout">
+                        @*<a href=@Url.Action("login","home") title="Logout">
+                                <i class="fa fa-power-off"></i>
+                            </a>*@
+                    </div>
+                </div>
+
+                <div class="sidebar-menu">
+                    <ul style="list-style-type:none">
+                        @{ Html.RenderPartial("menu/General");}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="body-content">
+            @RenderBody()
+            <footer>
+                <center>
+                    &copy; @DateTime.Now.Year A Katalyst Software Services - Nova Techset
+                </center>
+            </footer>
+        </div>
+    </div>
+
+    <div id="LoadingImage">
+        <center>
+            <img src="~/Images/loader.gif" class="imgLoadimg" />
+        </center>
+    </div>
+    <input id="hf_ReportHeight" type="hidden">
+
+    <div id="sideNavi">
+        <div class="side-navi-data">
+            <div class="side-navi-tab active" id="divQuickNav">
+                <div class="divQuickList" style="overflow:hidden">
+                    <i class="fas fa-times" id="isideClose"></i><span>Task Notifications</span>
+                    <hr />
+                    <div id="NotificationData" style="overflow:auto;position:relative;top:-10px"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="myModalView_Pending" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"><strong>Task Details</strong></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label id="lblTaskID" style="display:none"></label>
+                            <label>Title</label><em>*</em>
+                            <input id="Txt_Title" type="text" class="form-control" maxlength="50" />
+                            <br />
+                            <label>Start Date</label><em>*</em>
+                            <input id="Txt_StartDate" type="text" class="form-control TaskDate" />
+                            <br />
+                            <label>End Date</label><em>*</em>
+                            <input id="Txt_EndDate" type="text" class="form-control TaskDate" />
+                            <br />
+                            <label>Description</label>
+                            <textarea id="Txt_Description" class="form-control" style="height: 110px;"></textarea>
+                            <br />
+                            <label>Actions</label>
+                            <div class="form-group label-floating">
+                                <div class="col-sm-4">
+                                    <input id="Rb_View" type="radio" name="Actions" value="View" />View
+                                </div>
+                                <div class="col-sm-4">
+                                    <input id="Rb_Completed" type="radio" name="Actions" value="Completed" />Completed
+                                </div>
+                                <div class="col-sm-4">
+                                    <input id="Rb_Close" type="radio" name="Actions" value="Close" />Close
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" title="Update" id="btnTask_Postponed">Update</button>
+                    <button type="button" class="btn btn-primary" title="Close" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/js/bootstrap.min.js?t=@DateTime.Now.Ticks.ToString()"></script>
+    <script src="~/Scripts/js/custom.js?t=@DateTime.Now.Ticks.ToString()"></script>
+    <link rel="stylesheet" href="~/css/normalize.css?t=@DateTime.Now.Ticks.ToString()">
+    <link rel="stylesheet" href="~/css/main.css?t=@DateTime.Now.Ticks.ToString()">
+    <link rel="stylesheet" href="~/css/jquery.steps.css?t=@DateTime.Now.Ticks.ToString()">
+    <script src="~/Scripts/StepsJS/modernizr-2.6.2.min.js?t=@DateTime.Now.Ticks.ToString()"></script>
+
+    @Scripts.Render("~/Scripts/StepsJS/jquery.cookie-1.3.1.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/StepsJS/jquery.steps.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/select2-2.1/select2.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    <link rel="stylesheet" href="~/Scripts/select2-2.1/select2.css?t= @DateTime.Now.Ticks.ToString()">
+    @Scripts.Render("~/Scripts/bootbox.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/jquery.bootstrap-growl.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/jquery.table2excel.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/bootbox.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/bundles/modernizr?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/Scripts/jquery-ui.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/jquery-ui.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/moment.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/daterangepicker.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/Scripts/daterangepicker.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Sidebar/SideNavi.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/ready.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/Scripts/jquery.contextMenu.min.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/jquery.contextMenu.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/jquery.ui.position.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/Scripts/jquery.datetimepicker.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/date-formatter.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/jquery.datetimepicker.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/js/jquery-asProgress.js?t=" + @DateTime.Now.Ticks.ToString())
+    @*@Styles.Render("~/Scripts/js/css/asProgress.css?t=" + @DateTime.Now.Ticks.ToString())*@
+
+    @Styles.Render("~/Scripts/iconMenu/iconmenu.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/Scripts/iconMenu/jquerysctipttop.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/iconMenu/jquery.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/iconMenu/iconmenu.js?t=" + @DateTime.Now.Ticks.ToString())
+
+    <script>
+        ddiconmenu.docinit({ // initialize an Icon Menu
+            menuid: 'myiconmenu', //main menu ID
+            easing: "easeInOutCirc",
+            dur: 500 //<--no comma after last setting
+        })
+    </script>
+
+    @RenderSection("scripts", required: false)
+    <input id="hf_GetRights" type="hidden" value='@Url.Action("GetRights", "home")'>
+    <input id="hf_GetNotification" type="hidden" value='@Url.Action("GetNotification", "Settings")'>
+    <input id="hf_UpdateCompletedTask" type="hidden" value='@Url.Action("UpdateCompletedTask", "Settings")'>
+    <input id="hf_GetTaskDetails" type="hidden" value='@Url.Action("GetTaskDetails", "Settings")'>
+    <input id="hf_UpdateTaskDetails" type="hidden" value='@Url.Action("UpdateTaskDetails", "Settings")'>
+    <input id="hf_KeepAlive" type="hidden" value='@Url.Action("KeepAlive", "home")'>
+    <input id="hf_LoginURL" type="hidden" value="@Url.Action("login", "home")">
+    <input id="hf_UserMaster" type="hidden" data-value="@Session["UserData"]">
+    <input id="hf_ArticleSort" type="hidden" value='@Url.Action("ArticleSortMethod", "SesameAPI")'>
+    <input id="hf_GetHolidaysInfo" type="hidden" value='@Url.Action("GetHolidaysData", "Book")'>
+    <input id="hf_UserType" type="hidden">
+    <input id="hf_PublisherID" type="hidden">
+    <input id="hf_PublisherCode" type="hidden">
+    <input id="hf_Menu" type="hidden">
+    <input id="hf_UserID" type="hidden">
+    <input id="hf_UserName" type="hidden">
+    <input id="hf_RoleID" type="hidden">
+
+    <div id="DivMenusList">
+        <ul id="myiconmenu" class="iconmenu">
+            <li class="Li_Home" style="display:none">
+                <a href=@Url.Action("index", "Home") class="fa fa-home" title="Dashboard">
+                </a>
+            </li>
+            <li class="Li_NewBook Li_BookMaster Li_ProjectAnalysis Li_ProofDistribution Li_Archival" style="display:none" title="Book">
+                <a rel="SubmenuBookList" href=@Url.Action("Index", "book") class="fa fa-book">
+                </a>
+            </li>
+            <li class="Li_WorkflowManager Li_ProjectPlan" style="display:none" title="Workflow Manager">
+                <a rel="SubmenuWorkflowList" href=@Url.Action("Workflow", "settings") class="fa fa-building">
+                </a>
+            </li>
+            <li class="Li_Tracking Li_WISH Li_Progress Li_PipeLine Li_ManagerTracking Li_OutOfFacility Li_Feedback Li_Informationdisseminationinstruction Li_PMPerformance" style="display:none" title="Tracking">
+                <a rel="SubmenuTrackingList" href=@Url.Action("index", "wish") class="fa fa-tasks">
+                </a>
+            </li>
+            <li class="Li_Freelancer Li_FreelancerMaster Li_FreelancerSelection Li_FreelancerAllocation Li_FreelanceTracking Li_FreelanceSettings Li_FreelancerReport" style="display:none" title="Freelancer">
+                <a rel="SubmenuFreelancerList" href=@Url.Action("index", "Freelance") class="fa fa-users">
+                </a>
+            </li>
+            <li class="Li_Query" style="display:none">
+                <a href=@Url.Action("index", "Query") class="fa fa-question-circle" title="Query">
+                </a>
+            </li>
+            <li class="Li_Budget Li_PriceGrid Li_Invoice" style="display:none" title="Budget">
+                <a rel="SubmenuBudgetList" href=@Url.Action("Budget", "Budget") class="fas fa-coins">
+                </a>
+            </li>
+            <li class="Li_UsersManagement" style="display:none" title="Users Management">
+                <a rel="SubmenuUserList" href=@Url.Action("index", "User") class="fa fa-user-cog">
+                </a>
+            </li>
+            <li class="Li_General Li_MailTemplate Li_QueryTemplate Li_Publisher" style="display:none" title="General Settings">
+                <a rel="SubmenuGeneral" href=@Url.Action("mailtemplate", "general") class="fa fa-cog">
+                </a>
+            </li>
+            <li class="Li_Reports Li_OOFHistory Li_ProofDistributionReport Li_AETrackingReport Li_FreelacnerAllocateReport" style="display:none" title="Reports">
+                <a rel="SubmenuReports" href=@Url.Action("oofhistory", "report") class="fa fa-chart-bar">
+                </a>
+            </li>
+        </ul>
+
+        <div id="SubmenuBookList" class="iconsubmenu dropdownmenu" style="position: absolute; visibility: inherit; left: -200px;">
+            <ul class="ulmenu">
+                <li class="Li_NewBook" style="display:none"><a href="@Url.Action("NewBook", "book")">New Books</a></li>
+                <li class="Li_BookMaster" style="display:none"><a href="@Url.Action("Index", "book")">Book Master</a></li>
+                <li class="Li_ProjectAnalysis" style="display:none"><a href="@Url.Action("Index", "ProjectAnalysis")">Project Analysis</a></li>
+                <li class="Li_ProofDistribution" style="display:none"><a href="@Url.Action("Index", "ProofDistribution")">Proof Distribution</a></li>
+                <li class="Li_Archival" style="display:none"><a href="@Url.Action("Index", "Archival")">Archive & Restoration </a></li>
+            </ul>
+        </div>
+
+        <div id="SubmenuWorkflowList" class="iconsubmenu dropdownmenu" style="position: absolute; visibility: inherit; left: -200px;">
+            <ul class="ulmenu">
+                <li class="Li_WorkflowManager" style="display:none"><a href="@Url.Action("Workflow", "settings")">Workflow Manager</a></li>
+                <li class="Li_ProjectPlan" style="display:none"><a href="@Url.Action("Projectplan", "settings")">Project Plan</a></li>
+            </ul>
+        </div>
+
+        <div id="SubmenuTrackingList" class="iconsubmenu dropdownmenu" style="position: absolute; visibility: inherit; left: -200px;">
+            <ul class="ulmenu">
+                <li class="Li_WISH" style="display:none"><a href="@Url.Action("index", "wish")">WISH</a></li>
+                <li class="Li_Progress" style="display:none"><a href="@Url.Action("progress", "book")">Progress</a></li>
+                <li class="Li_PipeLine" style="display:none"><a href="@Url.Action("index", "Pipeline")">Pipeline</a></li>
+                <li class="Li_ManagerTracking" style="display:none"><a href="@Url.Action("list", "tracking")">Manager Tracking</a></li>
+                <li class="Li_OutOfFacility" style="display:none"><a href="@Url.Action("oof", "tracking")">Out Of Facility</a></li>
+                <li class="Li_Feedback" style="display:none"><a href="@Url.Action("Feedback", "home")">Feedback & Appreciation</a></li>
+                <li class="Li_Informationdisseminationinstruction" style="display:none"><a href="@Url.Action("instruction", "helpdesk")">Information dissemination</a></li>
+                <li class="Li_PMPerformance" style="display:none"><a href="@Url.Action("instruction", "helpdesk")">PM Performance</a></li>
+            </ul>
+        </div>
+
+        <div id="SubmenuFreelancerList" class="iconsubmenu dropdownmenu" style="position: absolute; visibility: inherit; left: -200px;">
+            <ul class="ulmenu">
+                <li class="Li_FreelancerMaster" style="display:none"><a href="@Url.Action("index", "Freelance")">Freelancer Master</a></li>
+                <li class="Li_FreelancerSelection" style="display:none"><a href="@Url.Action("selection", "Freelance")">Freelancer Selection</a></li>
+                <li class="Li_FreelancerAllocation" style="display:none"><a href="@Url.Action("allocation", "Freelance")">Freelancer Allocation</a></li>
+                <li class="Li_FreelanceTracking" style="display:none"><a href="@Url.Action("FreelanceTracking", "Freelance")">Freelancer Tracking</a></li>
+                <li class="Li_FreelanceSettings" style="display:none"><a href="@Url.Action("FreelanceSettings", "Freelance")">Freelancer Settings</a></li>
+                <li class="Li_FreelancerReport" style="display:none"><a href="@Url.Action("Index", "FreelancerActivitiesTracking")">Freelancer Activity Report</a></li>
+            </ul>
+        </div>
+
+        <div id="SubmenuBudgetList" class="iconsubmenu dropdownmenu" style="position: absolute; visibility: inherit; left: -200px;">
+            <ul class="ulmenu">
+                <li class="Li_PriceGrid" style="display:none"><a href="@Url.Action("Index", "Budget")">Price Grid</a></li>
+                <li class="Li_Invoice" style="display:none"><a href="@Url.Action("Budget", "Budget")">Invoice</a></li>
+            </ul>
+        </div>
+
+        <div id="SubmenuUserList" class="iconsubmenu dropdownmenu" style="position: absolute; visibility: inherit; left: -200px;">
+            <ul class="ulmenu">
+                <li class="Li_UsersManagement" style="display:none"><a href="@Url.Action("Index", "User")">Users</a></li>
+                <li class="Li_UsersManagement" style="display:none"><a href="@Url.Action("Role", "User")">Roles</a></li>
+            </ul>
+        </div>
+
+        <div id="SubmenuGeneral" class="iconsubmenu dropdownmenu" style="position: absolute; visibility: inherit; left: -200px;">
+            <ul class="ulmenu">
+                <li class="Li_MailTemplate" style="display:none"><a href="@Url.Action("mailtemplate", "general")">Mail Template</a></li>
+                <li class="Li_QueryTemplate" style="display:none"><a href="@Url.Action("querytemplate", "general")">Query Template</a></li>
+                <li class="Li_Publisher" style="display:none"><a href="@Url.Action("publisher", "general")">Publisher</a></li>
+            </ul>
+        </div>
+
+        <div id="SubmenuReports" class="iconsubmenu dropdownmenu" style="position: absolute; visibility: inherit; left: -200px;">
+            <ul class="ulmenu">
+                <li class="Li_OOFHistory" style="display:none"><a href="@Url.Action("oofhistory", "report")">OOF History</a></li>
+                <li class="Li_ProofDistributionReport" style="display:none"><a href="@Url.Action("ptreport", "report")">Proof Distribution</a></li>
+                <li class="Li_AETrackingReport" style="display:none"><a href="@Url.Action("AEAllocate", "report")">Author/Editor Proof History</a></li>
+                <li class="Li_FreelacnerAllocateReport" style="display:none"><a href="@Url.Action("FSAllocate", "report")">Freelancer History</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

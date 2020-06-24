@@ -1,0 +1,89 @@
+﻿@model WMS.Models.FreelanceModel
+@{
+    ViewBag.Title = "Freelancer Settings";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/css/report.css?t=" + @DateTime.Now.Ticks.ToString())
+@Scripts.Render("~/CustomScripts/FreelanceSettings.js?t=" + @DateTime.Now.Ticks.ToString())
+<style type="text/css">
+    .tblTrans {
+        background: #fff;
+    }
+
+    .divTabAction {
+        text-align: center;
+    }
+
+    .spFileAdd, #spFileAdd {
+        color: #0e3483;
+        font-size: 18px;
+        text-align: center;
+    }
+
+    #spFileAdd {
+        float: right;
+    }
+
+    .FileAttach img {
+        width: 30px;
+        float: left
+    }
+</style>
+<input id="hf_GetLoadDataList" type="hidden" value='@Url.Action("GetLoadDataList",  "Freelance")'>
+<input id="hf_UpdateSettings" type="hidden" value='@Url.Action("UpdateSettings",  "Freelance")'>
+<input id="hf_AddFileupload" type="hidden" value='@Url.Action("AddFileupload",  "Freelance")'>
+<input id="hf_DeleteAddFile" type="hidden" value='@Url.Action("DeleteAddFile",  "Freelance")'>
+<div class="page-content">
+    <div class="jumbotron content">
+        <div class="col-sm-3">
+            <div class="form-group label-floating">
+                <label class="control-label">Task</label>
+                @Html.DropDownListFor(m => m.TaskList, new SelectList(Model.TaskList, "Value", "Text"), new { @id = "ddlTaskList", @class = "form-control" })
+            </div>
+        </div>
+        <div id="divPublisherList" class="col-sm-12" style="overflow:auto">
+
+        </div>
+        <div class="col-sm-12">
+            <div class="divTabAction">
+                <span class="btn btn-primary btn-md" id="btnUpdate">Update</span>
+                <span class="btn btn-primary btn-md" id="btnCancel" onclick="location.reload();">Cancel</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="myModal_GuideLine" class="modal fade in" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content" id="modal_contentArt">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><strong><label id="lblTitle">Guide Line List</label></strong></h4>
+            </div>
+            <div class="modal-body">
+                <div class="divFileInfo">
+                    <div class="FileAttach" style="display:none">
+                        <img src="~/Images/loader-small.gif" />
+                    </div>
+                    <span id='spFileAdd' onclick='OpenFile();'><i class='fa fa-plus-square' aria-hidden='true'></i></span>
+                    <input id="file-input" type="file" name="name" style="display: none;" multiple />
+                </div>
+                <div id="divDownloadList" class="col">
+                    <table class="tblTrans" id="TblFileList">
+                        <thead>
+                            <tr>
+                                <th>S.No</th>
+                                <th>File Name</th>
+                                <th>#</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

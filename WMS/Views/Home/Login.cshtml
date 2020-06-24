@@ -1,0 +1,197 @@
+﻿@model WMS.Models.LoginModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login-Sesame</title>
+    <link rel="shortcut icon" href="~/Images/sesame.png">
+
+    <link href="~/Content/bootstrap4.1.1/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="~/Content/bootstrap4.1.1/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+    <link href="~/Content/bootstrap4.0.0/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="~/Content/bootstrap4.0.0/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery-1.11.1.min.js"></script>
+
+
+    @Styles.Render("~/css/login.css?t=" + @DateTime.Now.Ticks.ToString())
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script type="text/javascript">
+        window.history.forward();
+        $(function () {
+            $('#txtLoginID').focus();
+            //$('#txtLoginID').on('keypress', function (event) {
+            //    var regex = new RegExp("^[a-zA-Z0-9]+$");
+            //    var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+            //    if (!regex.test(key)) {
+            //        event.preventDefault();
+            //        return false;
+            //    }
+            //});
+        });
+    </script>
+    <style type="text/css">
+        .container {
+            color: #2861ab;
+            font-weight: 500;
+        }
+
+        .form-check-label * {
+            color: #2861ab !important;
+            font-weight: 500;
+        }
+
+        .login-sec {
+            background: linear-gradient(40deg,#FFF,#e4feff);
+        }
+
+        .banner-text {
+            background-color: rgba(19, 69, 85, 0.84) !important;
+            width: 115%;
+            padding: 10px;
+        }
+
+        .spUsername:before {
+            font-family: 'FontAwesome';
+            position: relative;
+            content: "\f007";
+        }
+
+        .fa {
+            font-size: 25px;
+        }
+        .ImgLogo {
+            height: 40px;
+            /*bottom: 6px;*/
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <h2 class="heading"><img src="~/Images/sesame_logo.png" class="ImgLogo" /></h2>
+    <div>
+
+        @using (Html.BeginForm("Login", "home", FormMethod.Post))
+        {
+            <section class="login-block">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8 banner-sec">
+                            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                                </ol>
+                                <div class="carousel-inner" role="listbox">
+                                    <div class="carousel-item active">
+                                        <img class="d-block img-fluid" src="~/Images/projectscope.jpg" alt="First slide">
+                                        <div class="carousel-caption d-none d-md-block">
+                                            <div class="banner-text">
+                                                <h2>&#x275B;PM&#x275C; - on the cloud</h2>
+                                                <p>
+                                                    Sesame is a virtual project management system that consolidates production, tracking and reporting.
+                                                    It includes a fully automated booking process that checks the file for usability and completeness of the received input
+                                                    and reports any missing content.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img class="d-block img-fluid" src="~/Images/projectscope1.jpg" alt="First slide">
+                                        <div class="carousel-caption d-none d-md-block">
+                                            <div class="banner-text">
+                                                <h2>Key Stakeholders</h2>
+                                                <p>
+                                                    Major stakeholders of Sesame applications are Project Managers & Production staffs of Nova Techset,
+                                                    Authors, Editors, Publishers, Onshore & Offshore freelancers.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img class="d-block img-fluid" src="~/Images/projectscope2.jpeg" alt="First slide">
+                                        <div class="carousel-caption d-none d-md-block">
+                                            <div class="banner-text">
+                                                <h2>Modules</h2>
+                                                <p>
+                                                    @*Publisher, Journals, Source FTP Info, Designation FTP Info, Department - Automation Task Allocation,
+                                                    Department - Automation Task Allocation - Vendor, Folder Structure, TAT Report configuration, Issues Config, etc..,*@
+                                                    New book creation, Kickoff, Query Management, WISH Master, Workflow Manager, Freelancer Tracking, Author/Editor Management are 
+                                                    some of the key modules on the cloud.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 login-sec">
+                            <h2 class="text-center">Login</h2>
+                            <form class="login-form">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Username</label><em>*</em>
+                                    <table width="100%">
+                                        <tr>
+                                            <td><span class="input-group-addon"><i class="fa fa-user"></i></span></td>
+                                            <td>
+                                                @Html.TextBoxFor(Model => Model.LoginID, new { @id = "txtLoginID", @class = "form-control", @maxlength = 75 })
+                                            </td>
+                                            <td>@Html.ValidationMessageFor(model => model.LoginID, "*", new { @class = "text-danger", @title = "Enter UserName" })</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Password</label><em>*</em>
+                                    <table width="100%">
+                                        <tr>
+                                            <td><span class="input-group-addon"><i class="fa fa-unlock-alt"></i></span></td>
+                                            <td>
+                                                @Html.PasswordFor(Model => Model.Password, new { @id = "txtPassword", @class = "form-control", @maxlength = 10 })
+                                            </td>
+                                            <td>@Html.ValidationMessageFor(model => model.Password, "*", new { @class = "text-danger", @title = "Enter Password" })</td>
+                                        </tr>
+                                    </table>
+
+                                </div>
+
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <small>
+                                            <a href=@Url.Action("ForgotPassword", "home") title="Forgot Password">
+                                                Forgot Password?
+                                            </a>
+                                        </small>
+
+                                    </label>
+                                    <button type="submit" class="btn btn-login float-right">Login</button>
+                                </div>
+                                <div class="form-group">
+                                    <div class="loginErr">
+                                        @ViewBag.LoginErr
+                                    </div>
+
+                                </div>
+                                <center>
+                                    <br />
+                                    <img src="~/Images/KTLogo.png" />
+                                </center>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        }
+    </div>
+</body>
+</html>

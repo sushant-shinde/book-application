@@ -1,0 +1,68 @@
+﻿@model WMS.Models.ProofDistributionModel
+@{
+    ViewBag.Title = "Proof Tracking";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    @Styles.Render("~/CustomScripts/css/jquery.dataTables.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/CustomScripts/resources/syntax/shCore.css?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Scripts.Render("~/CustomScripts/js/jquery.dataTables.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/js/dataTables.fixedColumns.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/dataTables.buttons.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/jszip.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/pdfmake.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/vfs_fonts.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/buttons.html5.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/date-dd-MMM-yyyy.js?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Styles.Render("~/css/report.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Report.js?t=" + @DateTime.Now.Ticks.ToString())
+    <style type="text/css">
+        .spGreen {
+            background-color: #AFD275;
+            color: #FFF !important;
+        }
+
+        .spRed {
+            background-color: #F78888;
+            color: #FFF !important;
+        }
+
+        .spBlue {
+            background-color: #AAAAF9;
+            color: #FFF !important;
+        }
+
+        .dataTable th:last-child {
+            text-align: left !important;
+        }
+
+        .nav-tabs li a, #tblChapter_wrapper {
+            font-size: 12px !important;
+        }
+    </style>
+}
+
+<input id="hf_GetNumberList" type="hidden" value='@Url.Action("GetNumberList",  "Report")'>
+<input id="hf_PopulateProofTracking_Report" type="hidden" value='@Url.Action("PopulateProofTracking_Report",  "Report")'>
+
+
+<div class="page-content">
+    <div class="jumbotron content">
+
+        <div class="form-group label-floating col-sm-5">
+            <label class="control-label">Book Number</label><em>*</em>
+            @Html.DropDownListFor(m => m.NumberList, new SelectList(Model.NumberList, "Value", "Text"), new { @id = "ddlBookID_Report", @class = "form-control" })
+        </div>
+        <div class="col-sm-2">
+            <br />
+            <span class="btn btn-primary" title="Get" id="btnGetTrack">Get</span>
+        </div>
+
+        <table id="example" class="display" width="100%"></table>
+
+
+    </div>
+
+</div>
+

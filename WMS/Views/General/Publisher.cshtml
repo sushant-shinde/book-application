@@ -1,0 +1,227 @@
+﻿
+@{
+    ViewBag.Title = "Publisher Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+    @Styles.Render("~/CustomScripts/css/jquery.dataTables.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/CustomScripts/resources/syntax/shCore.css?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Scripts.Render("~/CustomScripts/js/jquery.dataTables.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/js/dataTables.fixedColumns.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/dataTables.buttons.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/jszip.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/pdfmake.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/vfs_fonts.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/buttons.html5.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/date-dd-MMM-yyyy.js?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Styles.Render("~/css/report.css?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Styles.Render("~/Scripts/FullCalendar/fullcalendar.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/FullCalendar/lib/moment.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/FullCalendar/fullcalendar.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/css/userInfo.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/FullCalendar/theme-chooser.js?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Styles.Render("~/css/WMS.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/General.js?t=" + @DateTime.Now.Ticks.ToString())
+    <link href="~/css/helpdesk.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="~/CustomScripts/Mail/jquery.emailinput.min.css">
+    <script type="text/javascript" src="~/CustomScripts/Mail/jquery.emailinput.min.js"></script>
+    <link href="~/css/a.css" rel="stylesheet" />
+
+    <style>
+        .form-group {
+            font-size: 12px;
+        }
+
+        .form-inline .form-control {
+            width: 100%;
+        }
+
+        #spFileAdd {
+            position: relative;
+            font-size: 20px;
+            color: #337ab7;
+            float: right;
+        }
+
+        .fa-paperclip {
+            font-size: 18px;
+            color: #FF6347;
+            margin: 2px;
+        }
+
+        #btnchat {
+            float: right !important;
+        }
+
+        .panel-footer {
+            height: 100px !important;
+        }
+
+        .modal-dialog {
+            top: -15px;
+        }
+
+        #myModal_Chat .modal-body {
+            padding-top: 5px;
+        }
+    </style>
+
+    <style>
+        /* The container */
+        .container {
+            display: block;
+            position: relative;
+            padding-left: 35px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            font-size: 11px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+            /* Hide the browser's default checkbox */
+            .container input {
+                position: absolute;
+                opacity: 0;
+                cursor: pointer;
+                height: 0;
+                width: 0;
+            }
+
+        /* Create a custom checkbox */
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            background-color: #eee;
+            border: solid grey;
+        }
+
+        /* On mouse-over, add a grey background color */
+        .container:hover input ~ .checkmark {
+            background-color: #ccc;
+        }
+
+        /* When the checkbox is checked, add a blue background */
+        .container input:checked ~ .checkmark {
+            background-color: #2196F3;
+        }
+
+        /* Create the checkmark/indicator (hidden when not checked) */
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        /* Show the checkmark when checked */
+        .container input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+        /* Style the checkmark/indicator */
+        .container .checkmark:after {
+            left: 5px;
+            top: 1px;
+            width: 6px;
+            height: 11px;
+            border: solid white;
+            border-width: 0 3px 3px 0;
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+    </style>
+
+
+}
+
+<input id="hf_GetPublisherDetails" type="hidden" value='@Url.Action("GetPublisherDetails",  "General")'>
+<input id="hf_PopulatePublisherDetailsByID" type="hidden" value='@Url.Action("PopulatePublisherDetailsByID",  "General")'>
+<input id="hf_UpdatePublDetails" type="hidden" value='@Url.Action("UpdatePublDetails",  "General")'>
+
+
+<div class="page-content">
+    <div class="jumbotron content">
+        <table id="Publisher" class="display" width="100%"></table>
+    </div>
+</div>
+
+<div id="myModal_PublDetails" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                @*<button type="button" class="close" data-dismiss="modal" id="btnclose">&times;</button>*@
+                <h4 class="modal-title"><strong>Publisher Details</strong></h4>
+            </div>
+            <div>
+                <div class="modal-body">
+                    <div class="form-group row" id="divPublDetails">
+
+                        <div class="form-group label-floating col-sm-12">
+                            <label class="control-label">Publisher Acronym</label><em>*</em>
+                            <input type="text" class="form-control" maxlength="30" id="txtpublacronym" style="width:100%" />
+                        </div>
+
+                        <div class="form-group label-floating col-sm-12">
+                            <label class="control-label">Publisher Title</label><em>*</em>
+                            <input type="text" class="form-control" maxlength="30" id="txtpubltitle" style="width:100%" />
+                        </div>
+
+                        <div class="form-group label-floating col-sm-12">
+                            <label class="control-label">Publisher Status</label><em>*</em>
+                            <input type="text" class="form-control" maxlength="30" id="txtpublstatus" style="width:100%" />
+                        </div>
+
+                        <div class="form-group label-floating col-sm-12">
+                            <label class="control-label">Publisher Journal</label><em>*</em>
+                            <input type="text" class="form-control" maxlength="30" id="txtpubljournal" style="width:100%" />
+                        </div>
+
+                        <div class="form-group label-floating col-sm-12">
+                            <label class="control-label">Publisher Book</label><em>*</em>
+                            <input type="text" class="form-control" maxlength="30" id="txtpublbook" style="width:100%" />
+                        </div>
+
+                        <div class="form-group label-floating col-sm-12">
+                            <label class="control-label" style="display: block;">Active Status</label>
+                            <label class="container col-md-4" style="margin-top: 6px;">
+                                <label style="font-size:13px">Yes</label>
+                                <input type="radio" id="rdYes" value="1" name="Status">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="container col-md-4" style="margin-top: 6px;">
+                                <label style="font-size:13px">No</label>
+                                <input type="radio" value="0" id="rdNo" name="Status">
+                                <span class="checkmark"></span>
+                            </label>
+
+                        </div>
+
+                        <div class="form-group label-floating col-sm-12">
+                            <label class="control-label">Active Year</label><em>*</em>
+                            @Html.DropDownList("linktoYearId", null, new { @id = "ddlYears", @class = "form-control" })
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" value="Save" id="btnSave_PublDetails">Add/Update</button>
+                    <button type="button" class="btn btn-primary" title="Close" id="btn_close" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

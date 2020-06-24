@@ -1,0 +1,314 @@
+﻿@model WMS.Models.FreelanceModel
+@{
+    ViewBag.Title = "Freelancer Master";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    @Styles.Render("~/CustomScripts/css/jquery.dataTables.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/CustomScripts/resources/syntax/shCore.css?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Scripts.Render("~/CustomScripts/js/jquery.dataTables.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/js/dataTables.fixedColumns.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/dataTables.buttons.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/jszip.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/pdfmake.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/vfs_fonts.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/buttons.html5.min.js?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Scripts.Render("~/CustomScripts/FLMaster.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/css/report.css?t=" + @DateTime.Now.Ticks.ToString())
+    <style type="text/css">
+        .modal-open .modal {
+            top: -10px;
+            font-size: 12px;
+        }
+
+        ul#ULTabul {
+            margin-left: 15px;
+        }
+
+        .divPadd {
+            padding-bottom: 10px;
+        }
+
+        .close {
+            margin: 10px;
+            z-index: 300;
+        }
+
+        .divTaskContent {
+            /*margin-left: 10%;
+            margin-right: 15%;*/
+            white-space: nowrap;
+        }
+
+        .imgCover {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+
+        #tblTask .IsNumeric {
+            width: 100px !important;
+            float: right;
+        }
+
+        .spCol1 {
+            width: 150px !important;
+            display: inline-block;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+    </style>
+}
+<div class="page-content">
+    <div class="jumbotron content">
+        <table id="example" class="display" width="100%"></table>
+    </div>
+</div>
+
+<input id="hf_GetMasterList" type="hidden" value='@Url.Action("GetMasterList", "Freelance")'>
+<input id="hf_SaveMaster" type="hidden" value='@Url.Action("SaveMaster", "Freelance")'>
+<input id="hf_PopulateFreelancer" type="hidden" value='@Url.Action("PopulateFreelancer", "Freelance")'>
+<input id="hf_DeleteFreelancer" type="hidden" value='@Url.Action("DeleteFreelancer", "Freelance")'>
+<input id="hf_GetStateList_ByCountry" type="hidden" value='@Url.Action("GetStateList_ByCountry", "Freelance")'>
+<input id="hf_GetCityList_ByState" type="hidden" value='@Url.Action("GetCityList_ByState", "Freelance")'>
+<input id="hf_CheckExistingData" type="hidden" value='@Url.Action("CheckExistingData", "user")'>
+
+<div id="myModal" class="modal fade in myModalView" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            @*<div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"><strong>Master Details</strong></h4>
+                </div>*@
+            <div class="modal-body">
+                <div class="form-group" autocomplete="off">
+
+                    <div class="row">
+
+                        <ul class="nav nav-tabs" id="ULTabul">
+                            <li class="active"><a data-toggle="tab" href="#divPrimary">Primary</a></li>
+                            <li><a data-toggle="tab" href="#divTask">Task Details</a></li>
+                            <li><a data-toggle="tab" href="#divPersonal">Personal</a></li>
+                        </ul>
+                        <br />
+                        <div class="tab-content">
+                            <div id="divPrimary" class="tab-pane fade in active">
+                                <div class="">
+                                    <div class="col-sm-3 divPadd">
+                                        <label>Name</label><em>*</em>
+                                        <input id="TxtName" class="form-control skipSpecialChar" maxlength="50" />
+                                    </div>
+
+                                    <div class="col-sm-3 divPadd">
+                                        <label>Active</label><em>*</em>
+                                        <select id="ddlActiveStatus">
+                                            <option value="0">Active</option>
+                                            <option value="1">In-Active</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-3 divPadd">
+                                        <label>Email ID</label><em>*</em>
+                                        <input type="text" class="form-control" id="TxtEmailID" maxlength="100" />
+                                    </div>
+                                    <div class="col-sm-3 divPadd">
+                                        <label>Microsoft Team Id</label>
+                                        <input type="text" class="form-control" id="TxtSkypeId" maxlength="100" />
+                                    </div>
+                                    <div class="col-sm-3 divPadd" style="display:none">
+                                        <label>Capacity</label><em>*</em>
+                                        <input id="TxtCapacity" class="form-control IsNumeric" maxlength="10" value="0" />
+                                    </div>
+                                    <div class="col-sm-6 divPadd">
+                                        <table>
+                                            <tr>
+                                                <td width="20%">
+                                                    <label>Available</label><em>*</em>
+                                                    <select id="ddlAvailable">
+                                                        <option value="Yes">Yes</option>
+                                                        <option value="No">No</option>
+                                                    </select>
+                                                </td>
+                                                <td width="1%"></td>
+                                                <td width="25%">
+                                                    <label>From</label>
+                                                    <input type="text" class="form-control" id="TxtFromDate" maxlength="50" disabled="disabled" />
+                                                </td>
+                                                <td width="1%"></td>
+                                                <td width="25%">
+                                                    <label>To</label>
+                                                    <input type="text" class="form-control" id="TxtToDate" maxlength="50" disabled="disabled" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="col-sm-6 divPadd">
+                                        <label>Source</label><em>*</em>
+                                        @Html.ListBoxFor(m => m.Source, new SelectList(Model.Source, "Value", "Text"), new { Multiple = "multiple", @id = "lstSourceList", @class = "form-control" })
+                                    </div>
+                                    <div class="col-sm-12 divPadd">
+                                        <label>Publishers</label><em>*</em>
+                                        @Html.ListBoxFor(m => m.PublisherList, new SelectList(Model.PublisherList, "Value", "Text"), new { Multiple = "multiple", id = "lstPublisherList", @class = "form-control" })
+                                    </div>
+                                    <div class="col-sm-12 divPadd">
+                                        <label>Languages</label><em>*</em>
+                                        @Html.ListBoxFor(m => m.Language, new SelectList(Model.Language, "Value", "Text"), new { Multiple = "multiple", id = "lstLanguageList", @class = "form-control" })
+                                    </div>
+
+                                    <div class="col-sm-12 divPadd">
+                                        <label>Interest</label>
+                                        @Html.ListBoxFor(m => m.SubjectList, new SelectList(Model.SubjectList, "Value", "Text"), new { Multiple = "multiple", id = "lstInterest", @class = "form-control" })
+                                    </div>
+                                    <div class="col-sm-12 divPadd">
+                                        <label>Restriction</label>
+                                        @Html.ListBoxFor(m => m.SubjectList, new SelectList(Model.SubjectList, "Value", "Text"), new { Multiple = "multiple", id = "lstRestriction", @class = "form-control" })
+                                    </div>
+                                    <div class="col-sm-12 divPadd">
+                                        <label>Remarks</label>
+                                        <textarea id="TxtRemarks" class="form-control" style="height:120px;"></textarea>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div id="divTask" class="tab-pane fade">
+                                <div class="divTaskContent">
+                                    <div class="col-sm-3 divPadd">
+                                        <label>Task</label>
+                                        @Html.DropDownListFor(m => m.TaskList, new SelectList(Model.TaskList, "Value", "Text"), new { @id = "ddlTaskList", @class = "form-control" })
+                                    </div>
+                                    <div class="col-sm-3 divPadd">
+                                        &nbsp;<button type="button" class="btn btn-primary" title="Update" id="btnAddTask">Add</button>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <table id="tblTask" class="tblTrans" width="50%">
+                                            <thead>
+                                                <tr>
+                                                    <th rowspan="2">S.No.</th>
+                                                    <th rowspan="2">Task Name</th>
+                                                    <th colspan="2">Page</th>
+                                                    <th colspan="2">Word</th>
+                                                    <th colspan="2">Table</th>
+                                                    <th colspan="2">Figure</th>
+                                                    <th rowspan="2">#</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>Price</th>
+                                                    <th>Capacity</th>
+                                                    <th>Price</th>
+                                                    <th>Capacity</th>
+                                                    <th>Price</th>
+                                                    <th>Capacity</th>
+                                                    <th>Price</th>
+                                                    <th>Capacity</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="divPersonal" class="tab-pane fade">
+                                <div class="col-sm-8">
+                                    <div class="col-sm-12">
+                                        <strong>Personal Info</strong>
+                                        <hr />
+                                    </div>
+                                    <div class="col-sm-4 divPadd">
+                                        <label>Alternate Email ID</label>
+                                        <input type="text" class="form-control rounded-0 inputHandCursor" id="TxtEmailID1" maxlength="250" />
+                                    </div>
+                                    <div class="col-sm-4 divPadd">
+                                        <label>Mobile No.</label>
+                                        <input type="text" class="form-control IsNumeric" id="TxtMobileNo" maxlength="15" />
+                                    </div>
+                                    <div class="col-sm-4 divPadd">
+                                        <label>DOB</label>
+                                        <input type="text" class="form-control rounded-0 inputHandCursor" id="TxtDOB" maxlength="25" readonly="readonly" />
+                                    </div>
+                                    <div class="col-sm-4 divPadd">
+                                        <label>Gender</label>
+                                        <select id="ddlGender">
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-sm-6 divPadd">
+                                        <label>Address</label>
+                                        <textarea id="TxtAddress" class="form-control"></textarea>
+                                    </div>
+                                    <div class="col-sm-2 divPadd">
+                                        <label>Pincode</label>
+                                        <input type="text" class="form-control" id="TxtPincode" maxlength="25" />
+                                    </div>
+                                    <div class="col-sm-4 divPadd">
+                                        <label>Country</label>
+                                        @Html.DropDownListFor(m => m.Country, new SelectList(Model.Country, "Value", "Text"), new { @id = "ddlCountryList", @class = "form-control" })
+                                    </div>
+                                    <div class="col-sm-4 divPadd">
+                                        <label>State</label>
+                                        <select id="ddlState" disabled="disabled">
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-4 divPadd">
+                                        <label>City</label>
+                                        <select id="ddlCity" disabled="disabled">
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <strong>Bank Details</strong>
+                                        <hr />
+                                    </div>
+                                    <div class="col-sm-4 divPadd">
+                                        <label>Bank Name</label>
+                                        <input type="text" class="form-control" id="TxtBank" maxlength="50" />
+                                    </div>
+                                    <div class="col-sm-4 divPadd">
+                                        <label>Account No.</label>
+                                        <input type="text" class="form-control" id="TxtAccountNo" maxlength="25" />
+                                    </div>
+                                    <div class="col-sm-4 divPadd">
+                                        <label>IFSC Code</label>
+                                        <input type="text" class="form-control" id="TxtIFSC" maxlength="25" />
+                                    </div>
+                                    <div class="col-sm-4 divPadd">
+                                        <label>Branch Name</label>
+                                        <input type="text" class="form-control" id="TxtBranch" maxlength="50" />
+                                    </div>
+                                    <div class="col-sm-4 divPadd">
+                                        <label>NDA Document</label>
+                                        <select id="ddlNDADoc">
+                                            <option value="Signed">Signed</option>
+                                            <option value="UnSigned">UnSigned</option>
+                                            <option value="NoNeed">NoNeed</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-4 divPadd">
+                                        <label>PAN Card</label>
+                                        <input type="text" class="form-control" id="TxtPANCard" maxlength="25" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="input-group" style="text-align:center;">
+                                        <img src="~/img/user.jpg" alt="Profile" style="height:150px;width:120px;margin-top:30px;border-radius:10px;" id="imgProfile" onerror="onerrorImageLoad()" /> <br /><br />
+                                        <input type="file" name="file" id="imageUploadForm" style="width: 100%;" class="btn" onChange="showPreview(this);" />
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" title="Update" id="btnUpdate">Add / Update</button>
+                <button type="button" class="btn btn-primary" title="Close" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>

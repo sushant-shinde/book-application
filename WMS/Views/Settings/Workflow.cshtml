@@ -1,0 +1,143 @@
+﻿@model WMS.Models.BookModels
+@{
+    ViewBag.Title = "Workflow Manager";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+    @Styles.Render("~/CustomScripts/css/jquery.dataTables.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/CustomScripts/resources/syntax/shCore.css?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Scripts.Render("~/CustomScripts/js/jquery.dataTables.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/js/dataTables.fixedColumns.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/dataTables.buttons.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/jszip.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/pdfmake.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/vfs_fonts.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/buttons.html5.min.js?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Scripts.Render("~/CustomScripts/Settings.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/css/report.css?t=" + @DateTime.Now.Ticks.ToString())
+
+    <style type="text/css">
+
+        #example_wrapper {
+            margin-top: 10px;
+        }
+
+        #spAddActivity {
+            left: 96%;
+            position: relative;
+            font-size: 20px;
+            color: #337ab7;
+        }
+
+        .modal-open .modal {
+            top: -10px;
+            font-size: 12px;
+        }
+
+        table.dataTable thead .sorting, td {
+            text-align: left !important;
+        }
+
+        .context-menu-list {
+            min-width: 10em !important;
+            width: 10em !important;
+            font-size: 12px !important;
+            border-radius: 10px;
+        }
+        .tblTrans th {
+            text-align:center !important;
+        }
+        /*#DivActivityList *:not(.TxtPercentage) {
+            text-align: center !important;
+        }*/
+        #DivActivityList *:.TxtPercentage {
+            width:50px;
+        }
+        th, td {
+            text-align: left !important;
+        }
+
+        .TxtPercentage {
+            text-align: right !important;
+        }
+
+        .spRight {
+            text-align: right !important;
+        }
+
+        .spDescription {
+            white-space: normal !important;
+        }
+
+        .divSpace div {
+            margin: 5px;
+            font-weight: bold;
+        }
+    </style>
+}
+
+<input id="hf_GetWorkFlowList" type="hidden" value='@Url.Action("GetWorkFlowList", "settings")'>
+<input id="hf_GetWorkFlowMaster" type="hidden" value='@Url.Action("GetWorkFlowMaster", "settings")'>
+<input id="hf_UpdateWorkFlow" type="hidden" value='@Url.Action("UpdateWorkFlow", "settings")'>
+<input id="hf_DeleteWorkFlow" type="hidden" value='@Url.Action("DeleteWorkFlow", "settings")'>
+<div class="page-content">
+    <div class="jumbotron content">
+        <table id="example" class="display" width="100%"></table>
+    </div>
+</div>
+
+<div id="myModal_WorkFlow" class="modal fade in myModalView" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><strong>Workflow Details</strong></h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-4 divSpace">
+                            <div class="col-sm-12">
+                                Name<em>*</em>
+                                <input id="Txt_WorkFlow" type="text" class="form-control skipSpecialChar" maxlength="40" />
+                            </div>
+
+                            <div class="col-sm-4">
+                                Min Days<em>*</em>
+                                <input id="Txt_MinDays" type="text" class="form-control IsNumeric" maxlength="3" />
+                            </div>
+
+                            <div class="col-sm-4">
+                                Max Days<em>*</em>
+                                <input id="Txt_MaxDays" type="text" class="form-control IsNumeric" maxlength="3" />
+                            </div>
+                            <div class="col-sm-12">
+                                Publishers<em>*</em>
+                                @Html.ListBoxFor(m => m.PublisherList, new SelectList(Model.PublisherList, "Value", "Text"), new { Multiple = "multiple", id = "lstPublisherList", @class = "form-control" })
+                            </div>
+                            <div class="col-sm-12">
+                                Description<em>*</em>
+                                <textarea id="Txt_Description" class="form-control" style="height: 162px;"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <span id="spAddActivity"><i class="fa fa-plus-square" aria-hidden="true"></i></span>
+                            <div id="DivActivityList" style="overflow:auto"></div>
+                        </div>
+                        <br />
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <b>Total % : <span id='PercentageTotal'></span></b>&nbsp;&nbsp;
+                <button type="button" class="btn btn-primary" title="Update" id="btnWF">Add / Update</button>
+                <button type="button" class="btn btn-primary" title="Close" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+
+    </div>
+</div>

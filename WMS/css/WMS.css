@@ -1,0 +1,407 @@
+﻿.GeneralMenu {
+    display: none !important;
+}
+
+.ASMEMenu {
+    display: block !important;
+}
+
+.modal-body {
+    overflow: auto;
+}
+
+h2 {
+    font-size: 1.5em !important;
+    text-align: center !important;
+    text-transform: uppercase !important;
+}
+
+#myModal_Approval .modal-body {
+    overflow: visible !important;
+}
+
+#spVolIssUpdate {
+    color: green;
+    cursor: pointer;
+    font-size: 15px;
+    padding: 5px !important;
+}
+
+.spSPIssue {
+    padding: 0px !important;
+}
+
+
+.spApply, .spCancel {
+    font-size: 20px;
+    margin: 25px;
+}
+
+.imgIcon {
+    font-size: 30px;
+    cursor: pointer;
+    padding: 5px;
+}
+
+#imgApprove, .spApply {
+    color: green;
+}
+
+#imgCorrections, .spCancel {
+    color: red;
+}
+
+#imgReview {
+    color: dodgerblue;
+}
+
+.TxtNumericBox {
+    width: 60px;
+    text-align: right;
+}
+
+.custom-file-overflow {
+    overflow: auto;
+}
+
+table.dataTable thead th, table.dataTable thead td {
+    /*padding: 0px 5px !important;*/
+}
+
+#mymodel_art {
+    min-width: 90% !important;
+    max-width: 100% !important;
+    /*white-space: nowrap;*/
+}
+
+#mymodel_Review {
+    min-width: 60% !important;
+    max-width: 100% !important;
+}
+
+#myModal_Corrections, #myModal_Approval {
+    top: 5%;
+}
+
+.modal-open .modal {
+    top: 0;
+}
+
+#divAction {
+    text-align: center;
+}
+
+    #divAction img {
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+    }
+
+.tdImg {
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
+
+.dt-buttons {
+    left: 76%;
+}
+
+.tblMain td, .tblTrans td {
+    padding: 5px;
+    border: 1px solid #c7c2c2;
+    font-size: 12px;
+    /*text-align: center;*/
+}
+
+#divLoadData {
+    height: auto !important;
+}
+
+#divLoadDataTrns {
+    overflow: auto;
+}
+
+.tblMain, .tblTrans {
+    width: 100%;
+    border: 1px solid #E8EDF2;
+    border-collapse: collapse;
+}
+
+    .tblMain tr td:first-child {
+        background: #1d6680;
+        width: 25%;
+        font-weight: bold;
+        padding-left: 10px;
+    }
+
+    .tblTrans th {
+        background: #1d6680;
+        text-align: center;
+        border: 1px solid #c7c2c2;
+        font-size: 12px;
+        padding-left: 5px;
+    }
+
+    .tblTrans td {
+        position: relative;
+    }
+
+
+#tblProofsList {
+    width: 100%;
+    border: 1px solid #a8cfff;
+}
+
+    #tblProofsList th {
+        padding: 10px;
+    }
+
+    #tblProofsList thead tr th {
+        background: #E8EDF2;
+    }
+
+#divIssueList {
+    overflow: auto;
+}
+
+.divIssueList {
+    overflow: auto;
+}
+
+#ASMEIssueList {
+    overflow: auto;
+    text-align: center;
+}
+
+#ASMEIssueBackMatterList {
+    overflow: auto;
+    text-align: center;
+}
+
+#UploadSchedule {
+    text-align: center;
+}
+
+.divmakeIssue {
+    padding-top: 15%;
+    text-align: center;
+}
+
+#divIssue {
+    padding: 1%;
+    text-align: center;
+}
+
+.divIssueConfiguration {
+    /*padding-top: 12%;*/
+    text-align: center;
+}
+/*Mail Templete CSS*/
+#tbHeader {
+    display: none;
+}
+
+.trCurStatus {
+    background-color: forestgreen;
+    color: #E8EDF2;
+}
+
+#Divmail .jqte_editor {
+    height: 350px !important;
+}
+
+
+/* Start by setting display:none to make this hidden.
+   Then we position it in relation to the viewport window
+   with position:fixed. Width, height, top and left speak
+   speak for themselves. Background we set to 80% white with
+   our animation centered, and no-repeating */
+.divload {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: url('../Images/loader.gif') 50% 50% no-repeat;
+}
+
+/* When the body has the loading class, we turn
+   the scrollbar off with overflow:hidden */
+.loading {
+    overflow: hidden;
+}
+
+    /* Anytime the body has the loading class, our
+   modal element will be visible */
+    .loading .divload {
+        display: block;
+    }
+
+.fas fa-plus-circle {
+    font-size: 4px;
+}
+
+#divVolIssBtn {
+    overflow-y: scroll;
+}
+
+.filterHighlight {
+    color: #ff4a12;
+}
+
+.iCID {
+    color: forestgreen;
+    text-align: center;
+}
+
+#spInValidCID {
+    color: red;
+}
+
+.spEmpty {
+    padding-right: 20px;
+    margin-right: 20px;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip1 {
+    position: relative;
+    display: inline-block;
+}
+
+    .tooltip1 .tooltiptext1 {
+        visibility: hidden;
+        width: 350px;
+        background-color: white;
+        color: #000000;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+        /* Position the tooltip */
+        position: absolute;
+        z-index: 1051;
+    }
+
+    .tooltip1:hover .tooltiptext1 {
+        visibility: visible;
+    }
+
+.SI_highlight {
+    color: red;
+    font-weight: bold;
+}
+
+.imgcompact {
+    /*  width: 140px;     height: 156px;     width: 70px;     height: 78px;*/
+    width: 124px;
+    height: 145px;
+    /*margin: 5px 2px 2px 2px;*/
+    cursor: pointer; /*  border-style:solid;    border-color:#E0E0E0;     border-color:black ;*/
+}
+
+.iffyTip {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.card-body table td {
+    padding: 2px;
+    background-color: #e1f3ff;
+}
+
+.input-group {
+    display: inherit !important;
+    margin: 15px;
+}
+
+.divTabAction {
+    border-top: solid 1px silver;
+    padding-top: 5px;
+    text-align: center;
+}
+
+.spCornflowerBlue, .spAquaIsland, .spColdPurple, .spCadetBlue, .spCameo, .spCanCan, .spLightOrchid, .spblue {
+    cursor: pointer;
+    padding: 0 10px 5px 10px;
+}
+
+.sp1, .sp2, .sp3, .sp4, .sp5, .sp6, .sp7, .sp8, .sp9 {
+    cursor: pointer;
+    padding: 0 10px 5px 10px;
+}
+
+.sp1 {
+    background-color: #0C7E43;
+}
+
+.sp2 {
+    background-color: #B85239;
+}
+
+.sp3 {
+    background-color: #118D82;
+}
+
+.sp4 {
+    background-color: #9446B3;
+}
+
+.sp5 {
+    background-color: #1152A2;
+}
+
+.sp6 {
+    background-color: #A11240;
+}
+
+.sp7 {
+    background-color: #4D913C;
+}
+
+.sp8 {
+    background-color: #64195C;
+}
+
+.sp9 {
+    background-color: #4E53B9;
+}
+
+.spCornflowerBlue {
+    background-color: #8ab0f9;
+}
+
+.spAquaIsland {
+    background-color: #95d7d1;
+}
+
+.spColdPurple {
+    background-color: #959bd7;
+}
+
+.spCadetBlue {
+    background-color: #a4a4bf;
+}
+
+.spCameo {
+    background-color: #d7b095;
+}
+
+.spCanCan {
+    background-color: #d795a1;
+}
+
+.spLightOrchid {
+    background-color: #daa2da;
+}
+
+.spblue {
+    background-color: #007CB2;
+}

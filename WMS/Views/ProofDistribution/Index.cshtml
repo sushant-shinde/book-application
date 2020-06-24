@@ -1,0 +1,712 @@
+﻿@model WMS.Models.ProofDistributionModel
+@{
+    ViewBag.Title = "Proof Distribution";
+    @Styles.Render("~/CustomScripts/css/jquery.dataTables.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/CustomScripts/resources/syntax/shCore.css?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Scripts.Render("~/CustomScripts/js/jquery.dataTables.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/js/dataTables.fixedColumns.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/dataTables.buttons.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/jszip.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/pdfmake.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/vfs_fonts.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/buttons.html5.min.js?t=" + @DateTime.Now.Ticks.ToString())
+
+
+    @Styles.Render("~/css/report.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/css/WMS.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/ProofDistribution.js?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Styles.Render("~/css/wish.css?t=" + @DateTime.Now.Ticks.ToString())
+
+
+    <link rel="stylesheet" href="~/CustomScripts/Mail/jquery.emailinput.min.css">
+    <script type="text/javascript" src="~/CustomScripts/Mail/jquery.emailinput.min.js"></script>
+    <link href="~/css/PD_tracking.css" rel="stylesheet" />
+    <style type="text/css">
+        /*.content {
+            background: url(../Images/wood.jpg) !important;
+        }*/
+
+        .form-group {
+            font-size: 12px;
+        }
+
+        .form-inline .form-control {
+            width: 100%;
+        }
+
+        #mymodel_art {
+            width: 1300px !important;
+            top: -20px;
+        }
+
+        .divBookContent {
+            margin-left: -14px;
+        }
+
+        .chkFace {
+            position: relative;
+            top: 5px;
+            left: 5px;
+        }
+
+        .dataTables_scrollBody {
+            border-bottom: none !important;
+        }
+
+        th input[type="checkbox"] {
+            position: relative;
+            top: 2px;
+            left: 5px;
+        }
+
+        td input[type="checkbox"] {
+            margin-left: 50%;
+            margin-right: 50%;
+        }
+
+        .modal-body {
+            color: #000 !important;
+        }
+
+        .modal table tr:nth-child(odd) {
+            background-color: #FFFFFF !important;
+        }
+
+        .modal table tr:nth-child(even) {
+            background-color: #f9f9f9 !important;
+        }
+
+        #tblProofChapter_wrapper .dataTable th:last-child {
+            text-align: center !important;
+        }
+
+        #BkTabul {
+            font-size: 12px !important;
+        }
+
+        .DueDt {
+            width: 120px !important;
+        }
+
+        span#btnBkGet_track {
+            top: -6px;
+            position: relative;
+        }
+
+        .form-inline {
+            padding-top: 5px !important;
+        }
+
+        .divPDContent {
+            border: 1px solid;
+        }
+
+        .info-box-content {
+            height: 140px;
+            line-height: 25px;
+            cursor: default !important;
+        }
+
+        .info-box-icon {
+            border-radius: 10px 0px 0px 10px;
+            background: #bc9864 !important;
+            background: #5ab9ea !important;
+        }
+
+        .bg-aqua {
+            background: linear-gradient(40deg,#fbeec1,#659dbd);
+            border-radius: 10px;
+        }
+
+        .spAction {
+            text-align: right;
+            font-size: 15px;
+            margin-top: 5px;
+        }
+
+            .spAction span {
+                padding: 5px;
+                color: #4c09c2;
+            }
+
+        .imgCover {
+            height: 110px;
+            width: 90px;
+            margin-top: 15px;
+        }
+
+        .dataTable tbody tr td div {
+            float: left !important;
+            left: 32px !important;
+            position: relative !important;
+        }
+
+        .jqte_editor, textarea {
+            height: 500px !important;
+        }
+
+        /*.FileAttach img {
+            width: 30px;
+            float: left
+        }*/
+
+        .FileAttach img {
+            margin-top: 15%;
+            top: 30%;
+            left: 50%;
+        }
+
+        .FileAttach {
+            background: #e9e9e9;
+            display: none;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            opacity: 0.5;
+            z-index: 100;
+        }
+
+        /*Author and Editor View*/
+        #myModal_View .modal-body {
+            font-size: 12px !important;
+            padding-top: 0px;
+        }
+
+        #myModal_View .modal-open .modal {
+            top: -10px;
+        }
+
+        #myModal_View .modal-dialog {
+            width: 1250px;
+        }
+
+        .DivList table {
+            border-radius: 10px;
+        }
+
+        #divBookList {
+            margin-left: 10%;
+            margin-right: 10%;
+        }
+
+        .divPadd {
+            padding: 5px;
+        }
+
+        .fa-check {
+            color: green;
+        }
+
+        .fa-list {
+            color: #2196F3;
+        }
+
+        .DivList {
+            background: linear-gradient(40deg,#FFF,#e4ecff);
+            border-radius: 10px;
+            padding: 5px;
+            border: solid 1px #00c4ff;
+            margin-bottom: 10px;
+        }
+
+        .divProofAction {
+            margin-top: 20%;
+            font-size: 30px;
+            cursor: pointer !important;
+            float: right;
+            padding-right: 10px;
+        }
+
+        .divProofAction {
+        }
+
+        td img {
+            margin: 5px;
+        }
+
+        .spAccept, .spUpload, .spDownload {
+            margin-right: -15px;
+            float: right;
+        }
+
+        .spPMEmail {
+            float: right;
+            font-weight: 700;
+            line-height: 1;
+            color: #000;
+            font-size: 14px;
+        }
+    </style>
+
+}
+<input id="hf_GetReport" type="hidden" value='@Url.Action("GetData", "ProofDistribution")'>
+<input id="hf_GetChapters" type="hidden" value='@Url.Action("GetChapters",  "ProofDistribution" )'>
+<input id="hf_GetEmailToChapters" type="hidden" value='@Url.Action("GetEmailToChapters",  "ProofDistribution" )'>
+<input id="hf_InsertProof" type="hidden" value='@Url.Action("InsertProof",  "ProofDistribution" )'>
+<input id="hf_PopulateProofTracking" type="hidden" value='@Url.Action("PopulateProofTracking", "ProofDistribution")'>
+<input id="hf_UpdateProoftracking" type="hidden" value='@Url.Action("UpdateProoftracking", "ProofDistribution")'>
+<input id="hf_AddToCESkiptable" type="hidden" value='@Url.Action("AddToCESkiptable", "ProofDistribution")'>
+
+<input id="hf_BookID" type="hidden">
+<input id="hf_ApproveS3" type="hidden" value='@Url.Action("ApproveS3", "ProofDistribution")'>
+
+<input id="hf_DownloadProofFile" type="hidden" value='@Url.Action("DownloadProofFile", "tracking")'>
+<input id="hf_GetBookChapterList" type="hidden" value='@Url.Action("GetBookChapterList", "ProofDistribution")'>
+
+<input id="hf_UpladFolder" type="hidden" value='@Url.Action("UploadFolder","ProofDistribution")' />
+<input id="hf_DeleteTempFile" type="hidden" value='@Url.Action("DeleteTempFile", "ProofDistribution")'>
+<input id="hf_DeleteTempFolder" type="hidden" value='@Url.Action("DeleteTempFolder", "ProofDistribution")'>
+<input id="hf_CheckBookWise" type="hidden" value='@Url.Action("CheckBookWise", "ProofDistribution")'>
+
+<div class="page-content">
+    <div class="jumbotron content">
+        <div class="spIconView">
+            <i class="fa fa-th iright" aria-hidden="true" title="List View" id="iList" onclick="ShowBookMaster('DivListView','iList')"></i>
+            <i class="fa fa-book iright" aria-hidden="true" title="Book View" id="iBook" style="color:#2196f3;cursor:not-allowed" onclick="ShowBookMaster('DivBookView','iBook')"></i>
+            <i class="fa fa-filter iFilter" id="IFitler" aria-hidden="true" title="Filter"></i>
+        </div>
+        <ul class="nav nav-tabs" id="BkTabul1">
+            <li class="active" id="divBkWIP"><a data-toggle="tab" href="#BkWIP">WIP</a></li>
+        </ul>
+        <div class="BookView" id="DivBookView">
+            <div class="cols divBookContent" style="overflow-y: auto;overflow-x:hidden;" id="divProofBook">
+            </div>
+        </div>
+        <div id="DivListView" class="BookView" style="display:none">
+            <table id="exampleList" class="display" width="100%"></table>
+        </div>
+    </div>
+</div>
+
+<div id="sideNavi_Filter">
+    <div class="side-navi-data">
+        <div class="side-navi-tab active" id="divQuickNav_filter">
+            <div class="divQuickList">
+                <i class="fas fa-times" id="isideClose_fitler"></i><span style="font-size:15px;">Filter</span>
+                <hr />
+                <div>
+                    <center class="ctContent">
+                        <div class="col-3">
+                            <select id="ddlSearch" class="form-control">
+                                <option value="All">Clear</option>
+                                <option value="Number">Number</option>
+                                <option value="ISBN">ISBN</option>
+                                <option value="Catalog">Catalog</option>
+
+                            </select>
+                        </div>
+
+                        <div id="divFilter">
+                            <div id="divNumberFilter" style="display:none">
+                                <select id="lstNumberList" multiple></select>
+                                @*@Html.ListBoxFor(m => m.NumberList, new SelectList(Model.NumberList, "Value", "Text"), new { Multiple = "multiple", id = "lstNumberList", @class = "form-control" })*@
+                            </div>
+                            <div id="divCatalogFilter" style="display:none">
+                                <select id="lstCatalogList" multiple></select>
+                                @*@Html.ListBoxFor(m => m.CatalogList, new SelectList(Model.CatalogList, "Value", "Text"), new { Multiple = "multiple", id = "lstCatalogList", @class = "form-control" })*@
+                            </div>
+                            <div id="divISBNFilter" style="display:none">
+                                <select id="lstISBNList" multiple></select>
+                                @*@Html.ListBoxFor(m => m.ISBNList, new SelectList(Model.ISBNList, "Value", "Text"), new { Multiple = "multiple", id = "lstISBNList", @class = "form-control" })*@
+                            </div>
+
+                        </div>
+                        <br />
+                        <div>
+                            <span class="btn btn-primary" title="Get" id="btnBkGet">Get</span>
+                        </div>
+                    </center>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<div id="myModal" class="modal fade myModalView" role="dialog">
+    <div class="modal-dialog" id="mymodel_art">
+        <div class="modal-content" id="modal_contentArt">
+            <div class="modal-header">
+                @*<button type="button" class="close" data-dismiss="modal">&times;</button>*@
+                <span id="TxtPMEmail" class="spPMEmail"></span>
+                <h3 class="modal-title"><strong class="strTitle">Proof Distribution</strong></h3>
+            </div>
+            <div class="modal-body">
+                <div id="divDisList">
+                    <div class="row form-inline">
+                        <div class="form-group label-floating col-md-3">
+                            <label class="control-label">Stage</label>
+                            <select id="ddlStage" class="form-control col-sm-2">
+                                <option value="Intro Email">Intro Email</option>
+                                <option value="CE Review">CE Review</option>
+                                <option value="First Page">First Page</option>
+                                <option value="First Page to PE">First Page to PE</option>
+                                <option value="Voucher Proof">Voucher Proof</option>
+                            </select>
+                        </div>
+                        @*<div class="form-group label-floating form-inline col-md-6 rowContribute">
+                                <label class="control-label">Editors</label>
+                                @Html.ListBox("Editors", new SelectList(new[] { "" }), new { Multiple = "multiple", id = "lstEditorList", @class = "form-control col-sm-4" })
+                            </div>*@
+                        <div class="form-group label-floating col-md-3 rowMono rowintro">
+                            <label class="control-label">Author Due Date</label>
+                            <input id="txtMonoAuthorDueDt" type="text" readonly class="form-control inputHandCursor" />
+                        </div>
+                        <div class="form-group label-floating col-md-2 rowMono rowintro">
+                            <label class="control-label">PE in CC</label>
+                            <input id="chkMonoPEinCC" type="checkbox" class="chkFace" />
+                        </div>
+                        <div class="form-group label-floating col-md-2 rowMono rowintro rowintroinput">
+                            <label class="control-label">Reminder to Author</label>
+                            <input id="chkAuthorReminder" type="checkbox" class="chkFace" />
+                        </div>
+                        <div class="form-group label-floating col-md-2 rowBookWise ">
+                            @*rowMono rowintro rowintroinput*@
+                            <label class="control-label">Bookwise Upload</label>
+                            <input id="chkBookwise" type="checkbox" class="chkFace" autocomplete="off">
+                        </div>
+                        <div class="form-group label-floating col-md-3 rowintroinput rowintroinputNo">
+                            <label class="control-label">Email To</label>
+                            <select id="ddlEmailTo" class="form-control col-sm-2">
+                                <option value="Author">Author</option>
+                                <option value="Editor">Editor</option>
+                            </select>
+                        </div>
+                        <div class="form-group label-floating col-md-2 rowContribute rowintro rowintroinput rowintroinputNo">
+                            <label class="control-label" id="lblEDReminder">Reminder to Editor</label>
+                            <input id="chkEditorReminder" type="checkbox" class="chkFace" />
+                        </div>
+                        <div class="form-group label-floating col-md-2 CEcheck">
+                            <label class="control-label">Skip CE</label>
+                            <input id="chkce" type="checkbox" class="chkFace" />
+                        </div>
+                    </div>
+
+                    <div class="row form-inline rowContribute rowintro">
+                        <div class="form-group label-floating col-md-3">
+                            <label class="control-label">Editor Due Date</label>
+                            <input id="txtEditorDueDt" type="text" readonly class="form-control inputHandCursor" />
+                        </div>
+                        <div class="form-group label-floating col-md-3">
+                            <label class="control-label">Author Due Date</label>
+                            <input id="txtAuthorDueDt" type="text" readonly class="form-control inputHandCursor" />
+                        </div>
+                        <div class="form-group label-floating col-md-2">
+                            <label class="control-label">All ED Correction</label>
+                            <input id="chkEditorCorrReceive" type="checkbox" class="chkFace" />
+                        </div>
+
+                        <div class="form-group label-floating col-md-2">
+                            <label class="control-label">Series Flow</label>
+                            <input id="chkSeries" type="checkbox" class="chkFace" />
+                        </div>
+                    </div>
+
+                    <div class="row form-inline rowintroinput">
+                        <div class="form-group label-floating col-md-3 rowintroinput">
+                            <label class="control-label">CE Review Due Date</label>
+                            <input id="txtCEReviewDueDt" type="text" readonly class="form-control inputHandCursor" />
+                        </div>
+                        <div class="form-group label-floating col-md-3 rowintroinput">
+                            <label class="control-label">CE Review Return Date</label>
+                            <input id="txtCEReviewReturnDt" type="text" readonly class="form-control inputHandCursor" />
+                        </div>
+                        <div class="form-group label-floating col-md-3">
+                            <label class="control-label">First Page Due Date</label>
+                            <input id="txtFirstPageDueDt" type="text" readonly class="form-control inputHandCursor" />
+                        </div>
+                        <div class="form-group label-floating col-md-3">
+                            <label class="control-label">First Page Return Date</label>
+                            <input id="txtFirstPageReturnDt" type="text" readonly class="form-control inputHandCursor" />
+                        </div>
+
+                    </div>
+                    <div class="row form-inline rowMono">
+                        <div class="form-group label-floating col-md-6">
+                            <label class="control-label">Author Name</label>
+                            <input id="TxtAuthorName" type="text" class="form-control" maxlength="250" />
+                        </div>
+                        <div class="form-group label-floating col-md-6">
+                            <label class="control-label">Author Email</label>
+                            <input id="TxtAuthorEmail" type="text" class="form-control" maxlength="250" />
+                        </div>
+                    </div>
+                    <div class="row form-inline rowContribute">
+                        <div class="form-group label-floating col-md-3">
+                            <label class="control-label">Editor Name</label>
+                            <input id="TxtEditorName" type="text" class="form-control" />
+                        </div>
+
+
+                        <div class="form-group label-floating col-md-6 ">
+                            <label class="control-label">Editors</label>
+                            @Html.ListBox("Editors", new SelectList(new[] { "" }), new { Multiple = "multiple", id = "lstEditorList", @class = "form-control col-sm-4" })
+                        </div>
+                    </div>
+                    <div class="row col-md-12" id="divLoadChapter" style="overflow:auto">
+                        @*<table id="tblProofChapter" class="tblTrans" width="100%" style="overflow:hidden"></table>*@
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btnPD rowintro" id="btnAUMailPreview">AU Mail Preview</button>
+                <button type="button" class="btn btn-primary btnPD rowintro rowContribute" id="btnEDMailPreview">ED Mail Preview</button>
+                <button type="button" class="btn btn-primary btnPD" id="btnIntroPreview">Intro Mail Preview</button>
+                <button type="button" class="btn btn-primary btnPD" id="btnDistribute">Distribute</button>
+                <button type="button" class="btn btn-primary btnApproveS3" id="btnApproveS3" style="display:none">Approve</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="myModalAuthor_Review" class="modal fade" role="dialog">
+    <div class="modal-dialog" id="mymodel_Review">
+
+        <!-- Modal content-->
+        <div class="modal-content" id="mymodel_contentReview">
+
+            <div class="modal-body">
+
+                <div class="col-sm-12">
+                    <div class="form-group" id="Divmail">
+                        <ul class="nav nav-tabs" id="ULAUMailBody">
+                            <li class="active"><a data-toggle="tab" href="#divAUText">Text</a></li>
+                            <li><a data-toggle="tab" href="#divAUHTML">HTML</a></li>
+                        </ul>
+
+                    </div>
+                    <div class="tab-content" style="overflow-y: auto;overflow-x:hidden;">
+                        <div id="divAUText" class="tab-pane fade in active">
+                            <textarea class="form-control rounded-0" id="TxtAUMailBody" rows="10" style="height:500px"></textarea>
+                        </div>
+                        <div id="divAUHTML" class="tab-pane fade">
+                            <textarea class="form-control rounded-0" id="TxtAUPreview" rows="10"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer row">
+                <button type="button" class="btn btn-primary" id="btnAUMailUpdate">Update</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myModalEditor_Review" class="modal fade" role="dialog">
+    <div class="modal-dialog" id="mymodel_Review">
+
+        <div class="modal-content" id="mymodel_contentReview">
+
+            <div class="modal-body">
+
+                <div class="col-sm-12">
+                    <div class="form-group" id="Divmail">
+                        <ul class="nav nav-tabs" id="ULEDMailBody">
+                            <li class="active"><a data-toggle="tab" href="#divEDText">Text</a></li>
+                            <li><a data-toggle="tab" href="#divEDHTML">HTML</a></li>
+                        </ul>
+                        @*<textarea class="form-control rounded-0" id="TxtEDMailBody" rows="10"></textarea>*@
+                    </div>
+                    <div class="tab-content" style="overflow-y: auto;overflow-x:hidden;">
+                        <div id="divEDText" class="tab-pane fade in active">
+                            <textarea class="form-control rounded-0" id="TxtEDMailBody" rows="10"></textarea>
+                        </div>
+                        <div id="divEDHTML" class="tab-pane fade">
+                            <textarea class="form-control rounded-0" id="TxtEDPreview" rows="10"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer row">
+                <button type="button" class="btn btn-primary" id="btnEDMailUpdate">Update</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myModalIntro_Review" class="modal fade" role="dialog">
+    <div class="modal-dialog" id="mymodel_Review">
+
+        <!-- Modal content-->
+        <div class="modal-content" id="mymodel_contentReview">
+
+            <div class="modal-body">
+                <div class="col-sm-12">
+                    <div class="form-group" id="Divmail">
+                        <ul class="nav nav-tabs" id="ULIntroMailBody">
+                            <li class="active"><a data-toggle="tab" href="#divIntroText">Text</a></li>
+                            <li><a data-toggle="tab" href="#divIntroHTML">HTML</a></li>
+                        </ul>
+
+                    </div>
+                    <div class="tab-content" style="overflow-y: auto;overflow-x:hidden;">
+                        <div id="divIntroText" class="tab-pane fade in active">
+                            <textarea class="form-control rounded-0" id="TxtIntroMailBody" rows="20"></textarea>
+                        </div>
+                        <div id="divIntroHTML" class="tab-pane fade">
+                            <textarea class="form-control rounded-0" id="TxtIntroPreview" rows="10"></textarea>
+                        </div>
+                    </div>
+                </div>
+                @*<div class="col-sm-12">
+                        <div class="form-group" id="Divmail">
+                            <textarea class="form-control rounded-0" id="TxtIntroMailBody" rows="20"></textarea>
+                        </div>
+                    </div>*@
+
+            </div>
+            <div class="modal-footer row">
+                <button type="button" class="btn btn-primary" id="btnIntroMailUpdate">Update</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>&nbsp;&nbsp;&nbsp;
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myModal_ProofTracking" class="modal fade myModalView" role="dialog">
+    <div class="modal-dialog" id="mymodel_art">
+
+        <!-- Modal content-->
+        <div class="modal-content" id="modal_contentArt">
+            <div class="modal-header">
+                @*<button type="button" class="close" data-dismiss="modal">&times;</button>*@
+                <h3 class="modal-title"><strong class="strTitle1">Proof Tracking</strong></h3>
+            </div>
+            <div class="modal-body">
+                <div id="divDisList">
+                    <ul class="nav nav-tabs" id="BkTabul">
+                        <li id="divBkAuthor" class="active"><a data-toggle="tab" href="#BkAuthor">Author</a></li>
+                        <li id="divBkEditor"><a data-toggle="tab" href="#BkEditor">Editor</a></li>
+                        <li id="divBkReport"><a data-toggle="tab" href="#BkReport" style="display:none">Report</a></li>
+                    </ul>
+                    <div>
+                        <div>
+                            <table id="tblstage">
+                                <tr>
+                                    <td width="15%" style="padding:5px;">
+                                        <div class="form-group label-floating">
+                                            Stage
+                                            <select id="ddlStage_tracking" class="form-control col-sm-2">
+                                                <option value="All" selected>All</option>
+                                                <option value="Intro Email" selected>Intro Email</option>
+                                                <option value="CE Review">CE Review</option>
+                                                <option value="First Page">First Page</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td style="padding:5px;">
+                                        <br />
+                                        <span class="btn btn-primary" title="Get" id="btnBkGet_track">Get</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div>
+                            <table id="example" class="tblTrans" width="100%"></table>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+
+                    <div class="FileAttach" style="display:none">
+                        <center>
+                            <img src="~/Images/loader.gif" />
+                        </center>
+                    </div>
+
+                    <button type="button" class="btn btn-primary" id="btnUpdate_Tracking">Update</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div id="myModal_View" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" title="close">&times;</button>
+                <h4 class="modal-title" id="DivHeadingTitle"><strong>Chapter Details View</strong></h4>
+            </div>
+            <div class="modal-body">
+                <ul class="nav nav-tabs" id="BkFileView">
+                    <li id="divFilViewCE" class="active"><a data-toggle="tab" href="#BkCE">CE Review</a></li>
+                    <li id="divFilViewFP"><a data-toggle="tab" href="#BkFP">First Pages</a></li>
+                </ul>
+                <table id="example_AE" class="display" width="100%"></table>
+            </div>
+            <div class="modal-footer">
+                <div class="FileAttach" style="display:none">
+                    <center>
+                        <img src="~/Images/loader.gif" />
+                    </center>
+                </div>
+                <div id="divActionBtn">
+                    <button type="button" class="btn btn-primary" title="DownLoad" id="btnDownload"><i class="fas fa-download"></i>&nbsp;Download Proof</button>
+                    @*<button type="button" class="btn btn-primary" title="Close" data-dismiss="modal">Cancel</button>*@
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="myModal_bookFiles" class="modal fade" role="dialog">
+    <div class="modal-dialog" id="mymodel_BookFiles">
+
+        <!-- Modal content-->
+        <div class="modal-content" id="modal_contentArt">
+            <div class="modal-header">
+                @*<button type="button" class="close" data-dismiss="modal">&times;</button>*@
+                <h4 class="modal-title"><strong><label id="lblChapter"></label></strong></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row form-inline">
+                    <center>
+                        <div class="upload">
+                            <input type="file" name="upload" id="FUpload" multiple />
+                        </div>
+                        <br />
+
+                        <div class="divFileList col-sm-12">
+                            <table class="tblTrans" id="tblFileList">
+                                <thead>
+                                    <tr>
+                                        <th>SNo</th>
+                                        <th>File Name</th>
+                                        <th>#</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </center>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="FileAttach" style="display:none">
+                    <img src="~/Images/loader-small.gif" />
+                </div>
+                <button type="button" class="btn btn-primary" title="Update" id="btnUploadFiles">Submit</button>
+                <button type="button" class="btn btn-primary" title="Close" id="btnCloseModal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>

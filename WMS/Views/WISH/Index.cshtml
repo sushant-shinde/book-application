@@ -1,0 +1,100 @@
+﻿@{
+
+    ViewBag.Title = "WISH";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    @Scripts.Render("~/CustomScripts/wish.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/css/report.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/Content/ProgBar/style.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/css/wish.css?t=" + @DateTime.Now.Ticks.ToString())
+
+    <style type="text/css">
+        .DivList table tr {
+            cursor:pointer;
+        }
+    </style>
+}
+
+<input id="hf_GetBookList" type="hidden" value='@Url.Action("GetBookList", "wish")'>
+<input id="hf_GetBookData" type="hidden" value='@Url.Action("GetBookDetails", "Book")'>
+<div class="page-content">
+    <div class="jumbotron content">
+        <span class="spIconView">
+            <i class="fa fa-list iright" aria-hidden="true" title="Details View" id="iBook" onclick="ShowWishList('divBookList','iBook')"></i>
+            <i class="fa fa-th iright" aria-hidden="true" title="List View" id="iList" style="color:#2196f3;cursor:not-allowed" onclick="ShowWishList('DivListView','iList')"></i>
+        </span>
+        <ul class="nav nav-tabs" id="BkTabul">
+            <li class="active"><a data-toggle="tab" href="#BkToday">Today</a></li>
+            <li><a data-toggle="tab" href="#BkTomorrow">Tomorrow</a></li>
+            <li><a data-toggle="tab" href="#BkWeek">This Week</a></li>
+            <li><a data-toggle="tab" href="#BkMonth">This Month</a></li>
+            <li><a data-toggle="tab" href="#BkPeriod">Period</a></li>
+        </ul>
+        <div class="tab-content">
+            <div id="BkToday" class="tab-pane fade in active">
+
+            </div>
+            <div id="BkTomorrow" class="tab-pane fade">
+
+            </div>
+            <div id="BkWeek" class="tab-pane fade">
+
+            </div>
+            <div id="BkMonth" class="tab-pane fade">
+
+            </div>
+            <div id="BkPeriod" class="tab-pane fade">
+
+                <div class="row">
+                    <div class="col-sm-2">
+                        From
+                        <input id="Txt_FromDate" type="text" readonly class="form-control" />
+                    </div>
+                    <div class="col-sm-2">
+                        To
+                        <input id="Txt_ToDate" type="text" readonly class="form-control" />
+                    </div>
+                    <div class="col-sm-2">
+                        <br />
+                        <span class="btn btn-primary" title="Get" id="btnWISH">Get</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="DivListView" class="BookView" style="overflow:auto">
+
+        </div>
+        <div id="divBookList" class="BookView" style="overflow:auto;display:none">
+
+        </div>
+
+    </div>
+</div>
+
+
+
+<div id="myModal" class="modal fade in myModalView" role="dialog">
+    <div class="modal-dialog" id="mymodel_art">
+
+        <!-- Modal content-->
+        <div class="modal-content" id="modal_contentArt">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><strong>Book Details</strong></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6" id="divLoadData"></div>
+                    <div class="col-md-6" id="divLoadDataTrns"></div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>

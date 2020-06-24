@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f57defcb4825419e9d8cea574bcba151" Name="Diagram1">
+        <EntityTypeShape EntityType="WMSModel.Chapter" Width="1.5" PointX="5.25" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.Publisher" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.Tbl_MenuList" Width="1.5" PointX="5.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.UserMaster" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WMSModel.Holiday" Width="1.5" PointX="3.75" PointY="10.75" />
+        <EntityTypeShape EntityType="WMSModel.Tbl_ActivityInfo" Width="1.5" PointX="5.75" PointY="10.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_ArchiveRestore" Width="1.5" PointX="7.75" PointY="10.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_BookStages" Width="1.5" PointX="10.75" PointY="8.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_Category" Width="1.5" PointX="9.75" PointY="11.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_Cities" Width="1.5" PointX="13" PointY="0.875" />
+        <EntityTypeShape EntityType="WMSModel.TBL_Complexity" Width="1.5" PointX="11.75" PointY="11.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_Countries" Width="1.5" PointX="8.75" PointY="7.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_Edition" Width="1.5" PointX="12.75" PointY="8.75" />
+        <EntityTypeShape EntityType="WMSModel.Tbl_Feedback" Width="1.5" PointX="13.75" PointY="11.75" />
+        <EntityTypeShape EntityType="WMSModel.Tbl_ForgotPassword" Width="1.5" PointX="3.75" PointY="14.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_FreelanceBooking" Width="1.5" PointX="9.75" PointY="14.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_FreelanceBooks" Width="1.5" PointX="15.75" PointY="0.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_Freelancer_Master" Width="1.5" PointX="0.75" PointY="15.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_Freelancer_Task" Width="1.5" PointX="14.75" PointY="8.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_Freelancer_TaskPrice" Width="1.5" PointX="5.75" PointY="15.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_FreelanceSubMaster" Width="1.5" PointX="15.75" PointY="11.75" />
+        <EntityTypeShape EntityType="WMSModel.Tbl_ftpDetails" Width="1.5" PointX="15.75" PointY="5.75" />
+        <EntityTypeShape EntityType="WMSModel.Tbl_HelpDesk" Width="1.5" PointX="10.75" PointY="4" />
+        <EntityTypeShape EntityType="WMSModel.Tbl_HelpdeskComment" Width="1.5" PointX="13" PointY="4.5" />
+        <EntityTypeShape EntityType="WMSModel.TBL_History" Width="1.5" PointX="17.75" PointY="0.75" />
+        <EntityTypeShape EntityType="WMSModel.Tbl_Instruction" Width="1.5" PointX="17.75" PointY="4.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_Invoice" Width="1.5" PointX="17.75" PointY="8.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_Languages" Width="1.5" PointX="11.75" PointY="17.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_LoginHistory" Width="1.5" PointX="17.75" PointY="14.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_MailTemplate" Width="1.5" PointX="17.75" PointY="17.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_MainMaster" Width="1.5" PointX="2.75" PointY="18.75" />
+        <EntityTypeShape EntityType="WMSModel.Tbl_OOFHistory" Width="1.5" PointX="7.75" PointY="18.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_Pipeline" Width="1.5" PointX="19.75" PointY="0.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_Platform" Width="1.5" PointX="19.75" PointY="4.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_PriceGrid" Width="1.5" PointX="4.75" PointY="19.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_Process" Width="1.5" PointX="19.75" PointY="7.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_ProcessType" Width="1.5" PointX="19.75" PointY="10.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_ProjectAnalysis_CMTS" Width="1.5" PointX="9.75" PointY="20.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_ProjectPlanning" Width="1.5" PointX="11.75" PointY="20.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_ProjectPlanning_Flow" Width="1.5" PointX="13.75" PointY="20.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_ProofDistribution" Width="1.5" PointX="21.75" PointY="0.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_ProofDistribution_History" Width="1.5" PointX="21.75" PointY="10.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_ProofEmail" Width="1.5" PointX="21.75" PointY="14.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_QueryMaster" Width="1.5" PointX="15.75" PointY="21.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_QuerySubMaster" Width="1.5" PointX="21.75" PointY="18.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_QueryTemplate" Width="1.5" PointX="21.75" PointY="21.75" />
+        <EntityTypeShape EntityType="WMSModel.tbl_RoleMenuAction" Width="1.5" PointX="6.75" PointY="22.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_Signaldetails" Width="1.5" PointX="23.75" PointY="0.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_SignalDetails_FromClient" Width="1.5" PointX="23.75" PointY="4.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_SourceList" Width="1.5" PointX="23.75" PointY="7.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_States" Width="1.5" PointX="10.75" PointY="0.875" />
+        <EntityTypeShape EntityType="WMSModel.TBL_Subject" Width="1.5" PointX="23.75" PointY="10.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_SubMaster" Width="1.5" PointX="23.75" PointY="13.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_Survey" Width="1.5" PointX="23.75" PointY="19.75" />
+        <EntityTypeShape EntityType="WMSModel.Tbl_TaskCalendar" Width="1.5" PointX="8.75" PointY="24.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_UnitType" Width="1.5" PointX="10.75" PointY="24.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_UserAccess_PublisherList" Width="1.5" PointX="12.75" PointY="24.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_WEBAPI_Log" Width="1.5" PointX="25.75" PointY="0.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_WEBAPI_UsersList" Width="1.5" PointX="25.75" PointY="3.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_WorkFlowActivities" Width="1.5" PointX="4.75" PointY="25.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_WorkFlowList" Width="1.5" PointX="25.75" PointY="6.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_WorkFlowMaster" Width="1.5" PointX="25.75" PointY="10.75" />
+        <EntityTypeShape EntityType="WMSModel.UserType" Width="1.5" PointX="25.75" PointY="14.75" />
+        <EntityTypeShape EntityType="WMSModel.Books_JTS" Width="1.5" PointX="25.75" PointY="17.75" />
+        <EntityTypeShape EntityType="WMSModel.Chapter_JTS" Width="1.5" PointX="21.75" PointY="25.75" />
+        <EntityTypeShape EntityType="WMSModel.Scheduler" Width="1.5" PointX="27.75" PointY="0.75" />
+        <AssociationConnector Association="WMSModel.FK_TBL_Cities_TBL_States" />
+        <AssociationConnector Association="WMSModel.FK_TBL_Countries_TBL_Countries" />
+        <AssociationConnector Association="WMSModel.FK_Tbl_HelpdeskComment_Tbl_HelpDesk" />
+        <EntityTypeShape EntityType="WMSModel.Book" Width="1.5" PointX="15.375" PointY="27.75" />
+        <EntityTypeShape EntityType="WMSModel.Tbl_RoleMaster" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="WMSModel.tbl_errorLog" Width="1.5" PointX="28.375" PointY="4.75" />
+        <EntityTypeShape EntityType="WMSModel.TBL_ProjectAnalysis" Width="1.5" PointX="18.375" PointY="21.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

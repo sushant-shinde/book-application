@@ -1,0 +1,162 @@
+﻿.jumbotron, .sidebar-wrapper, .page-content, footer, .content, .form-control, .select2-dropdown {
+    font-size: 12px !important;
+}
+
+body {
+    background: url(../../img/bg.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+    body:after {
+        position: absolute;
+        content: " ";
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        background-color: rgba(24, 85, 105, 0.8) !important;
+        z-index: -2;
+    }
+
+textarea {
+    resize: none !important;
+}
+
+.divBody {
+    position: relative;
+    top: -8px;
+    background: #FFFFFF;
+    padding: 5px 10px 0 20px;
+    margin: 2px 0 0 40px;
+    border-radius: 5px;
+}
+
+.heading, footer {
+    color: #FFFFFF;
+}
+
+footer {
+    /*background-color: rgba(24, 85, 105, 0.8) !important;*/
+    width: 100%;
+}
+
+.imgProfile {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+.imgHelpdesk {
+    width: 36px;
+    height: 35px;
+    border-radius: 50%;
+    border: 1px solid white;
+}
+
+.headerUserName {
+    color: #FFFFFF !important;
+    /*padding: 10px !important;*/
+    text-align: right;
+    height: 10px;
+    top: 5px;
+}
+
+    .headerUserName a {
+        color: #FFFFFF !important;
+        padding-left: 15px;
+    }
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background-color: #1d6680;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #1d6680;
+    width: 6px;
+}
+
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+    width: 6px;
+}
+
+.divlogout {
+    position: absolute;
+    margin: 60px 0 0 210px;
+}
+
+.navMenu {
+    margin-right: 10px;
+    font-size: 12px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.sidebar.right {
+    width: 30%;
+}
+
+.sidebar-submenu {
+    line-height: 2;
+}
+
+.icon_counter_red {
+    background-color: #f00;
+}
+
+.icon_counter_blue {
+    background-color: #39f;
+}
+
+.icon_counter_green {
+    background-color: #3c3;
+}
+
+.icon_counter {
+    color: #fff;
+    font-family: "Arial";
+    font-size: 14px;
+    font-weight: 600;
+    position: absolute;
+    padding: 0px 2px;
+    margin-top: 6px;
+    margin-left: -3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: inset 0px 0px 2px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow: inset 0px 0px 2px 0px rgba(50, 50, 50, 0.75);
+    box-shadow: inset 0px 0px 2px 0px rgba(50, 50, 50, 0.75);
+}
+
+.headerUserName .nav {
+    /*padding: 5px;*/
+}
+
+@media screen and (max-width: 995px) and (min-width: 300px) {
+    .headerUserName {
+        top: -60px !important;
+        height: 10px !important;
+    }
+}
+
+.menuActive a {
+    border-left: 3px solid;
+    display: block !important;
+}
+
+.btn-primary {
+    background: #1c467e !important;
+    /*border-color: #1c467e !important;*/
+    background: linear-gradient(40deg,#45cafc,#303f9f) !important
+}

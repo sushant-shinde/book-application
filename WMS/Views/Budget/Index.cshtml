@@ -1,0 +1,68 @@
+﻿@model WMS.Models.BudgetModel
+@{
+    ViewBag.Title = "Price Grid";
+    @Styles.Render("~/CustomScripts/css/jquery.dataTables.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/CustomScripts/resources/syntax/shCore.css?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Scripts.Render("~/CustomScripts/js/jquery.dataTables.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/js/dataTables.fixedColumns.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/dataTables.buttons.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/jszip.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/pdfmake.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/vfs_fonts.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/buttons.html5.min.js?t=" + @DateTime.Now.Ticks.ToString())
+
+
+    @Styles.Render("~/css/report.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/css/WMS.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Budget.js?t=" + @DateTime.Now.Ticks.ToString())
+
+    <style type="text/css">
+        #spAddActivity {
+            left: 98%;
+            position: relative;
+            font-size: 20px;
+            color: #337ab7;
+        }
+        .TxtPrice, .TxtFactor{
+            height:30px;
+            width:100px;
+        }
+    </style>
+
+}
+
+<div class="page-content">
+    <div class="jumbotron content">
+       <br />
+        <form id="FormPriceGrid">
+            <input id="hf_GetPublPriceGrid" type="hidden" value='@Url.Action("GetPublPriceGrid", "Budget")'>
+            <input id="hf_GetUnitType" type="hidden" value='@Url.Action("GetUnitType", "Budget")'>
+            <input id="hf_GetComplexity" type="hidden" value='@Url.Action("GetComplexity", "Budget")'>
+            <input id="hf_UpdatePriceGrid" type="hidden" value='@Url.Action("UpdatePriceGrid", "Budget")'>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group label-floating">
+                        <label class="control-label">Publisher</label>
+                        @Html.DropDownListFor(m => m.PublisherList, new SelectList(Model.PublisherList, "Value", "Text"), new { @id = "ddlPublisherList", @class = "form-control" })
+                    </div>
+                </div>
+                @*<div class="col-sm-2">
+                    <span class="btn btn-primary" title="Get" id="btnGetPG">Get</span>
+                </div>*@
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    @*<span id="spAddActivity"><i class="fa fa-plus-square" aria-hidden="true"></i></span>*@
+                    <div class="divPriceGrid" style="overflow-y: auto;overflow-x:hidden; ">
+                    </div>
+                </div>
+            </div>
+            <div class="divTabAction">
+                <span class="btn btn-primary btn-md" id="btnPRUpdate">Update</span>
+                <span class="btn btn-primary btn-md" id="btnPRCancel">Cancel</span>
+            </div>
+        </form>
+    </div>
+</div>
+

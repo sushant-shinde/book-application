@@ -1,0 +1,145 @@
+﻿@model WMS.Models.UserViewModel
+
+
+@{
+    ViewBag.Title = "Users";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+    @Styles.Render("~/CustomScripts/css/jquery.dataTables.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/CustomScripts/resources/syntax/shCore.css?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Scripts.Render("~/CustomScripts/js/jquery.dataTables.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/js/dataTables.fixedColumns.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/dataTables.buttons.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/jszip.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/pdfmake.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/vfs_fonts.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/buttons.html5.min.js?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Styles.Render("~/css/report.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/css/userInfo.css?t=" + @DateTime.Now.Ticks.ToString())
+
+
+    @Scripts.Render("~/CustomScripts/UserInfo.js?t=" + @DateTime.Now.Ticks.ToString())
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css?t=@DateTime.Now.Ticks.ToString()" />
+
+    <style type="text/css">
+        .dataTable tbody tr td span {
+            float: left !important;
+            left: 50px !important;
+            position: relative !important;
+        }
+    </style>
+}
+<input id="hf_GetUserMasterList" type="hidden" value='@Url.Action("GetUserMasterList", "user")'>
+<input id="hf_UserInfoPopulate" type="hidden" value='@Url.Action("UserInfoPopulate", "user")'>
+<input id="hf_UserInfoUpdate" type="hidden" value='@Url.Action("UserInfoUpdate", "user")'>
+<input id="hf_CheckExistingData" type="hidden" value='@Url.Action("CheckExistingData", "user")'>
+
+<input id="hf_UserInfoPopulate" type="hidden" value='@Url.Action("UserInfoPopulate", "user")'>
+<input id="hf_UserInfoUpdate" type="hidden" value='@Url.Action("UserInfoUpdate", "user")'>
+
+<div class="page-content">
+    <div class="jumbotron content">
+        <table id="example" class="display" width="100%"></table>
+    </div>
+</div>
+
+<div id="myModal_View" class="modal fade myModalView" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><strong>User Details</strong></h4>
+            </div>
+            <div class="modal-body">
+                <br />
+                <div class="form-group">
+                    <form id="FormUserInfo" class="row">
+                        <div class="divUserContent">
+                            <div class="col-sm-4">
+                                <div class="form-group" style="display:none">
+                                    <label class="control-label">Employee LoginID</label>
+                                    @Html.DropDownListFor(m => m.aUserModel.ddlUserList, new SelectList(Model.aUserModel.ddlUserList, "Value", "Text"), new { @id = "ddlUserList", @class = "form-control" })
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Login ID</label><em>*</em>
+                                    @Html.TextBoxFor(Model => Model.aUserMaster.LoginID, new { @id = "txtLoginID", @class = "form-control skipSpecialChar", @maxlength = 10 })
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Employee Name</label><em>*</em>
+                                    @Html.TextBoxFor(Model => Model.aUserMaster.LoginName, new { @id = "txtLoginName", @class = "form-control skipSpecialChar", @maxlength = 30 })
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label">DOB</label>
+                                    @Html.TextBoxFor(Model => Model.aUserMaster.DOB, new { @id = "txtDOB", @class = "form-control inputHandCursor", @readonly = "readonly" })
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Gender</label><em>*</em><br />
+                                    <select id="ddlGender">
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Email ID</label><em>*</em>
+                                    @Html.TextBoxFor(Model => Model.aUserMaster.EmailID, new { @id = "TxtEmailID", @class = "form-control", @maxlength = 50 })
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label">Employee Status</label><em>*</em>
+                                    <select id="ddlActiveStatus">
+                                        <option value="Active">Active</option>
+                                        <option value="In-Active">In-Active</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label">User Type</label><em>*</em>
+                                    @Html.DropDownListFor(m => m.aUserModel.ddlUserTypeList, new SelectList(Model.aUserModel.ddlUserTypeList, "Value", "Text"), new { @id = "ddlUserTypeList", @class = "ddl-control" })
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Role</label><em>*</em>
+                                    @Html.DropDownListFor(m => m.aUserModel.ddlRoleID, new SelectList(Model.aUserModel.ddlRoleID, "Value", "Text"), new { @id = "ddlRoleID", @class = "ddl-control" })
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label">Phone Number</label>
+                                    @Html.TextBoxFor(Model => Model.aUserMaster.PhoneNo, new { @id = "txtPhone", @class = "form-control", @maxlength = 15 })
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Work Phone Number</label>
+                                    @Html.TextBoxFor(Model => Model.aUserMaster.WorkPhone, new { @id = "txtWrkPhone", @class = "form-control", @maxlength = 15 })
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Address</label>
+                                    @Html.TextAreaFor(Model => Model.aUserMaster.Address, new { @id = "txtAddress", @class = "form-control", @maxlength = 255 })
+                                </div>
+
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <div class="input-group" style="text-align:center;">
+                                        <img src="~/img/user.jpg" alt="user Logo" style="height:150px;width:120px;margin-top:30px;border-radius:10px;" id="imgUserLogo" onerror="onerrorImageLoad()" /> <br /><br />
+                                        <input type="file" name="file" id="imageUploadForm" style="width: 100%;" class="btn" onChange="showPreview(this);" />
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" title="Update" id="btnUpdate">Update</button>
+                <button type="button" class="btn btn-primary" title="Close" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+

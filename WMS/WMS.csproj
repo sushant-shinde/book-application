@@ -1,0 +1,1318 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8AD53ED7-8044-4AAC-AEE7-A075267B53DE}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WMS</RootNamespace>
+    <AssemblyName>WMS</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort>44353</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EPPlus, Version=4.5.3.1, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>dll\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>dll\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="IronPdf, Version=4.4.7.22076, Culture=neutral, PublicKeyToken=94e1c31412563c75, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>dll\IronPdf.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.1, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.1\lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.0.0\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.0.0\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.0.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.0.0\lib\net45\Microsoft.AI.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.0.0\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.0.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=6.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.JsonWebTokens.6.5.0\lib\net45\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=6.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.6.5.0\lib\net45\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=6.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.6.5.0\lib\net45\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
+    <Reference Include="NReco.PdfGenerator, Version=1.1.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>dll\NReco.PdfGenerator.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=6.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.6.5.0\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.0.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.3.0.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.3.0.1\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Owin.5.2.3\lib\net45\System.Web.Http.Owin.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
+    <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
+    <Compile Include="Areas\HelpPage\Controllers\HelpController.cs" />
+    <Compile Include="Areas\HelpPage\HelpPageAreaRegistration.cs" />
+    <Compile Include="Areas\HelpPage\HelpPageConfigurationExtensions.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\CollectionModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ComplexTypeModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\DictionaryModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\EnumTypeModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\EnumValueDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\IModelDocumentationProvider.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\KeyValuePairModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ModelDescriptionGenerator.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ModelNameAttribute.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ModelNameHelper.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ParameterAnnotation.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ParameterDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\SimpleTypeModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\Models\HelpPageApiModel.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\HelpPageSampleGenerator.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\HelpPageSampleKey.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\ImageSample.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\InvalidSample.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\ObjectGenerator.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
+    <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="AuthJWT\AuthFailureResult.cs" />
+    <Compile Include="AuthJWT\HttpAuthChallengeContextExtension.cs" />
+    <Compile Include="AuthJWT\JwtAuthentication.cs" />
+    <Compile Include="AuthJWT\JwtAuthManager.cs" />
+    <Compile Include="AuthJWT\UnauthorizedResult.cs" />
+    <Compile Include="Book.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Books_JTS.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Chapter.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Chapter_JTS.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ArchivalController.cs" />
+    <Compile Include="Controllers\BookController.cs" />
+    <Compile Include="Controllers\BudgetController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\FreelanceController.cs" />
+    <Compile Include="Controllers\FreelancerActivitiesTrackingController.cs" />
+    <Compile Include="Controllers\GeneralController.cs" />
+    <Compile Include="Controllers\HelpDeskController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PipelineController.cs" />
+    <Compile Include="Controllers\ProjectAnalysisController.cs" />
+    <Compile Include="Controllers\ProofDistributionController.cs" />
+    <Compile Include="Controllers\QueryController.cs" />
+    <Compile Include="Controllers\QueryTrackingController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\SettingsController.cs" />
+    <Compile Include="Controllers\TrackingController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\WISHController.cs" />
+    <Compile Include="Controllers\WMSAPIController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Holiday.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccountBindingModels.cs" />
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ArchivalModel.cs" />
+    <Compile Include="Models\BookModels.cs" />
+    <Compile Include="Models\BudgetModel.cs" />
+    <Compile Include="Models\Common.cs" />
+    <Compile Include="Models\CustomAuthorizeAttribute.cs" />
+    <Compile Include="Models\ExportModel.cs" />
+    <Compile Include="Models\FreelanceModel.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\MailModels.cs" />
+    <Compile Include="Models\PipelineModel.cs" />
+    <Compile Include="Models\ProofDistributionModel.cs" />
+    <Compile Include="Models\settings.cs" />
+    <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Models\UserViewModel.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\ApplicationOAuthProvider.cs" />
+    <Compile Include="Publisher.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Results\ChallengeResult.cs" />
+    <Compile Include="Scheduler.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_AE_Allocate_History_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_FreelancerBooking_List_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_Freelancer_Allocate_Hisotry_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetActivitiesWise_BooksSummary_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetActivityList_ProjectPlan_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetActivity_MilestoneList_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetAllFreelancerbyTaskID_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetArchivalRestoreRpt_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetBookChapterList_AU_ED_FileView_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetBookChapterList_AU_ED_Tracking_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetBookDataByArchival_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetBookDataByBilling_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetBookDataforPA_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetBookData_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetBookDetailsbyCatalog_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetBookDetails_ProjectPlan_DateList_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetBookDetails_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetBookList_AU_ED_Tracking_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetBookList_AU_ED_Tracking_Status_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetBookList_For_PA_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetBookList_ManagerTracking_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetBookList_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetBookPlanningDetails_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetBooks_CompletedPercentage_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetBookWorkFlowInfo_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetBook_Current_Status_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetCommentsHelpDesk_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetCurrentBookStatusWithUser_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetCurrentStatusOfBookforPE_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetDashBoard_BooksSummaryCount_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetEmailList_QueryTo_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetEmailToChapter_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetFeedbackData_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetFilterOption_List_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetFreelanceAllocationChapter_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetFreelanceAllocationData_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetFreelanceBookTracking_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetFreelancerActivities_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetFreelancerMaster_List_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetFreelancerofSelection_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetFreelancerSubMaster_UploadFileList_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetFreelancer_DashboardCount_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetFreelancer_InboxList_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetFreelancer_Invoice_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetFreelancer_Report_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetFreelancer_UploadedSummary_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetFreelanceSelectionData_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetFreelanceSelectionList_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetHelpDeskdata_All_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetHelpdeskDetailsbyID_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetInstructionData_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetMailContentForQuery_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetNewBookList_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetNofification_ToDo_List_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetOOFHistory_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetPM_PE_List_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetProgress_WIP_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetProjectPlan_List_FOR_API_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetProjectPlan_UpdatedList_Newdays_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetProjectPlan_UpdatedList_New_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetProjectPlan_UpdatedList_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetProofTrackingData_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetQueryCatalogChapterList_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetQueryConversationData_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetQueryData_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetQueryTemplateData_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetQueryTrackingData_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetStagewiseChapter_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetSurveyMailDetails_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetSurveyResponseData_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetTaskDueDateList_ForNotification_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetTaskList_Activity_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetTaskNotifications_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetTemplateList_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetTicketDetailsByTicketID_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetWISH_BookList_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetWISH_Book_ActivityList_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetWorkflowList_ByBookID_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetWorkFlowMaster_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetWorkFlow_List_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_ProjectPlanList_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_UserLogin_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_WeeklyReport_Result.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Startup.cs" />
+    <Compile Include="Tbl_ActivityInfo.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_ArchiveRestore.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_BookStages.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_Category.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_Cities.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_Complexity.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_Countries.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_Edition.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_errorLog.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tbl_Feedback.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tbl_ForgotPassword.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_FreelanceBooking.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_FreelanceBooks.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_Freelancer_Master.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_Freelancer_Task.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_Freelancer_TaskPrice.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_FreelanceSubMaster.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tbl_ftpDetails.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tbl_HelpDesk.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tbl_HelpdeskComment.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_History.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tbl_Instruction.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_Invoice.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_Languages.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_LoginHistory.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_MailTemplate.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_MainMaster.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tbl_MenuList.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tbl_OOFHistory.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_Pipeline.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_Platform.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_PriceGrid.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_Process.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_ProcessType.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_ProjectAnalysis.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_ProjectAnalysis_CMTS.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_ProjectPlanning.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_ProjectPlanning_Flow.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_ProofDistribution.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_ProofDistribution_History.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_ProofEmail.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_QueryMaster.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_QuerySubMaster.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_QueryTemplate.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tbl_RoleMaster.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_RoleMenuAction.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_Signaldetails.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_SignalDetails_FromClient.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_SourceList.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_States.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_Subject.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_SubMaster.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_Survey.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tbl_TaskCalendar.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_UnitType.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_UserAccess_PublisherList.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_WEBAPI_Log.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_WEBAPI_UsersList.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_WorkFlowActivities.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_WorkFlowList.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_WorkFlowMaster.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserMaster.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserType.cs">
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WMS.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WMS.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WMS.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WMS.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WMS.edmx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="bin\Antlr3.Runtime.dll" />
+    <Content Include="bin\Antlr3.Runtime.pdb" />
+    <Content Include="bin\EntityFramework.dll" />
+    <Content Include="bin\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\EntityFramework.SqlServer.xml" />
+    <Content Include="bin\EntityFramework.xml" />
+    <Content Include="bin\Microsoft.AI.Agent.Intercept.dll" />
+    <Content Include="bin\Microsoft.AI.DependencyCollector.dll" />
+    <Content Include="bin\Microsoft.AI.DependencyCollector.xml" />
+    <Content Include="bin\Microsoft.AI.PerfCounterCollector.dll" />
+    <Content Include="bin\Microsoft.AI.ServerTelemetryChannel.dll" />
+    <Content Include="bin\Microsoft.AI.ServerTelemetryChannel.xml" />
+    <Content Include="bin\Microsoft.AI.Web.dll" />
+    <Content Include="bin\Microsoft.AI.Web.xml" />
+    <Content Include="bin\Microsoft.AI.WindowsServer.dll" />
+    <Content Include="bin\Microsoft.AI.WindowsServer.xml" />
+    <Content Include="bin\Microsoft.ApplicationInsights.dll" />
+    <Content Include="bin\Microsoft.ApplicationInsights.xml" />
+    <Content Include="bin\Microsoft.AspNet.Identity.Core.dll" />
+    <Content Include="bin\Microsoft.AspNet.Identity.Core.xml" />
+    <Content Include="bin\Microsoft.AspNet.Identity.EntityFramework.dll" />
+    <Content Include="bin\Microsoft.AspNet.Identity.EntityFramework.xml" />
+    <Content Include="bin\Microsoft.AspNet.Identity.Owin.dll" />
+    <Content Include="bin\Microsoft.AspNet.Identity.Owin.xml" />
+    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" />
+    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml" />
+    <Content Include="bin\Microsoft.Extensions.DependencyInjection.Abstractions.dll" />
+    <Content Include="bin\Microsoft.Extensions.DependencyInjection.Abstractions.xml" />
+    <Content Include="bin\Microsoft.Extensions.DependencyInjection.dll" />
+    <Content Include="bin\Microsoft.IdentityModel.JsonWebTokens.dll" />
+    <Content Include="bin\Microsoft.IdentityModel.JsonWebTokens.xml" />
+    <Content Include="bin\Microsoft.IdentityModel.Logging.dll" />
+    <Content Include="bin\Microsoft.IdentityModel.Logging.xml" />
+    <Content Include="bin\Microsoft.IdentityModel.Tokens.dll" />
+    <Content Include="bin\Microsoft.IdentityModel.Tokens.xml" />
+    <Content Include="bin\Microsoft.Owin.dll" />
+    <Content Include="bin\Microsoft.Owin.Host.SystemWeb.dll" />
+    <Content Include="bin\Microsoft.Owin.Host.SystemWeb.xml" />
+    <Content Include="bin\Microsoft.Owin.Security.Cookies.dll" />
+    <Content Include="bin\Microsoft.Owin.Security.Cookies.xml" />
+    <Content Include="bin\Microsoft.Owin.Security.dll" />
+    <Content Include="bin\Microsoft.Owin.Security.Facebook.dll" />
+    <Content Include="bin\Microsoft.Owin.Security.Facebook.xml" />
+    <Content Include="bin\Microsoft.Owin.Security.Google.dll" />
+    <Content Include="bin\Microsoft.Owin.Security.Google.xml" />
+    <Content Include="bin\Microsoft.Owin.Security.MicrosoftAccount.dll" />
+    <Content Include="bin\Microsoft.Owin.Security.MicrosoftAccount.xml" />
+    <Content Include="bin\Microsoft.Owin.Security.OAuth.dll" />
+    <Content Include="bin\Microsoft.Owin.Security.OAuth.xml" />
+    <Content Include="bin\Microsoft.Owin.Security.Twitter.dll" />
+    <Content Include="bin\Microsoft.Owin.Security.Twitter.xml" />
+    <Content Include="bin\Microsoft.Owin.Security.xml" />
+    <Content Include="bin\Microsoft.Owin.xml" />
+    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="bin\Newtonsoft.Json.dll" />
+    <Content Include="bin\Newtonsoft.Json.xml" />
+    <Content Include="bin\Owin.dll" />
+    <Content Include="bin\roslyn\csc.exe" />
+    <Content Include="bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll" />
+    <Content Include="bin\roslyn\System.Collections.Immutable.dll" />
+    <Content Include="bin\roslyn\System.Reflection.Metadata.dll" />
+    <Content Include="bin\roslyn\vbc.exe" />
+    <Content Include="bin\roslyn\VBCSCompiler.exe" />
+    <Content Include="bin\System.IdentityModel.Tokens.Jwt.dll" />
+    <Content Include="bin\System.IdentityModel.Tokens.Jwt.xml" />
+    <Content Include="bin\System.Net.Http.Formatting.dll" />
+    <Content Include="bin\System.Net.Http.Formatting.xml" />
+    <Content Include="bin\System.Runtime.InteropServices.RuntimeInformation.dll" />
+    <Content Include="bin\System.Web.Helpers.dll" />
+    <Content Include="bin\System.Web.Helpers.xml" />
+    <Content Include="bin\System.Web.Http.dll" />
+    <Content Include="bin\System.Web.Http.Owin.dll" />
+    <Content Include="bin\System.Web.Http.Owin.xml" />
+    <Content Include="bin\System.Web.Http.WebHost.dll" />
+    <Content Include="bin\System.Web.Http.WebHost.xml" />
+    <Content Include="bin\System.Web.Http.xml" />
+    <Content Include="bin\System.Web.Mvc.dll" />
+    <Content Include="bin\System.Web.Mvc.xml" />
+    <Content Include="bin\System.Web.Optimization.dll" />
+    <Content Include="bin\System.Web.Optimization.xml" />
+    <Content Include="bin\System.Web.Razor.dll" />
+    <Content Include="bin\System.Web.Razor.xml" />
+    <Content Include="bin\System.Web.WebPages.Deployment.dll" />
+    <Content Include="bin\System.Web.WebPages.Deployment.xml" />
+    <Content Include="bin\System.Web.WebPages.dll" />
+    <Content Include="bin\System.Web.WebPages.Razor.dll" />
+    <Content Include="bin\System.Web.WebPages.Razor.xml" />
+    <Content Include="bin\System.Web.WebPages.xml" />
+    <Content Include="bin\WebGrease.dll" />
+    <Content Include="bin\WMS.dll" />
+    <Content Include="bin\WMS.pdb" />
+    <Content Include="BookGallery\css\fonts\BebasNeue-webfont.svg" />
+    <Content Include="BookGallery\css\fonts\Dharma Type Font License.txt" />
+    <Content Include="BookGallery\css\style.css" />
+    <Content Include="BookGallery\images\arrows.png" />
+    <Content Include="BookGallery\js\jquery.gallery.js" />
+    <Content Include="BookGallery\js\modernizr.custom.53451.js" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\all.css" />
+    <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\custom-themes.css" />
+    <Content Include="Content\css\custom.css" />
+    <Content Include="Content\css\main.css" />
+    <Content Include="Content\login.css" />
+    <Content Include="Content\Slider.css" />
+    <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\font-awesome.min.css" />
+    <Content Include="css\jquery.steps.css" />
+    <Content Include="css\login.css" />
+    <Content Include="css\main.css" />
+    <Content Include="css\normalize.css" />
+    <Content Include="css\report.css" />
+    <Content Include="css\tooltip.css" />
+    <Content Include="css\userInfo.css" />
+    <Content Include="CustomScripts\Archival.js" />
+    <Content Include="CustomScripts\AUED_Tracking.js" />
+    <Content Include="CustomScripts\Book.js" />
+    <Content Include="CustomScripts\Budget.js" />
+    <Content Include="CustomScripts\css\dataTables.bootstrap.css" />
+    <Content Include="CustomScripts\css\dataTables.bootstrap.min.css" />
+    <Content Include="CustomScripts\css\dataTables.bootstrap4.css" />
+    <Content Include="CustomScripts\css\dataTables.bootstrap4.min.css" />
+    <Content Include="CustomScripts\css\dataTables.foundation.css" />
+    <Content Include="CustomScripts\css\dataTables.foundation.min.css" />
+    <Content Include="CustomScripts\css\dataTables.jqueryui.css" />
+    <Content Include="CustomScripts\css\dataTables.jqueryui.min.css" />
+    <Content Include="CustomScripts\css\dataTables.material.css" />
+    <Content Include="CustomScripts\css\dataTables.material.min.css" />
+    <Content Include="CustomScripts\css\dataTables.semanticui.css" />
+    <Content Include="CustomScripts\css\dataTables.semanticui.min.css" />
+    <Content Include="CustomScripts\css\dataTables.uikit.css" />
+    <Content Include="CustomScripts\css\dataTables.uikit.min.css" />
+    <Content Include="CustomScripts\css\jquery.dataTables.css" />
+    <Content Include="CustomScripts\css\jquery.dataTables.min.css" />
+    <Content Include="CustomScripts\css\jquery.dataTables_themeroller.css" />
+    <Content Include="CustomScripts\css\Uploadbootstrap.min.css" />
+    <Content Include="CustomScripts\daterangepicker\daterangepicker.css" />
+    <Content Include="CustomScripts\daterangepicker\daterangepicker.min.js" />
+    <Content Include="CustomScripts\daterangepicker\jquery.maskedinput.min.js" />
+    <Content Include="CustomScripts\daterangepicker\moment.min.js" />
+    <Content Include="CustomScripts\daterangepicker\MonthPicker.min.css" />
+    <Content Include="CustomScripts\daterangepicker\MonthPicker.min.js" />
+    <Content Include="CustomScripts\Export\buttons.html5.min.js" />
+    <Content Include="CustomScripts\Export\dataTables.buttons.min.js" />
+    <Content Include="CustomScripts\Export\jszip.min.js" />
+    <Content Include="CustomScripts\Export\pdfmake.min.js" />
+    <Content Include="CustomScripts\Export\vfs_fonts.js" />
+    <Content Include="CustomScripts\feedback.js" />
+    <Content Include="CustomScripts\FLInbox.js" />
+    <Content Include="CustomScripts\FLMaster.js" />
+    <Content Include="CustomScripts\Freelance.js" />
+    <Content Include="CustomScripts\FreelanceAllocation.js" />
+    <Content Include="CustomScripts\FreelancerActivitiesTracking.js" />
+    <Content Include="CustomScripts\FreelanceSettings.js" />
+    <Content Include="CustomScripts\FreelanceTracking.js" />
+    <Content Include="CustomScripts\General.js" />
+    <Content Include="CustomScripts\Helpdesk.js" />
+    <Content Include="CustomScripts\Home.js" />
+    <Content Include="CustomScripts\Instruction.js" />
+    <Content Include="CustomScripts\js\buttons.html5.min.js" />
+    <Content Include="CustomScripts\js\dataTables.bootstrap.js" />
+    <Content Include="CustomScripts\js\dataTables.bootstrap.min.js" />
+    <Content Include="CustomScripts\js\dataTables.bootstrap4.js" />
+    <Content Include="CustomScripts\js\dataTables.bootstrap4.min.js" />
+    <Content Include="CustomScripts\js\dataTables.buttons.min.js" />
+    <Content Include="CustomScripts\js\dataTables.dataTables.js" />
+    <Content Include="CustomScripts\js\dataTables.dataTables.min.js" />
+    <Content Include="CustomScripts\js\dataTables.fixedColumns.js" />
+    <Content Include="CustomScripts\js\dataTables.foundation.js" />
+    <Content Include="CustomScripts\js\dataTables.foundation.min.js" />
+    <Content Include="CustomScripts\js\dataTables.jqueryui.js" />
+    <Content Include="CustomScripts\js\dataTables.jqueryui.min.js" />
+    <Content Include="CustomScripts\js\dataTables.material.js" />
+    <Content Include="CustomScripts\js\dataTables.material.min.js" />
+    <Content Include="CustomScripts\js\dataTables.semanticui.js" />
+    <Content Include="CustomScripts\js\dataTables.semanticui.min.js" />
+    <Content Include="CustomScripts\js\dataTables.uikit.js" />
+    <Content Include="CustomScripts\js\dataTables.uikit.min.js" />
+    <Content Include="CustomScripts\js\dist\bs-custom-file-input.js" />
+    <Content Include="CustomScripts\js\dist\bs-custom-file-input.min.js" />
+    <Content Include="CustomScripts\js\jquery.dataTables.js" />
+    <Content Include="CustomScripts\js\jquery.dataTables.min.js" />
+    <Content Include="CustomScripts\js\jquery.js" />
+    <Content Include="CustomScripts\js\jszip.min.js" />
+    <Content Include="CustomScripts\js\pdfmake.min.js" />
+    <Content Include="CustomScripts\js\Uploadbootstrap.min.js" />
+    <Content Include="CustomScripts\js\Uploadjquery-3.3.1.slim.min.js" />
+    <Content Include="CustomScripts\js\Uploadpopper.min.js" />
+    <Content Include="CustomScripts\js\vfs_fonts.js" />
+    <Content Include="CustomScripts\Mail\jquery.emailinput.min.css" />
+    <Content Include="CustomScripts\Mail\jquery.emailinput.min.js" />
+    <Content Include="CustomScripts\Manipulation.js" />
+    <Content Include="CustomScripts\MGRTracking.js" />
+    <Content Include="CustomScripts\oof.js" />
+    <Content Include="CustomScripts\Pipeline.js" />
+    <Content Include="CustomScripts\Progress.js" />
+    <Content Include="CustomScripts\projectAnalysis.js" />
+    <Content Include="CustomScripts\projectplan.js" />
+    <Content Include="CustomScripts\ProofDistribution.js" />
+    <Content Include="CustomScripts\Query.js" />
+    <Content Include="CustomScripts\QueryTracking.js" />
+    <Content Include="CustomScripts\ready.js" />
+    <Content Include="CustomScripts\Report.js" />
+    <Content Include="CustomScripts\resources\syntax\shCore.css" />
+    <Content Include="CustomScripts\RoleInfo.js" />
+    <Content Include="CustomScripts\Settings.js" />
+    <Content Include="CustomScripts\Survey.js" />
+    <Content Include="CustomScripts\taskCalendar.js" />
+    <Content Include="CustomScripts\UserInfo.js" />
+    <Content Include="CustomScripts\wish.js" />
+    <Content Include="dll\EPPlus.dll" />
+    <Content Include="dll\EPPlus.xml" />
+    <Content Include="dll\Ionic.Zip.dll" />
+    <Content Include="dll\IronPdf.dll" />
+    <Content Include="dll\NReco.PdfGenerator.dll" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Images\asme.png" />
+    <Content Include="Images\asme_logo.png" />
+    <Content Include="Images\cal.gif" />
+    <Content Include="Images\cal_close.gif" />
+    <Content Include="Images\close.png" />
+    <Content Include="Images\csv.png" />
+    <Content Include="Images\cup.png" />
+    <Content Include="Images\download.png" />
+    <Content Include="Images\excel.png" />
+    <Content Include="Images\KTLogo.png" />
+    <Content Include="Images\loader.gif" />
+    <Content Include="Images\loading.gif" />
+    <Content Include="Images\pdf.png" />
+    <Content Include="Images\profile.png" />
+    <Content Include="Images\profile_main.png" />
+    <Content Include="Images\projectscope.jpg" />
+    <Content Include="Images\projectscope1.jpg" />
+    <Content Include="Images\projectscope2.jpeg" />
+    <Content Include="Images\sesame.ico" />
+    <Content Include="Images\sesame.png" />
+    <Content Include="Images\sesame2.ico" />
+    <Content Include="Images\ui-icons_444444_256x240.png" />
+    <Content Include="Images\ui-icons_555555_256x240.png" />
+    <Content Include="Images\update.png" />
+    <Content Include="Images\UserLogo.png" />
+    <Content Include="img\approve.png" />
+    <Content Include="img\bg.jpg" />
+    <Content Include="img\bg1.jpg" />
+    <Content Include="img\bg2.jpg" />
+    <Content Include="img\bg3.jpg" />
+    <Content Include="img\bg4.jpg" />
+    <Content Include="img\bg_old.jpg" />
+    <Content Include="img\favicon.png" />
+    <Content Include="img\HelpdeskIcon.png" />
+    <Content Include="img\img.jpg" />
+    <Content Include="img\img1.jpg" />
+    <Content Include="img\img2.jpeg" />
+    <Content Include="img\img2.jpg" />
+    <Content Include="img\img2.png" />
+    <Content Include="img\img3.jpg" />
+    <Content Include="img\reject.png" />
+    <Content Include="img\review.png" />
+    <Content Include="img\support %282%29.png" />
+    <Content Include="img\support.png" />
+    <Content Include="img\Trash.png" />
+    <Content Include="img\user.jpg" />
+    <Content Include="JS\books1.js" />
+    <Content Include="JS\books2.js" />
+    <Content Include="JS\modernizr.custom.js" />
+    <Content Include="MailTemplate\CredentialTemplate.html" />
+    <Content Include="MailTemplate\ResetPassword.html" />
+    <Content Include="obj\Debug\TempPE\WMS.Context.cs.dll" />
+    <Content Include="obj\Debug\TempPE\WMS.cs.dll" />
+    <Content Include="obj\Debug\TempPE\WMS.Designer.cs.dll" />
+    <Content Include="obj\Debug\WMS.csproj.FileListAbsolute.txt" />
+    <Content Include="Scripts\ai.0.22.9-build00167.js" />
+    <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
+    <Content Include="Scripts\bootbox.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Areas\HelpPage\Views\Web.config" />
+    <Content Include="Areas\HelpPage\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\ResourceModel.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\Index.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\TextSample.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\SimpleTypeModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\Samples.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\Parameters.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ModelDescriptionLink.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\KeyValuePairModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\InvalidSample.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ImageSample.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\HelpPageApiModel.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\EnumTypeModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\DictionaryModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ComplexTypeModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sidebar\index.css" />
+    <Content Include="Sidebar\sidenavi-right.css" />
+    <Content Include="Sidebar\SideNavi.js" />
+    <Content Include="SurveyImg\1.jpg" />
+    <Content Include="SurveyImg\2.jpg" />
+    <Content Include="SurveyImg\3.jpg" />
+    <Content Include="SurveyImg\4.jpg" />
+    <Content Include="SurveyImg\5.jpg" />
+    <Content Include="SurveyImg\6.jpg" />
+    <Content Include="SurveyImg\a22.jpg" />
+    <Content Include="SurveyImg\aaron-burden-ebBi8uNk5DA-unsplash.jpg" />
+    <Content Include="SurveyImg\bench-blur-books-459791.jpg" />
+    <Content Include="SurveyImg\book-stack-books-classic-158834.jpg" />
+    <Content Include="SurveyImg\bookcase-books-bookshelf-1098601.jpg" />
+    <Content Include="SurveyImg\img1.jpg" />
+    <Content Include="SurveyImg\img2.jpg" />
+    <Content Include="SurveyImg\s.png" />
+    <Content Include="SurveyImg\Video Background HD-Bubble Animation Video! As Realistic!.mp4" />
+    <Content Include="WMS.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>WMS.edmx</DependentUpon>
+      <LastGenOutput>WMS.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="WMS.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>WMS.edmx</DependentUpon>
+      <LastGenOutput>WMS.cs</LastGenOutput>
+    </Content>
+    <Content Include="bin\ApplicationInsights.config" />
+    <Content Include="bin\roslyn\Microsoft.CSharp.Core.targets" />
+    <Content Include="bin\roslyn\Microsoft.VisualBasic.Core.targets" />
+    <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
+    <Content Include="bin\WMS.dll.config" />
+    <Content Include="BookGallery\css\fonts\BebasNeue-webfont.eot" />
+    <Content Include="BookGallery\css\fonts\BebasNeue-webfont.ttf" />
+    <Content Include="BookGallery\css\fonts\BebasNeue-webfont.woff" />
+    <Content Include="InvoiceExcel\PAprojAn1_Final.xlsx" />
+    <Content Include="InvoiceExcel\PAprojAn1_Primary.xlsx" />
+    <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <Content Include="obj\Debug\edmxResourcesToEmbed\WMS.csdl" />
+    <Content Include="obj\Debug\edmxResourcesToEmbed\WMS.msl" />
+    <Content Include="obj\Debug\edmxResourcesToEmbed\WMS.ssdl" />
+    <Content Include="obj\Debug\WMS.csproj.CoreCompileInputs.cache" />
+    <Content Include="obj\Debug\WMS.csprojAssemblyReference.cache" />
+    <Content Include="obj\Debug\WMS.csprojResolveAssemblyReference.cache" />
+    <Content Include="CustomScripts\js\dist\bs-custom-file-input.js.map" />
+    <Content Include="CustomScripts\js\dist\bs-custom-file-input.min.js.map" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\CanvasJs.js" />
+    <Content Include="Scripts\daterangepicker.css" />
+    <Content Include="Scripts\daterangepicker.min.js" />
+    <Content Include="Scripts\datetimepicker_css.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.11.1.min.js" />
+    <Content Include="Scripts\jquery-ui.css" />
+    <Content Include="Scripts\jquery-ui.js" />
+    <Content Include="Scripts\jquery.bootstrap-growl.min.js" />
+    <Content Include="Scripts\jquery.min.js" />
+    <Content Include="Scripts\jquery.simpler-sidebar.js" />
+    <Content Include="Scripts\jquery.simpler-sidebar.min.js" />
+    <Content Include="Scripts\jquery.table2excel.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\popover.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\Menu\General.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <EntityDeploy Include="WMS.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>WMS.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="WMS.edmx.diagram">
+      <DependentUpon>WMS.edmx</DependentUpon>
+    </Content>
+    <Content Include="Views\Archival\Index.cshtml" />
+    <Content Include="Views\Book\Index.cshtml" />
+    <Content Include="Views\Book\Manipulation.cshtml" />
+    <Content Include="Views\Book\NewBook.cshtml" />
+    <Content Include="Views\Book\Progress.cshtml" />
+    <Content Include="Views\Budget\Budget.cshtml" />
+    <Content Include="Views\Budget\Index.cshtml" />
+    <Content Include="Views\Freelance\Allocation.cshtml" />
+    <Content Include="Views\Freelance\FreelanceSettings.cshtml" />
+    <Content Include="Views\Freelance\FreelanceTracking.cshtml" />
+    <Content Include="Views\Freelance\Inbox.cshtml" />
+    <Content Include="Views\Freelance\Index.cshtml" />
+    <Content Include="Views\Freelance\Selection.cshtml" />
+    <Content Include="Views\General\MailTemplate.cshtml" />
+    <Content Include="Views\General\Publisher.cshtml" />
+    <Content Include="Views\General\QueryTemplate.cshtml" />
+    <Content Include="Views\HelpDesk\Display.cshtml" />
+    <Content Include="Views\HelpDesk\Index.cshtml" />
+    <Content Include="Views\HelpDesk\Instruction.cshtml" />
+    <Content Include="Views\Pipeline\Index.cshtml" />
+    <Content Include="Views\ProjectAnalysis\BookDetails.cshtml" />
+    <Content Include="Views\ProjectAnalysis\Index.cshtml" />
+    <Content Include="Views\ProjectAnalysis\PA.cshtml" />
+    <Content Include="Views\ProofDistribution\Index.cshtml" />
+    <Content Include="Views\Query\Index.cshtml" />
+    <Content Include="Views\Report\AEAllocate.cshtml" />
+    <Content Include="Views\Report\FSAllocate.cshtml" />
+    <Content Include="Views\Report\OofHistory.cshtml" />
+    <Content Include="Views\Report\PTReport.cshtml" />
+    <Content Include="Views\Settings\Projectplan.cshtml" />
+    <Content Include="Views\Settings\TaskCalendar.cshtml" />
+    <Content Include="Views\Settings\Workflow.cshtml" />
+    <Content Include="Views\Tracking\Index.cshtml" />
+    <Content Include="Views\Tracking\List.cshtml" />
+    <Content Include="Views\Tracking\oof.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\Role.cshtml" />
+    <Content Include="Views\User\UserProfile.cshtml" />
+    <Content Include="Views\WISH\Index.cshtml" />
+    <Content Include="Views\Home\Feedback.cshtml" />
+    <Content Include="Views\Home\ForgotPassword.cshtml" />
+    <Content Include="Views\Home\Survey.cshtml" />
+    <Content Include="Views\Home\General.cshtml" />
+    <Content Include="Views\Shared\NotFound.cshtml" />
+    <Content Include="Views\Shared\_Tracking.cshtml" />
+    <Content Include="Views\Book\_ChapterAddUpdate.cshtml" />
+    <Content Include="Views\QueryTracking\Index.cshtml" />
+    <Content Include="Views\FreelancerActivitiesTracking\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Content\bootstrap4.0.0\" />
+    <Folder Include="Content\bootstrap4.1.1\" />
+    <Folder Include="Content\img\" />
+    <Folder Include="Content\webfonts\" />
+    <Folder Include="Images\EMP\" />
+    <Folder Include="Scripts\js\" />
+    <Folder Include="Scripts\Material\" />
+    <Folder Include="Scripts\select2-2.1\" />
+    <Folder Include="Scripts\StepsJS\" />
+    <Folder Include="Source\Distribution\K23457_1\CEPreview\C0001\Author\" />
+    <Folder Include="Source\Distribution\K23457_1\CEPreview\C0001\Editor\" />
+    <Folder Include="Source\Distribution\K23457_1\FirstPage\" />
+    <Folder Include="Source\Distribution\K23457_1\IntroEmail\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="packages.config" />
+    <None Include="Project_Readme.html" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>60975</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:60975/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

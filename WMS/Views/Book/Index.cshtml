@@ -1,0 +1,547 @@
+﻿@model WMS.Models.BookModels
+@{
+    ViewBag.Title = "Book Master";
+    @Styles.Render("~/CustomScripts/css/jquery.dataTables.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/CustomScripts/resources/syntax/shCore.css?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Scripts.Render("~/CustomScripts/js/jquery.dataTables.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/js/dataTables.fixedColumns.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/dataTables.buttons.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/jszip.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/pdfmake.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/vfs_fonts.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/buttons.html5.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/date-dd-MMM-yyyy.js?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Styles.Render("~/css/report.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/css/WMS.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Book.js?t=" + @DateTime.Now.Ticks.ToString())
+    
+    <link rel="stylesheet" href="~/CustomScripts/Mail/jquery.emailinput.min.css">
+    <script type="text/javascript" src="~/CustomScripts/Mail/jquery.emailinput.min.js"></script>
+
+    <style type="text/css">
+        /*.content {
+            background: url(../Images/wood.jpg);
+        }*/
+
+        th, td {
+            text-align: left !important;
+        }
+
+        .fa-pen, .fa-list, .fa-info-circle {
+            font-size: 18px;
+            color: #1d2c99;
+            margin-right: 20px;
+            float: right;
+            margin-bottom: 10px;
+        }
+
+        .fa-thumbs-down, .fa-thumbs-up, .fa-undo-alt {
+            font-size: 30px;
+            color: #1d2c99;
+            margin-left: 20px;
+            float: left;
+            /*margin-bottom: 10px;*/
+        }
+
+        .divFilter {
+            margin-right: 20px;
+            float: right;
+            position: relative !important;
+            /*top: -45px !important;*/
+            top: 10px !important;
+            font-weight: bold;
+        }
+
+        #myModal_View .modal-body {
+            font-size: 12px !important;
+            padding-top: 0px;
+        }
+
+        #myModal_View .modal-dialog {
+            width: 1100px;
+        }
+
+        #bookshelf {
+            position: relative;
+            box-sizing: border-box;
+            vertical-align: bottom;
+            padding-bottom: 10px;
+            display: table;
+            /*margin-left: -18px;*/
+        }
+
+            #bookshelf .divDisp {
+                display: inline-block;
+                width: 159px;
+                height: 160px;
+                /*-moz-box-shadow: 10px 0px 5px 5px #00000078;
+                -webkit-box-shadow: 10px 0px 5px 5px #00000078;
+                -o-box-shadow: 10px 0px 5px 5px #00000078;
+                box-shadow: 10px 0px 5px 5px #00000078;
+                box-shadow: 10px -1px 0px 2px #00000078;
+                border-radius: 5px 0px 0px 0px;*/
+                border-radius: 5px;
+                color: #FFF;
+                padding-top: 10px;
+            }
+
+            #bookshelf a {
+                position: relative;
+                display: inline-block;
+                margin-top: 10px;
+                margin-right: -0.25em;
+                padding: 0 15px;
+                text-decoration: none;
+                padding-right: 10px;
+            }
+
+                #bookshelf a:after {
+                    content: "";
+                    position: absolute;
+                    bottom: -6px;
+                    left: 0;
+                    right: 0;
+                    height: 10px;
+                    background: transparent url(../Images/shelf.png) no-repeat center center;
+                }
+
+        .spBookAction .dropdown-menu {
+            /*top: 10px !important;*/
+            min-width: 100%;
+            min-height: 20px;
+            left: -42px;
+            padding-left: 14px;
+            border-radius: 0px;
+            top: 10px;
+        }
+
+        div#bookshelf * {
+            font-weight: bold;
+            letter-spacing: .5px;
+        }
+
+        .divBkInfo {
+            background-color: rgba(24, 85, 105, 0.8) !important;
+        }
+
+        .spBookAction {
+            float: right;
+            right: -12px;
+            position: relative;
+            /*top: -10px;*/
+            top: -25px;
+        }
+
+        .spBilledAction {
+            float: right;
+            right: -23px;
+            position: relative;
+            /*top: -10px;*/
+            top: -10px;
+        }
+
+        .image {
+            cursor: pointer;
+            padding-left: 15px;
+        }
+
+        .divBkAction i {
+            font-size: 15px;
+        }
+
+        .spLabel {
+            top: -5px;
+            position: relative;
+        }
+
+        #note {
+            display: block;
+            height: 50px !important;
+            overflow: auto !important;
+        }
+
+        #spGenNotes {
+            float: right;
+        }
+
+        .spBookLabel {
+            width: 50px;
+        }
+
+        .nav-tabs li a, #tblChapter_wrapper {
+            font-size: 12px !important;
+        }
+
+        .dataTable tbody tr td div {
+            float: left !important;
+            left: 32px !important;
+            position: relative !important;
+        }
+
+        .fa-trash {
+            margin: 0px !important;
+        }
+    </style>
+
+    <style type="text/css">
+
+        #example_wrapper {
+            margin-top: 10px;
+        }
+
+        #spAddActivity {
+            left: 96%;
+            position: relative;
+            font-size: 20px;
+            color: #337ab7;
+        }
+
+        .modal-open .modal {
+            top: -10px;
+            font-size: 12px;
+        }
+
+        table.dataTable thead .sorting, td {
+            text-align: left !important;
+        }
+
+        .context-menu-list {
+            min-width: 10em !important;
+            width: 10em !important;
+            font-size: 12px !important;
+            border-radius: 10px;
+        }
+
+        .tblTrans th {
+            text-align: center !important;
+        }
+        /*#DivActivityList *:not(.TxtPercentage) {
+            text-align: center !important;
+        }*/
+
+        .TxtDate {
+            width: 100%;
+        }
+
+        th, td {
+            text-align: left !important;
+        }
+
+        .TxtActivity {
+            width: 100%;
+            text-align: left !important;
+        }
+
+
+        .spRight {
+            text-align: right !important;
+        }
+
+        .spDescription {
+            white-space: normal !important;
+        }
+
+        #spPDFReport {
+            left: 96%;
+            position: relative;
+            top: -5px;
+        }
+
+        .divSpace div {
+            margin: 5px;
+            font-weight: bold;
+        }
+    </style>
+}
+
+<input id="hf_GetReport" type="hidden" value='@Url.Action("GetData",  "Book")'>
+<input id="hf_BookDelete" type="hidden" value='@Url.Action("BookDelete", "Book")'>
+<input id="hf_GetChapterMaster" type="hidden" value='@Url.Action("GetChapterMaster", "Book")'>
+<input id="hf_GetBookData" type="hidden" value='@Url.Action("GetBookDetails", "Book")'>
+<input id="hf_UpdateGeneralNotes" type="hidden" value='@Url.Action("UpdateGeneralNotes",  "Book" )'>
+<input id="hf_SurveyMailSent" type="hidden" value='@Url.Action("SurveyMailSent",  "Book" )'>
+<input id="hf_GetSurveyResponse" type="hidden" value='@Url.Action("GetSurveyResponse",  "Book" )'>
+<input id="hf_GetWithdrawnData" type="hidden" value='@Url.Action("GetWithdrawnData",  "Book" )'>
+<input id="hf_GetActivityInfo" type="hidden" value='@Url.Action("GetActivityInfo",  "Book" )'>
+<input id="hf_UpdateActivity" type="hidden" value='@Url.Action("UpdateActivity",  "Book" )'>
+<input id="hf_CheckExistingData_Act" type="hidden" value='@Url.Action("CheckExistingData_Act",  "Book" )'>
+<input id="hf_DeleteActivity" type="hidden" value='@Url.Action("DeleteActivity",  "Book" )'>
+<input id="hf_WeeklyReport" type="hidden" value='@Url.Action("GetWeeklyReportPDF",  "Book" )'>
+<input id="hf_GetAddChapterView" type="hidden" value="@Url.Action("AddChapterView","Book")" />
+<input id="hf_UpdateChapterInfo" type="hidden" value="@Url.Action("GetChapterInfo","Book")" />
+<input id="hf_SaveChapterInfo" type="hidden" value="@Url.Action("SaveChapterInfo","Book")" />
+
+<div class="page-content">
+    <div class="jumbotron content">
+        @*<h2>Book Master</h2>
+            <hr />*@
+        <div class="spIconView">
+            <i class="fa fa-th iright" aria-hidden="true" title="List View" id="iList" onclick="ShowBookMaster('DivListView','iList')"></i>
+            <i class="fa fa-book iright" aria-hidden="true" title="Book View" id="iBook" style="color:#2196f3;cursor:not-allowed" onclick="ShowBookMaster('DivBookView','iBook')"></i>
+            <i class="fa fa-filter iFilter" id="IFitler" aria-hidden="true" title="Filter"></i>
+        </div>
+        <ul class="nav nav-tabs" id="BkTabul">
+            <li class="active" id="divBkWIP"><a data-toggle="tab" href="#BkWIP">WIP</a></li>
+            <li id="divBkAll"><a data-toggle="tab" href="#BkAll">All</a></li>
+        </ul>
+        <div class="divBookContent" style="overflow-y: auto;overflow-x:hidden;">
+            <div class="BookView" id="DivBookView">
+                <div class="tab-content">
+                    <div id="BkWIP" class="tab-pane fade in active">
+                        <div class="row">
+                        </div>
+
+                    </div>
+                    <div id="BkAll" class="tab-pane fade">
+                        <div class="row">
+                        </div>
+
+                    </div>
+                </div>
+                <div id="bookshelf">
+
+                </div>
+            </div>
+            <div id="DivListView" class="BookView" style="display:none">
+                <div class="tab-content">
+                    <div id="WIP" class="tab-pane fade in active">
+
+                    </div>
+                    <div id="All" class="tab-pane fade">
+
+                    </div>
+                </div>
+                <table id="example" class="display" width="100%"></table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="sideNavi_Filter">
+    <div class="side-navi-data">
+        <div class="side-navi-tab active" id="divQuickNav_filter">
+            <div class="divQuickList">
+                <i class="fas fa-times" id="isideClose_fitler"></i><span style="font-size:15px;">Filter</span>
+                <hr />
+                <div>
+                    <center class="ctContent">
+                        <div class="col-3">
+                            <select id="ddlWIPSearch" class="form-control">
+                                <option value="All">Clear</option>
+                                <option value="Number">Number</option>
+                                <option value="ISBN">ISBN</option>
+                                <option value="Catalog">Catalog</option>
+                                <option value="Publisher">Publisher</option>
+                            </select>
+                        </div>
+
+                        <div id="divFilter">
+                            <span id="divNumberFilter" style="display:none">
+                                <select id="lstNumberList" multiple></select>
+
+                                @*@Html.ListBoxFor(m => m.NumberList, new SelectList(Model.NumberList, "Value", "Text"), new { Multiple = "multiple", id = "lstNumberList", @class = "form-control" })*@
+                            </span>
+                            <span id="divCatalogFilter" style="display:none">
+                                <select id="lstCatalogList" multiple></select>
+                                @*@Html.ListBoxFor(m => m.CatalogList, new SelectList(Model.CatalogList, "Value", "Text"), new { Multiple = "multiple", id = "lstCatalogList", @class = "form-control" })*@
+                            </span>
+                            <span id="divISBNFilter" style="display:none">
+                                <select id="lstISBNList" multiple></select>
+                                @*@Html.ListBoxFor(m => m.ISBNList, new SelectList(Model.ISBNList, "Value", "Text"), new { Multiple = "multiple", id = "lstISBNList", @class = "form-control" })*@
+                            </span>
+                            <span id="divPublisherFilter" style="display:none">
+                                <select id="lstPublisherList" multiple></select>
+                                @*@Html.ListBoxFor(m => m.PublisherList, new SelectList(Model.PublisherList, "Value", "Text"), new { Multiple = "multiple", id = "lstPublisherList", @class = "form-control" })*@
+                            </span>
+                        </div>
+                        <br />
+                        <div>
+                            <span class="btn btn-primary" title="Get" id="btnBkGet">Get</span>
+                        </div>
+                    </center>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<div id="myModal" class="modal fade myModalView" role="dialog">
+    <div class="modal-dialog" id="mymodel_art">
+        <!-- Modal content-->
+        <div class="modal-content" id="modal_contentArt">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><strong>Book Info</strong></h4>
+            </div>
+            <div class="modal-body">
+                @*<button type="button" class="close" data-dismiss="modal">&times;</button>*@
+                <ul class="nav nav-tabs" id="BkInfoTabul">
+                    <li class="active" id="divBkInfo"><a data-toggle="tab" href="#BkInfo">Book Info</a></li>
+                    <li id="divChapInfo"><a data-toggle="tab" href="#ChapInfo">Chapter Info</a></li>
+                    <li id="divActivityInfo"><a data-toggle="tab" href="#ActInfo">Activity Info</a></li>
+                </ul>
+                <div id="chapterInfo"></div>
+                <div>
+                    <div class="tab-content">
+                        <div id="BkInfo" class="tab-pane fade in active">
+                            <div class="row">
+                                <div class="col-md-6" id="divLoadData"></div>
+                                <div class="col-md-6" id="divLoadDataTrns"></div>
+                            </div>
+                        </div>
+                        <div id="ChapInfo" class="tab-pane fade">
+                            <table id="tblChapter" class="display"></table>                            
+                        </div>
+                        <div id="ActInfo" class="tab-pane fade">
+                            <span id="spAddActivity"><i class="fa fa-plus-square" aria-hidden="true"></i></span>
+                            <span id="spPDFReport"><img src="../Images/pdf.png" title="Export to PDF" width="20px" height="20px" class="inputHandCursor"></span>
+                            <div id="DivActivityList" style="overflow:auto"></div>
+                        </div>
+                    </div>
+                </div>
+                @*<div class="row">
+            <div class="col-md-6" id="divLoadData"></div>
+            <div class="col-md-6" id="divLoadDataTrns"></div>
+        </div>*@
+                <br />
+                <div class="row">
+                    <span style="float:left"><img class="image" src="~/Images/booklock.png" title="Withdraw" id="btnWithdraw" onclick="javascript: BookWithdraw('Withdraw');" /></span>
+                    <span style="float:left"><img class="image" src="~/Images/bookopen.png" title="Revert" id="btnRevert" onclick="javascript: BookWithdraw('Revert');" /></span>
+                    <span style="float:left"><img class="image" src="~/Images/survey.png" title="Survey" id="btnSurvey" onclick="javascript: ComfirmSurveyMailSent();" /></span>
+                    <button style="float:right; margin-right:10px" type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    <button style="float:right; margin-right:10px" type="button" class="btn btn-primary" id="btnSave_Activity">Save Activity</button>                   
+                </div>
+            </div>
+            @*<div class="modal-footer">
+                <i class="fa fa-undo-alt imgIcon" aria-hidden="true" title="Withdraw" id="btnWithdraw" onclick="javascript: BookWithdraw('Withdraw');"></i>
+                                <i class="fa fa-undo-alt imgIcon" aria-hidden="true" title="Revert" id="btnRevert" onclick="javascript: BookWithdraw('Revert');"></i>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                            </div>*@
+        </div>
+    </div>
+</div>
+
+<div id="myModal_View" class="modal fade myModalView" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><strong>Chapter Details</strong></h4>
+            </div>
+            <div class="modal-body">
+                <br />
+                @*<div class="form-group">
+                    <div class="row">*@
+
+                @*<table id="tblChapter" class="display" width="100%"></table>*@
+
+                <br />
+                @*</div>
+                    </div>*@
+            </div>
+            <div class="modal-footer">
+                @*<button type="button" class="btn btn-primary" title="Update" id="btnChapterUpdate">Update</button>
+                    <button type="button" class="btn btn-primary" title="Close" data-dismiss="modal">Cancel</button>*@
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="myModal_GeneralNotes" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Book Notes</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+
+
+                    <textarea class="form-control rounded-0" id="TxtGeneralNote" rows="10"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" title="Update Notes" id="btnUpdateNotes">Update</button>
+                <button type="button" class="btn btn-primary" title="Close" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" title="Clear Notes" id="btnClearNotes">Clear</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="myModal_Withdraw" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><label id="lblWithdraw"></label></h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div id="divWithdrawnData"></div>
+
+                </div>
+                <div class="form-group">
+
+                    <textarea class="form-control rounded-0" id="TxtWithdrawReason" rows="10"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" title="Update" id="btnUpdatewithdraw">Ok</button>
+                <button type="button" class="btn btn-primary" title="Close" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="myModal_SurveyResponse" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><strong>Survey Response By <lable id="lbltypename"></lable></strong></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <h4 class="modal-title" style="text-align:left"><label id="lblBookname"></label></h4>
+                        </div>
+                        <div class="col-md-6">
+                            <h4 class="modal-title" style="text-align:right"><label id="lblcatlog"></label></h4>
+                        </div>
+                    </div>
+                    <div id="divSurveyPopulate"></div><br />
+                    <div>
+                        <h4 class="modal-title" style="margin-left: 16px;width: 95%;"><label id="lblcomment">Comment:</label></h4>
+                        <textarea class="form-control rounded-0" id="TxtComment" style="margin-left: 16px;width: 95%;" readonly></textarea>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <h4 class="modal-title" style="text-align:left"><label id="lbltitle">Submitted By: &nbsp;</label><label id="lblname"></label></h4>
+                        </div>
+                        <div class="col-md-6">
+                            <h4 class="modal-title" style="text-align:right"><label id="lblsubmit">Submitted Date: &nbsp;</label><label id="lbldate"></label></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

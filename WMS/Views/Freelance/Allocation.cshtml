@@ -1,0 +1,225 @@
+﻿@model WMS.Models.FreelanceModel
+@{
+    ViewBag.Title = "Freelancer Allocation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    @Styles.Render("~/CustomScripts/css/jquery.dataTables.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/CustomScripts/resources/syntax/shCore.css?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Scripts.Render("~/CustomScripts/js/jquery.dataTables.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/js/dataTables.fixedColumns.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/dataTables.buttons.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/jszip.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/pdfmake.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/vfs_fonts.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/buttons.html5.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/date-dd-MMM-yyyy.js?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Styles.Render("~/css/report.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/css/WMS.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/FreelanceAllocation.js?t=" + @DateTime.Now.Ticks.ToString())
+
+    <style>
+        .form-group {
+            font-size: 12px;
+        }
+
+        .form-inline .form-control {
+            width: 100%;
+        }
+
+        .form-inline {
+            padding-top: 5px !important;
+        }
+
+        .fa-upload {
+            font-size: 18px;
+            color: forestgreen;
+        }
+
+        .chkFace {
+            position: relative;
+            top: 5px;
+            left: 5px;
+        }
+
+        .dataTable tbody tr td span {
+            float: left !important;
+            left: 50px !important;
+            position: relative !important;
+        }
+
+        .FileAttach img {
+            width: 30px;
+            float: left
+        }
+
+        #btnApproveDataEntry {
+            float: right;
+            position: relative;
+            right: 18px;
+            top: 25px;
+        }
+    </style>
+}
+<input id="hf_GetAllocationBk" type="hidden" value='@Url.Action("GetAllocationBk",  "Freelance")'>
+<input id="hf_GetAllocationChapters" type="hidden" value='@Url.Action("GetAllocationChapters",  "Freelance")'>
+<input id="hf_GetAllocationBookDetails" type="hidden" value='@Url.Action("GetAllocationBookDetails",  "Freelance")'>
+
+<input id="hf_UploadFolder" type="hidden" value='@Url.Action("UploadFolder", "Freelance")'>
+<input id="hf_DeleteTempFolder" type="hidden" value='@Url.Action("DeleteTempFolder", "Freelance")'>
+<input id="hf_FileUploadWithZip" type="hidden" value='@Url.Action("FileUploadWithZip", "Freelance")'>
+
+<input id="hf_FreelancerAllocateDataEntry" type="hidden" value='@Url.Action("FreelancerAllocateDataEntry", "Freelance")'>
+
+<input id="hf_DeleteTempFile" type="hidden" value='@Url.Action("DeleteTempFile", "Freelance")'>
+
+<input id="hf_UpdateAllocationData" type="hidden" value='@Url.Action("UpdateAllocationData", "Freelance")'>
+
+<div class="page-content">
+    <div class="jumbotron content">
+        <div class="spIconView">
+            <i class="fa fa-filter iFilter" id="IFitler" aria-hidden="true" title="Filter"></i>
+        </div>
+        <ul class="nav nav-tabs" id="BkTabul">
+            <li class="active" id="divTabAllocation"><a data-toggle="tab" href="#TabAllocation">Allocation</a></li>
+            <li id="divTabDueDate"><a data-toggle="tab" href="#TabDueDate">Due Date Change</a></li>
+            <li id="divTabWithdrawn"><a data-toggle="tab" href="#TabWithdrawn">Withdrawn</a></li>
+            <li id="divTabManualreturn"><a data-toggle="tab" href="#TabManualreturn">Manual Return</a></li>
+        </ul>
+
+        <table id="tblAllocationBk" class="display" width="100%"></table>
+    </div>
+</div>
+<div id="sideNavi_Filter">
+    <div class="side-navi-data">
+        <div class="side-navi-tab active" id="divQuickNav_filter">
+            <div class="divQuickList">
+                <i class="fas fa-times" id="isideClose_fitler"></i><span style="font-size:15px;">Filter</span>
+                <hr />
+                <div>
+                    <center class="ctContent">
+                        <div class="col-3">
+                            <select id="ddlWIPSearch" class="form-control">
+                                <option value="All">Clear</option>
+                                <option value="Number">Number</option>
+                                <option value="ISBN">ISBN</option>
+                                <option value="Catalog">Catalog</option>
+                                <option value="Publisher">Publisher</option>
+                                <option value="Task">Task</option>
+                            </select>
+                        </div>
+
+                        <div id="divFilter">
+                            <div id="divNumberFilter" style="display:none">
+                                @Html.ListBoxFor(m => m.NumberList, new SelectList(Model.NumberList, "Value", "Text"), new { Multiple = "multiple", id = "lstNumberList", @class = "form-control" })
+                            </div>
+                            <div id="divCatalogFilter" style="display:none">
+                                @Html.ListBoxFor(m => m.CatalogList, new SelectList(Model.CatalogList, "Value", "Text"), new { Multiple = "multiple", id = "lstCatalogList", @class = "form-control" })
+                            </div>
+                            <div id="divISBNFilter" style="display:none">
+                                @Html.ListBoxFor(m => m.ISBNList, new SelectList(Model.ISBNList, "Value", "Text"), new { Multiple = "multiple", id = "lstISBNList", @class = "form-control" })
+                            </div>
+                            <div id="divPublisherFilter" style="display:none">
+                                @Html.ListBoxFor(m => m.PublisherList, new SelectList(Model.PublisherList, "Value", "Text"), new { Multiple = "multiple", id = "lstPublisherList", @class = "form-control" })
+                            </div>
+                            <div id="divTaskFilter" style="display:none">
+                                @Html.ListBoxFor(m => m.TaskList, new SelectList(Model.TaskList, "Value", "Text"), new { Multiple = "multiple", id = "lstTaskList", @class = "form-control" })
+                            </div>
+                        </div>
+                        <br />
+                        <div>
+                            <span class="btn btn-primary" title="Get" id="btnBkGet">Get</span>
+                        </div>
+                    </center>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<div id="myModal" class="modal fade myModalView" role="dialog">
+    <div class="modal-dialog" id="mymodel_art">
+
+        <!-- Modal content-->
+        <div class="modal-content" id="modal_contentArt">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><strong><label id="lblTitle"></label></strong></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row form-inline">
+                    <div class="form-group label-floating col-md-4 divAllocation">
+                        <label class="control-label">Freelancer</label>
+                        <select id="ddlFreelancer" class="form-control col-sm-4"></select>
+
+                    </div>
+
+                    <div class="form-group label-floating col-md-3 divDueDate" style="display:none">
+                        <label class="control-label">Due Date</label>
+                        <input id="txtDueDt" type="text" readonly class="form-control inputHandCursor" />
+                    </div>
+                    <div class="form-group label-floating col-md-2 btnAddList divAllocation" id="divBookwise">
+                        <label class="control-label">Bookwise</label>
+                        <input id="chkBookwise" type="checkbox" class="chkFace" />
+                    </div>
+                    <div> <span class="btn btn-primary" id="btnApproveDataEntry">Approve</span></div>
+                </div>
+                <div class="row form-inline">
+                    <div class="form-group label-floating col-md-12" id="divLoadChapter">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" id="divFooter" style="display:none">
+                <button type="button" class="btn btn-primary" title="Update" id="btnUpdate">Update</button>
+                <button type="button" class="btn btn-primary" title="Close" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="myModal_Chapter" class="modal fade" role="dialog">
+    <div class="modal-dialog" id="mymodel_chapter">
+
+        <!-- Modal content-->
+        <div class="modal-content" id="modal_contentArt">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><strong><label id="lblChapter"></label></strong></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row form-inline">
+                    <center>
+                        <div class="upload">
+                            <input type="file" name="upload" id="FUpload" multiple />
+                        </div>
+                        <br />
+
+                        <div class="divFileList col-sm-12">
+                            <table class="tblTrans" id="tblFileList">
+                                <thead>
+                                    <tr>
+                                        <th>SNo</th>
+                                        <th>File Name</th>
+                                        <th>#</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </center>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="FileAttach" style="display:none">
+                    <img src="~/Images/loader-small.gif" />
+                </div>
+                <button type="button" class="btn btn-primary" title="Update" id="btnApproveAllocation">Approve</button>
+                <button type="button" class="btn btn-primary" title="Close" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>

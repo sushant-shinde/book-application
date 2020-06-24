@@ -1,0 +1,322 @@
+﻿
+@{
+                /**/
+
+                ViewBag.Title = "Help Desk Tickets";
+
+                Layout = "~/Views/Shared/_Layout.cshtml";
+
+                @Styles.Render("~/CustomScripts/css/jquery.dataTables.css?t=" + @DateTime.Now.Ticks.ToString())
+                @Styles.Render("~/CustomScripts/resources/syntax/shCore.css?t=" + @DateTime.Now.Ticks.ToString())
+                @Scripts.Render("~/CustomScripts/js/jquery.dataTables.js?t=" + @DateTime.Now.Ticks.ToString())
+                @Scripts.Render("~/CustomScripts/js/dataTables.fixedColumns.js?t=" + @DateTime.Now.Ticks.ToString())
+                @Scripts.Render("~/CustomScripts/Export/dataTables.buttons.min.js?t=" + @DateTime.Now.Ticks.ToString())
+                @Scripts.Render("~/CustomScripts/Export/jszip.min.js?t=" + @DateTime.Now.Ticks.ToString())
+                @Scripts.Render("~/CustomScripts/Export/pdfmake.min.js?t=" + @DateTime.Now.Ticks.ToString())
+                @Scripts.Render("~/CustomScripts/Export/vfs_fonts.js?t=" + @DateTime.Now.Ticks.ToString())
+                @Scripts.Render("~/CustomScripts/Export/buttons.html5.min.js?t=" + @DateTime.Now.Ticks.ToString())
+                @Styles.Render("~/css/report.css?t=" + @DateTime.Now.Ticks.ToString())
+                @Styles.Render("~/Scripts/FullCalendar/fullcalendar.css?t=" + @DateTime.Now.Ticks.ToString())
+                @Scripts.Render("~/Scripts/FullCalendar/lib/moment.min.js?t=" + @DateTime.Now.Ticks.ToString())
+                @Scripts.Render("~/Scripts/FullCalendar/fullcalendar.js?t=" + @DateTime.Now.Ticks.ToString())
+                @Styles.Render("~/css/userInfo.css?t=" + @DateTime.Now.Ticks.ToString())
+                @Scripts.Render("~/Scripts/FullCalendar/theme-chooser.js?t=" + @DateTime.Now.Ticks.ToString())
+                @Styles.Render("~/css/WMS.css?t=" + @DateTime.Now.Ticks.ToString())
+                @Scripts.Render("~/CustomScripts/Helpdesk.js?t=" + @DateTime.Now.Ticks.ToString())
+
+                <link href="~/css/helpdesk.css" rel="stylesheet" />
+                <link rel="stylesheet" href="~/CustomScripts/Mail/jquery.emailinput.min.css">
+                <script type="text/javascript" src="~/CustomScripts/Mail/jquery.emailinput.min.js"></script>
+                <link href="~/css/a.css" rel="stylesheet" />
+
+                <style type="text/css">
+
+                                #example_wrapper {
+                                    margin-top: 10px;
+                                }
+
+                                #spAddActivity {
+                                    left: 96%;
+                                    position: relative;
+                                    font-size: 20px;
+                                    color: #337ab7;
+                                }
+
+                                .modal-open .modal {
+                                    top: -10px;
+                                    font-size: 12px;
+                                }
+
+                                table.dataTable thead .sorting, td {
+                                    text-align: left !important;
+                                }
+
+                                .context-menu-list {
+                                    min-width: 10em !important;
+                                    width: 10em !important;
+                                    font-size: 12px !important;
+                                    border-radius: 10px;
+                                }
+
+                                .tblTrans th {
+                                    text-align: center !important;
+                                }
+                                /*#DivActivityList *:not(.TxtPercentage) {
+                        text-align: center !important;
+                    }*/
+                                #DivActivityList *:.TxtPercentage {
+                                    width: 50px;
+                                }
+
+                                th, td {
+                                    text-align: left !important;
+                                }
+
+                                .TxtPercentage {
+                                    text-align: right !important;
+                                }
+
+                                .spRight {
+                                    text-align: right !important;
+                                }
+
+                                .spDescription {
+                                    white-space: normal !important;
+                                }
+
+                                .divSpace div {
+                                    margin: 5px;
+                                    font-weight: bold;
+                                }
+                </style>
+}
+
+<input id="hf_GetHelpdeskDetails" type="hidden" value='@Url.Action("GetHelpdeskDetails", "HelpDesk")'>
+<input id="hf_GetallHDdetails" type="hidden" value='@Url.Action("GetallHDdetails", "HelpDesk")'>
+<input id="hf_AddTicket" type="hidden" value='@Url.Action("AddTicket", "HelpDesk")'>
+<input id="hf_GetAutoID" type="hidden" value='@Url.Action("GetAutoID", "HelpDesk")'>
+<input id="hf_UpdateTicketStatus" type="hidden" value='@Url.Action("UpdateTicketStatus", "HelpDesk")'>
+<input id="hf_GetReasonsbyTicketID" type="hidden" value='@Url.Action("GetReasonsbyTicketID", "HelpDesk")'>
+<input id="hf_GetHelpdeskDetailsByTicketID" type="hidden" value='@Url.Action("GetHelpdeskDetailsByTicketID", "HelpDesk")'>
+<input id="hf_AddReopenReason" type="hidden" value='@Url.Action("AddReopenReason", "HelpDesk")'>
+<input id="hf_SendMailToUser" type="hidden" value='@Url.Action("SendMailToUser", "HelpDesk")'>
+
+<input id="hf_FileuploadM" type="hidden" value='@Url.Action("FileuploadM", "HelpDesk")'>
+<input id="hf_GetFiles" type="hidden" value='@Url.Action("GetFiles", "HelpDesk")'>
+<input id="hf_DeleteallFilesFromFolder" type="hidden" value='@Url.Action("DeleteallFilesFromFolder", "HelpDesk")'>
+<input id="hf_UpdateStatusbyUser" type="hidden" value='@Url.Action("UpdateStatusbyUser", "HelpDesk")'>
+<input id="hf_DeleteFile" type="hidden" value='@Url.Action("DeleteFile", "HelpDesk")'>
+<input id="hf_GetHelpdeskDetailsByTicketID" type="hidden" value='@Url.Action("GetHelpdeskDetailsByTicketID", "HelpDesk")'>
+<input id="hf_DeleteTicket" type="hidden" value='@Url.Action("DeleteTicket", "HelpDesk")'>
+
+<input id="hf_ID" type="hidden">
+<input id="hf_Status" type="hidden">
+
+<div class="page-content">
+    <div class="jumbotron content">
+        @if (Convert.ToString(Session["UserType"]) == "PM")
+        {
+            <div class="row">
+                <div class="col-md-10"></div>
+
+                <button class="btn btn-primary spAddIcon" style="margin-left: 89px;margin-top: 4px;position:relative;z-index: 100;" id="btnnewticket"><i class="fa fa-handshake"></i>New Ticket</button>
+            </div>
+        }
+        <ul class="nav nav-tabs" id="BkTabul">
+            <li class="active" id="divBkPending"><a data-toggle="tab" href="#BkPending">Pending</a></li>
+            <li><a data-toggle="tab" id="divBkResolv" href="#BkResolv">Resolved</a></li>
+            <li><a data-toggle="tab" id="divBkClose" href="#BkClose">Closed</a></li>
+            <li><a data-toggle="tab" id="divBkReopen" href="#BkReopen">Reopened</a></li>
+        </ul>
+
+        @*<table id="example" class="display" width="100%"></table>*@
+
+        <div class="row">
+
+            <div id="tktDetailAdmin"></div>
+        </div>
+
+    </div>
+</div>
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <label class="modal-title"><strong>Submit Ticket</strong></label>
+                <div id="theCount"></div>
+            </div>
+            <div>
+                <div class="modal-body">
+                    <div class="form-group" id="divFeedback">
+                        <form id="Formdata">
+                            <div id="theCount"></div>
+                            <div class="row feedescal">
+
+                                <div class="col-sm-12">
+                                    <label style="font-size:14px">Subject</label>
+                                    <textarea style="width:100%;height:31px;" id="txtsubject" maxlength="250" class="form-control"></textarea>
+                                </div>
+
+                            </div>
+                            <div class="row feedescal">
+
+                                <div class="col-sm-12">
+                                    <label style="font-size:14px">Description</label>
+                                    <div class="form-group">
+                                        <textarea class="form-control rounded-0" id="TxtAUMailBody" rows="10" style="height: 152px;"></textarea>
+                                    </div>
+                                    @*<textarea style="width:100%;height:50px;" id="txtdescription" class="form-control"></textarea>*@
+                                </div>
+
+                            </div>
+
+                            <div class="row feedescal">
+
+                                <div class="col-sm-12">
+                                    <label style="font-size:14px; display: block;">Priority</label>
+                                    <label class="container col-md-4">
+                                        <label style="font-size:13px">High</label>
+                                        <input type="radio" value="High" name="priority">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="container col-md-4">
+                                        <label style="font-size:13px">Medium</label>
+                                        <input type="radio" value="Medium" name="priority">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="container col-md-4">
+                                        <label style="font-size:13px">Low</label>
+                                        <input type="radio" value="Low" name="priority">
+                                        <span class="checkmark"></span>
+                                    </label>
+
+
+                                </div>
+
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    @*<input type="button" value="Attachments" class="BtnAttach btn btn-primary" id="btnAttachment" />*@
+                    <button type="button" class="BtnAttach btn btn-primary" value="Attachment" id="btnAttachment">Attachments</button>
+                    <button type="button" class="btn btn-primary" value="Save" id="btnSave">Submit</button>
+                    <button type="button" class="btn btn-primary" title="Close" data-dismiss="modal" id="btncancel">Cancel</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div id="myModal_ViewTicket" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <label class="modal-title"><strong>Ticket Details</strong></label>
+                <div id="ticktRID"></div>
+            </div>
+            <div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div id="divTicketPopulate"></div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+
+                    <button type="button" class="btn btn-primary" data-value="Resolved" id="btnresolve">Resolve</button>
+                    <button type="button" class="btn btn-primary" data-value="View" id="btnview">View</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div id="myModal_Comment" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" id="btnclose">&times;</button>
+
+
+                <div class="row">
+                    <div class="input-group">
+                        <div id="div_ddldept">
+                            <label for="lblReason" class="control-label">Comment : </label>
+                            <div id="ticktRID"></div>
+                            <textarea name="field6" class="textarea-field" id="txtreason" style="width:100%"></textarea>
+                            <hr />
+                            <button type="button" class="btn btn-primary" data-value="Resolved" id="btnSubmit_Admin">Submit</button>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+<div id="myModal_ViewAllReason" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <label class="modal-title"><strong>Reasons To Reopen Ticket</strong></label>
+                <div id="ticktRID"></div>
+            </div>
+            <div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div id="divReasonPopulate"></div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div id="myModal_attachFiles" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><strong>Attachments</strong></h4>
+                <div id="theCountq"></div>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div id="divFileInfo"></div>
+                    <input id="file-input" type="file" name="name" style="display: none;" multiple />
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" title="Close" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>

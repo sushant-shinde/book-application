@@ -1,0 +1,200 @@
+﻿
+@{
+    ViewBag.Title = "Tracking";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Styles.Render("~/CustomScripts/css/jquery.dataTables.css?t=" + @DateTime.Now.Ticks.ToString())
+@Styles.Render("~/CustomScripts/resources/syntax/shCore.css?t=" + @DateTime.Now.Ticks.ToString())
+
+@Scripts.Render("~/CustomScripts/js/jquery.dataTables.js?t=" + @DateTime.Now.Ticks.ToString())
+@Scripts.Render("~/CustomScripts/js/dataTables.fixedColumns.js?t=" + @DateTime.Now.Ticks.ToString())
+@Scripts.Render("~/CustomScripts/Export/dataTables.buttons.min.js?t=" + @DateTime.Now.Ticks.ToString())
+@Scripts.Render("~/CustomScripts/Export/jszip.min.js?t=" + @DateTime.Now.Ticks.ToString())
+@Scripts.Render("~/CustomScripts/Export/pdfmake.min.js?t=" + @DateTime.Now.Ticks.ToString())
+@Scripts.Render("~/CustomScripts/Export/vfs_fonts.js?t=" + @DateTime.Now.Ticks.ToString())
+@Scripts.Render("~/CustomScripts/Export/buttons.html5.min.js?t=" + @DateTime.Now.Ticks.ToString())
+@Styles.Render("~/css/report.css?t=" + @DateTime.Now.Ticks.ToString())
+
+@Scripts.Render("~/CustomScripts/AUED_Tracking.js?t=" + @DateTime.Now.Ticks.ToString())
+
+
+<style type="text/css">
+    .page-wrapper {
+        background: url(../../img/bg.jpg) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        height: 100%;
+    }
+
+    #myModal_View .modal-body {
+        font-size: 12px !important;
+        padding-top: 0px;
+    }
+
+    .modal-open .modal {
+        top: -10px;
+    }
+
+    #myModal_View .modal-dialog {
+        width: 1250px;
+    }
+
+    .DivList table {
+        border-radius: 10px;
+    }
+
+    #divBookList {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+
+    .divPadd {
+        padding: 5px;
+    }
+
+    .fa-check {
+        color: green;
+    }
+
+    .fa-list {
+        color: #2196F3;
+        text-align: center;
+    }
+
+    .DivList {
+        background: linear-gradient(40deg,#FFF,#e4ecff);
+        border-radius: 10px;
+        padding: 5px;
+        border: solid 1px #00c4ff;
+        margin-bottom: 10px;
+    }
+
+    td img {
+        margin: 5px;
+    }
+
+    .spAccept, .spUpload, .spDownload {
+        margin-right: -15px;
+        float: right;
+    }
+
+    .progress-bar-success {
+        background-color: #63f363;
+        font-weight: bold;
+    }
+
+    .progress-bar-info {
+        background-color: #aadfef !important;
+        font-weight: bold;
+    }
+
+    input[type="checkbox"][disabled="disabled"] {
+        cursor: not-allowed;
+    }
+
+    .FileAttach img {
+        width: 30px;
+        float: left
+    }
+
+    .spfileList {
+        font-size: 12px;
+        text-align: right;
+        position: relative;
+    }
+</style>
+<input id="hf_Stage" type="hidden">
+<input id="hf_GetBookList" type="hidden" value='@Url.Action("GetBookList", "tracking")'>
+<input id="hf_BookAccept" type="hidden" value='@Url.Action("BookAccept", "tracking")'>
+<input id="hf_GetBookChapterList" type="hidden" value='@Url.Action("GetBookChapterList", "tracking")'>
+<input id="hf_DownloadProofFile" type="hidden" value='@Url.Action("DownloadProofFile", "tracking")'>
+
+<input id="hf_UploadFolder" type="hidden" value='@Url.Action("UploadFolder", "tracking")'>
+<input id="hf_FileUploadWithZip" type="hidden" value='@Url.Action("FileUploadWithZip", "tracking")'>
+
+<input id="hf_DeleteTempFile" type="hidden" value='@Url.Action("DeleteTempFile", "tracking")'>
+<input id="hf_DeleteTempFolder" type="hidden" value='@Url.Action("DeleteTempFolder", "tracking")'>
+<input id="hf_UpdateNoCorrection" type="hidden" value='@Url.Action("UpdateNoCorrection", "tracking")'>
+
+<div class="page-content">
+    <div class="jumbotron content">
+        <br />
+        <div id="divBookList" style="overflow:auto">
+        </div>
+    </div>
+</div>
+
+
+<div id="myModal_View" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" title="close">&times;</button>
+                <h4 class="modal-title" id="DivHeadingTitle"><strong>Chapter Details View</strong></h4>
+            </div>
+            <div class="modal-body">
+                <table id="example" class="display" width="100%"></table>
+            </div>
+            <div class="modal-footer">
+
+                <div id="divActionBtn">
+
+                    <button type="button" class="btn btn-primary" title="DownLoad" id="btnDownload"><i class="fas fa-download"></i>&nbsp;Download Proof</button>
+                    <button type="button" class="btn btn-primary" title="DownLoad" id="btnDownload_AU"><i class="fas fa-download"></i>&nbsp;Download Author Correction</button>
+
+                    <button type="button" class="btn btn-primary divActionBtn" style="display:none" title="Upload" id="btnUpload"><i class="fas fa-upload"></i>&nbsp;Upload</button>
+                    <button type="button" class="btn btn-primary divActionBtn" style="display:none" title="No Correction" id="btnNoCorrection"><i class="fas fa-check-circle"></i>&nbsp;No Correction</button>
+                    @*<button type="button" class="btn btn-primary" title="Close" data-dismiss="modal">Cancel</button>*@
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="myModal_ViewUpLoad" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" title="close">&times;</button>
+                <h4 class="modal-title"><strong>File Upload</strong></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <center>
+                        <div class="upload">
+                            <input type="file" name="upload" id="FUpload" multiple />
+                        </div>
+                        <br />
+                        <div class="divFileList col-sm-12">
+                            <table class="tblTrans" id="tblFileList">
+                                <thead>
+                                    <tr>
+                                        <th>SNo</th>
+                                        <th>File Name</th>
+                                        <th>#</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </center>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="FileAttach" style="display:none">
+                    <img src="~/Images/loader-small.gif" />
+                </div>
+                <button type="button" class="btn btn-primary" title="Upload" id="btnUploadFile"><i class="fas fa-upload"></i>&nbsp;Upload</button>
+                <button type="button" class="btn btn-primary" title="Clear" id="btnFileClear">Clear</button>
+            </div>
+        </div>
+
+    </div>
+</div>

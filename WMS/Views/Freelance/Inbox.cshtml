@@ -1,0 +1,381 @@
+﻿
+@{
+    ViewBag.Title = "Freelancer Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    @Styles.Render("~/CustomScripts/css/jquery.dataTables.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/CustomScripts/resources/syntax/shCore.css?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Scripts.Render("~/CustomScripts/js/jquery.dataTables.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/js/dataTables.fixedColumns.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/dataTables.buttons.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/jszip.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/pdfmake.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/vfs_fonts.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/buttons.html5.min.js?t=" + @DateTime.Now.Ticks.ToString())
+
+    <script src="~/Scripts/Chart/highcharts.js" type="text/javascript"></script>
+    <script src="~/Scripts/Chart/highcharts-3d.js" type="text/javascript"></script>
+
+    @Scripts.Render("~/CustomScripts/FLInbox.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/css/report.css?t=" + @DateTime.Now.Ticks.ToString())
+    <style type="text/css">
+        .highcharts-credits {
+            display: none !important;
+        }
+
+        .highcharts-legend-item .highcharts-column-series .highcharts-color-0 .highcharts-series-0 {
+            display: none !important;
+        }
+
+        .highcharts-axis-labels .highcharts-yaxis-labels, .highcharts-button-box, .highcharts-button-symbol {
+            display: none !important;
+        }
+
+        .dt-button .btn {
+            font-size: 12px !important;
+        }
+
+        .ctContent table tr td {
+            padding: 10px;
+        }
+
+        .divDashBox {
+            margin-top: 5px;
+            height: 100px;
+            padding: 5px;
+            text-align: center;
+            background-color: #fbfbfb;
+            /*border: 1px solid #fff;*/
+            cursor: pointer;
+        }
+
+        .small-box {
+            color: #FFF !important;
+        }
+
+        .inner {
+            text-align: right;
+        }
+
+        .bg-orange {
+            background-color: #f39c12 !important;
+        }
+
+        .bg-blue {
+            background-color: #00c0ef !important;
+        }
+
+        .bg-green {
+            background-color: #00a65a !important;
+        }
+
+        .bg-red {
+            background-color: #dd4b39 !important;
+        }
+
+        .small-box:hover {
+            text-decoration: none;
+        }
+
+        .small-box .icon {
+            -webkit-transition: all .3s linear;
+            -o-transition: all .3s linear;
+            transition: all .3s linear;
+            position: absolute;
+            top: -10px;
+            /* right: 10px; */
+            z-index: 0;
+            font-size: 90px;
+            color: rgba(0,0,0,0.15);
+        }
+
+        .fa-file-invoice {
+            font-size: 20px;
+            color: forestgreen;
+            cursor: pointer;
+        }
+
+        .GenerateInvoice .fa-file-invoice {
+            color: orangered;
+        }
+
+        .spGuideView {
+            color: #0e3483;
+            font-size: 18px;
+            text-align: center;
+        }
+         .FileAttach img {
+            width:30px;
+            float:left
+        }
+    </style>
+}
+<input id="hf_GetDashboard" type="hidden" value='@Url.Action("GetDashboard", "Freelance")'>
+<input id="hf_GetInboxList" type="hidden" value='@Url.Action("GetInboxList", "Freelance")'>
+<input id="hf_GetReportDataList" type="hidden" value='@Url.Action("GetReportDataList", "Freelance")'>
+<input id="hf_GetInvoiceDataList" type="hidden" value='@Url.Action("GetInvoiceDataList", "Freelance")'>
+<input id="hf_DownloadFile" type="hidden" value='@Url.Action("DownloadFile", "Freelance")'>
+<input id="hf_FreelancerFileUploadWithZip" type="hidden" value='@Url.Action("FreelancerFileUploadWithZip", "Freelance")'>
+
+<input id="hf_FreeLancerUploadFolder" type="hidden" value='@Url.Action("FreeLancerUploadFolder", "Freelance")'>
+<input id="hf_FreeLancerDeleteTempFolder" type="hidden" value='@Url.Action("FreeLancerDeleteTempFolder", "Freelance")'>
+<input id="hf_FreeLancerDeleteTempFile" type="hidden" value='@Url.Action("FreeLancerDeleteTempFile", "Freelance")'>
+
+<input id="hf_UpdateInvoiceData" type="hidden" value='@Url.Action("UpdateInvoiceData", "Freelance")'>
+
+<input id="hf_UpdateOOF" type="hidden" value='@Url.Action("UpdateOOF", "Freelance")'>
+<input id="hf_ExcelFiles" type="hidden" value='@Url.Action("FreelancerInvExcel",  "Freelance" )'>
+
+<div class="page-content">
+    <div class="jumbotron content">
+        <ul class="nav nav-tabs" id="BkTabul">
+            <li class="active" id="divTabHome"><a data-toggle="tab" href="#TabHome">Home</a></li>
+            <li id="divTabInbox"><a data-toggle="tab" href="#TabInbox">Inbox</a></li>
+            <li id="divTabReport"><a data-toggle="tab" href="#TabReport">Report</a></li>
+            <li id="divTabInvoice"><a data-toggle="tab" href="#TabInvoice">Invoice</a></li>
+            <li id="divTabOOF"><a data-toggle="tab" href="#TabOOF">OOF</a></li>
+            <i class="fa fa-filter iFilter" id="IFitler" aria-hidden="true" title="Filter" style="display:none"></i>
+        </ul>
+        <div class="tab-content">
+            <div id="TabHome" class="tab-pane fade in active">
+                <div class="row">
+                    <div class="col-sm-3">
+
+                        <div class="divDashBox bg-orange">
+                            <div class="small-box" title="Today Due">
+                                <div class="inner">
+                                    <p class="prd" id="H_TodayDue">0</p>
+                                    <h3>Today Due</h3>
+                                </div>
+                                <div class="icon">
+                                    <i class="fa fa-file"></i>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="divDashBox bg-blue">
+                            <div class="small-box" title="File Pending">
+                                <div class="inner">
+                                    <p class="prd" id="H_Pending">0</p>
+                                    <h3>File Pending</h3>
+                                </div>
+                                <div class="icon">
+                                    <i class="fa fa-hand-point-down"></i>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="divDashBox bg-green">
+                            <div class="small-box" title="File Download">
+                                <div class="inner">
+                                    <p class="prd" id="H_Download">0</p>
+                                    <h3>File Download</h3>
+                                </div>
+                                <div class="icon">
+                                    <i class="fa fa-download"></i>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="divDashBox bg-red">
+                            <div class="small-box" title="Total Upload">
+                                <div class="inner">
+                                    <p class="prd" id="H_Upload">0</p>
+                                    <h3>Total Uploaded</h3>
+                                </div>
+                                <div class="icon">
+                                    <i class="fa fa-upload"></i>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+            </div>
+            <div id="TabInbox" class="tab-pane">
+                <table id="example" class="display" width="100%"></table>
+            </div>
+            <div id="TabReport" class="tab-pane">
+                <table id="example_report" class="display" width="100%"></table>
+            </div>
+            <div id="TabInvoice" class="tab-pane">
+                <table id="example_invoice" class="display" width="100%"></table>
+            </div>
+            <div id="TabOOF" class="tab-pane">
+                <div class="col-sm-12 divPadd">
+                    <br />
+                    <center>
+                        <table>
+                            <tr>
+                                <td width="20%">
+                                    <label>Available</label><em>*</em>
+                                    <select id="ddlAvailable">
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                    </select>
+                                </td>
+                                <td width="1%"></td>
+                                <td width="25%" class="tdNo">
+                                    <label>From</label><em>*</em>
+                                    <input type="text" class="form-control inputHandCursor" id="TxtFromDate" maxlength="50" readonly="readonly" />
+                                </td>
+                                <td width="1%"></td>
+                                <td width="25%" class="tdNo">
+                                    <label>To</label><em>*</em>
+                                    <input type="text" class="form-control inputHandCursor" id="TxtToDate" maxlength="50" readonly="readonly" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" class="tdNo">
+                                    <label>Remarks</label><em>*</em>
+                                    <textarea id="TxtRemarks" class="form-control" style="height:150px" maxlength="255"> </textarea>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <br />
+                        <div>
+                            <span class="btn btn-primary" title="Get" id="btnAvailableUpdate">Update</span>
+                        </div>
+                    </center>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="sideNavi_Filter">
+    <div class="side-navi-data">
+        <div class="side-navi-tab active" id="divQuickNav_filter">
+            <div class="divQuickList">
+                <i class="fas fa-times" id="isideClose_fitler"></i><span style="font-size:15px;">Filter</span>
+                <hr />
+                <div>
+                    <center class="ctContent">
+                        <table width="100%" cellpadding="5" cellspacing="10">
+                            <tr>
+                                <td width="20%"> Select</td>
+                                <td>
+                                    <select id="ddlTypeInbox" class="form-control">
+                                        <option value="All">All</option>
+                                        <option value="DueDate">Due Date</option>
+                                        <option value="UploadDate">Upload Date</option>
+                                    </select>
+                                    <select id="ddlTypeReport" class="form-control" style="display:none">
+                                        <option value="All">All</option>
+                                        <option value="ReceivedDate">Received Date</option>
+                                        <option value="DueDate">Due Date</option>
+                                        <option value="DownloadDate">Download Date</option>
+                                        <option value="UploadDate">Upload Date</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    From
+                                </td>
+                                <td>
+                                    <input id="TxtFromDt" type="text" readonly class="form-control inputHandCursor" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    To
+                                </td>
+                                <td>
+                                    <input id="TxtToDt" type="text" readonly class="form-control inputHandCursor" />
+                                </td>
+                            </tr>
+                        </table>
+                        <div>
+                            <span class="btn btn-primary" title="Get" id="btnBkGet">Get</span>
+                        </div>
+                    </center>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<div id="myModal_ViewUpLoad" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" title="close">&times;</button>
+                <h4 class="modal-title"><strong>File Upload</strong></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <center>
+                        <div class="upload">
+                            <input type="file" name="upload" id="FUpload" multiple />
+                        </div>
+                        <br />
+                        <div class="divFileList col-sm-12">
+                            <table class="tblTrans" id="tblFileList">
+                                <thead>
+                                    <tr>
+                                        <th>SNo</th>
+                                        <th>File Name</th>
+                                        <th>#</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </center>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="FileAttach" style="display:none">
+                    <img src="~/Images/loader-small.gif" />
+                </div>
+                <button type="button" class="btn btn-primary" title="Upload" id="btnUploadFile"><i class="fas fa-upload"></i>&nbsp;Upload</button>
+                <button type="button" class="btn btn-primary" title="Clear" id="btnFileClear">Clear</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="myModal_GuideLine" class="modal fade in" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content" id="modal_contentArt">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><strong><label id="lblTitle">Guide Line List</label></strong></h4>
+            </div>
+            <div class="modal-body">
+                <div id="divDownloadList" class="col">
+                    <table class="tblTrans" id="TblFileList">
+                        <thead>
+                            <tr>
+                                <th>S.No</th>
+                                <th>File Name</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

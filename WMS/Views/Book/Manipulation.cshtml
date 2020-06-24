@@ -1,0 +1,278 @@
+﻿@model WMS.Models.BookModels
+@{
+    ViewBag.Title = "Book Details";
+
+    @Styles.Render("~/css/WMS.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Manipulation.js?t=" + @DateTime.Now.Ticks.ToString())
+
+    <style>
+        .jqte_editor {
+            height: 125px;
+        }
+
+        .divSkipPA {
+            width: 20%;
+        }
+    </style>
+}
+
+<div class="page-content">
+    <div class="jumbotron content" style="overflow:auto">
+        @*<form id="FormBookInfo">*@
+        <input id="hf_BookInfoUpdate" type="hidden" value='@Url.Action("BookInfoUpdate", "Book")'>
+        <input id="hf_GetBookInfo" type="hidden" value='@Url.Action("GetBookData", "Book")'>
+        <input id="hf_GetHolidaysInfo" type="hidden" value='@Url.Action("GetHolidaysData", "Book")'>
+        <input id="hf_CheckExistingData" type="hidden" value='@Url.Action("CheckExistingData", "Book")'>
+        <input id="hf_GetOutSourceList" type="hidden" value='@Url.Action("GetOutsourceListByPublisher", "Book")'>
+
+
+
+        <div class="row col-sm-12" id="FormBookInfo">
+            <div class="spIconView">
+                <span class="iright" style="margin-right:0px;" id="spBookNo"></span>
+            </div>
+            <ul class="nav nav-tabs" id="ULTabul">
+                <li class="active"><a data-toggle="tab" href="#divPrimary">Primary</a></li>
+                <li><a data-toggle="tab" href="#divSecondary">Secondary</a></li>
+            </ul>
+            <br />
+            <div class="tab-content" style="overflow-y: auto;overflow-x:hidden;">
+                <div id="divPrimary" class="tab-pane fade in active">
+                    <div class="row">
+                        <div id="divContent" class="col-sm-12">
+                            <div class="form-group label-floating">
+                                <label class="control-label">Title</label><em>*</em>
+                                @Html.TextBoxFor(Model => Model.aBook.Title, new { @id = "txtTitle", @class = "form-control", @maxlength = 255 })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div id="divContent" class="col-sm-3">
+
+                            <div class="form-group label-floating">
+                                <label class="control-label">Publisher</label><em>*</em>
+                                @Html.DropDownListFor(m => m.PublisherList, new SelectList(Model.PublisherList, "Value", "Text"), new { @id = "ddlPublisherList", @class = "form-control" })
+                            </div>
+                            <div class="form-group label-floating">
+                                <label class="control-label">Catalog</label><em>*</em>
+                                @Html.TextBoxFor(Model => Model.aBook.Catalog, new { @id = "txtCatalog", @class = "form-control", @maxlength = 255 })
+                            </div>
+
+                            <div class="form-group label-floating">
+                                <label class="control-label">Platform</label><em>*</em>
+                                @*<select id="ddlPlatform" class="form-control">
+                                        <option value="">Select</option>
+                                        <option value="Advent 3B2">Advent 3B2</option>
+                                        <option value="Latex">Latex</option>
+                                        <option value="InDesign">InDesign</option>
+                                        <option value="Quark">Quark</option>
+                                        <option value="Others">Others</option>
+                                    </select>*@
+                                @Html.DropDownListFor(m => m.PlatformList, new SelectList(Model.PlatformList, "Value", "Text"), new { @id = "ddlPlatform", @class = "form-control" })
+                            </div>
+                            <div class="form-group label-floating">
+                                <label class="control-label">Received Date</label><em>*</em>
+                                <input id="txtReceivedDt" type="text" readonly class="form-control inputHandCursor" />
+                            </div>
+
+                            <div class="form-group label-floating">
+                                <label class="control-label">Due Date</label><em>*</em>
+                                <input id="txtDueDt" type="text" readonly class="form-control inputHandCursor" />
+
+                            </div>
+                            <div class="form-group label-floating">
+                                <label class="control-label">Edition</label><em>*</em>
+                                @Html.DropDownListFor(m => m.EditionList, new SelectList(Model.EditionList, "Value", "Text"), new { @id = "ddlEdition", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div id="divContent" class="col-sm-3">
+
+                            <div class="form-group label-floating">
+                                <label class="control-label">HB ISBN</label><em>*</em>
+                                @Html.TextBoxFor(Model => Model.aBook.ISBN, new { @id = "txtISBN", @class = "form-control", @maxlength = 13 })
+                            </div>
+                            <div class="form-group label-floating">
+                                <label class="control-label">PB ISBN</label>
+                                @Html.TextBoxFor(Model => Model.aBook.ISBN, new { @id = "txtPBISBN", @class = "form-control", @maxlength = 13 })
+                            </div>
+                            <div class="form-group label-floating">
+                                <label class="control-label">E-book ISBN</label>
+                                @Html.TextBoxFor(Model => Model.aBook.ISBN, new { @id = "txtEbookISBN", @class = "form-control", @maxlength = 13 })
+                            </div>
+                            <div class="form-group label-floating">
+                                <label class="control-label">Web ISBN</label>
+                                @Html.TextBoxFor(Model => Model.aBook.ISBN, new { @id = "txtWebISBN", @class = "form-control", @maxlength = 13 })
+                            </div>
+                            <div class="form-group label-floating">
+                                <label class="control-label">E-pub ISBN</label>
+                                @Html.TextBoxFor(Model => Model.aBook.ISBN, new { @id = "txtEpubISBN", @class = "form-control", @maxlength = 13 })
+                            </div>
+                            <div class="form-group label-floating">
+                                <label class="control-label"> Mobi ISBN</label>
+                                @Html.TextBoxFor(Model => Model.aBook.ISBN, new { @id = "txtMobiISBN", @class = "form-control", @maxlength = 13 })
+                            </div>
+                        </div>
+                        <div id="divContent" class="col-sm-3">
+                            <div class="form-group label-floating">
+                                <label class="control-label">PE Name</label><em>*</em>
+                                @Html.DropDownListFor(m => m.PEList, new SelectList(Model.PEList, "Value", "Text"), new { @id = "ddlPEList", @class = "form-control" })
+                            </div>
+
+                            <div class="form-group label-floating">
+                                <label class="control-label">PM Name</label><em>*</em>
+                                @Html.DropDownListFor(m => m.PMList, new SelectList(Model.PMList, "Value", "Text"), new { @id = "ddlPMList", @class = "form-control" })
+                            </div>
+
+                            <div class="form-group label-floating">
+                                <label class="control-label">TSPM Name</label><em>*</em>
+                                @Html.DropDownListFor(m => m.PMList, new SelectList(Model.PMList, "Value", "Text"), new { @id = "ddlTSPMList", @class = "form-control" })
+                            </div>
+                            <div class="form-group label-floating">
+                                <label class="control-label">Subject</label><em>*</em>
+                                @Html.DropDownListFor(m => m.Subject, new SelectList(Model.Subject, "Value", "Text"), new { @id = "ddlSubject", @class = "form-control" })
+                            </div>
+                            <div class="form-group label-floating">
+                                <label class="control-label">Process</label><em>*</em>
+                                @Html.DropDownListFor(m => m.ProcessList, new SelectList(Model.ProcessList, "Value", "Text"), new { @id = "ddlProcess", @class = "form-control" })
+                            </div>
+                            <div class="form-group label-floating">
+                                <label class="control-label">Type</label>
+                                <select id="ddlType" class="form-control">
+                                    <option value="">Select</option>
+                                    <option value="Mono">Monograph</option>
+                                    <option value="Contribute">Contributed</option>
+                                </select>
+
+                            </div>
+                        </div>
+                        <div id="divContent" class="col-sm-3">
+
+                            <div class="form-group label-floating">
+                                <label class="control-label">Workflow</label><em>*</em>
+                                @Html.DropDownListFor(m => m.CategoryList, new SelectList(Model.CategoryList, "Value", "Text"), new { @id = "ddlCategory", @class = "form-control" })
+                            </div>
+                            <div class="form-group label-floating">
+                                <label class="control-label">Origin</label>
+                                <select id="ddlOrigin" class="form-control">
+                                    <option value="">Select</option>
+                                    <option value="UK">UK</option>
+                                    <option value="US">US</option>
+                                    <option value="NA">NA</option>
+                                </select>
+
+                            </div>
+                            <div class="form-group" style="text-align:center;">
+                                <img src="~/Images/Covers/sp5.jpg" alt="" style="height:150px;width:120px;margin-top:30px;border-radius:10px;" id="imgcover" /> <br /><br />
+                                <input type="file" name="file" id="imageUploadForm" style="width: 100%;" class="btn" onChange="showPreview(this);" />
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <span id="sp1" class="sp1" onclick="changeCover(this);"></span>
+                                        </td>
+                                        <td>
+                                            <span id="sp2" class="sp2" onclick="changeCover(this);"></span>
+                                        </td>
+                                        <td>
+                                            <span id="sp3" class="sp3" onclick="changeCover(this);"></span>
+                                        </td>
+                                        <td>
+                                            <span id="sp4" class="sp4" onclick="changeCover(this);"></span>
+                                        </td>
+                                        <td>
+                                            <span id="sp5" class="sp5" onclick="changeCover(this);"></span>
+                                        </td>
+                                        <td>
+                                            <span id="sp6" class="sp6" onclick="changeCover(this);"></span>
+                                        </td>
+                                        <td>
+                                            <span id="sp7" class="sp7" onclick="changeCover(this);"></span>
+                                        </td>
+                                        <td>
+                                            <span id="sp8" class="sp8" onclick="changeCover(this);"></span>
+                                        </td>
+                                        <td>
+                                            <span id="sp9" class="sp9" onclick="changeCover(this);"></span>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div id="divSecondary" class="tab-pane fade">
+                    <div class="row">
+                        <div id="divContent" class="col-sm-6">
+                            <div class="form-group label-floating">
+                                <label class="control-label">Author Name</label>
+                                @Html.TextBoxFor(Model => Model.aBook.AuthorName, new { @id = "txtAuthorName", @class = "form-control", @maxlength = 255 })
+                            </div>
+
+                            <div class="form-group label-floating">
+                                <label class="control-label">Editor Name</label>
+                                @Html.TextBoxFor(Model => Model.aBook.EditorName, new { @id = "txtEditorName", @class = "form-control", @maxlength = 255 })
+                            </div>
+                        </div>
+                        <div id="divContent" class="col-sm-6">
+
+                            <div class="form-group label-floating">
+                                <label class="control-label">Author Email</label>
+                                @Html.TextBoxFor(Model => Model.aBook.AuthorEmail, new { @id = "txtAuthorEmail", @class = "form-control", @maxlength = 255 })
+                            </div>
+                            <div class="form-group label-floating">
+                                <label class="control-label">Editor Email</label>
+                                @Html.TextBoxFor(Model => Model.aBook.EditorEmail, new { @id = "txtEditorEmail", @class = "form-control", @maxlength = 255 })
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div id="divContent" class="col-sm-6">
+                            <div class="form-group label-floating">
+                                <label class="control-label">Series Editor</label>
+                                @Html.TextBoxFor(Model => Model.aBook.SeriesEditorName, new { @id = "txtSeriesEditorName", @class = "form-control", @maxlength = 255 })
+                            </div>
+                            <div class="form-group label-floating">
+                                <label class="control-label">Series Title</label>
+                                @Html.TextBoxFor(Model => Model.aBook.SeriesTitle, new { @id = "txtSeriesTitle", @class = "form-control", @maxlength = 255 })
+                            </div>
+                            <div class="form-group label-floating">
+                                <label class="control-label">Sub Title</label>
+                                @Html.TextBoxFor(Model => Model.aBook.SubTitle, new { @id = "txtSubTitle", @class = "form-control", @maxlength = 255 })
+                            </div>
+                            <div class="form-group label-floating">
+                                <label class="control-label">Freelances required</label>
+                                @Html.ListBoxFor(m => m.OutsourceList, new SelectList(Model.OutsourceList, "Value", "Text"), new { Multiple = "multiple", id = "lstOutsource", @class = "form-control" })
+                            </div>
+                            <div class="form-group label-floating">
+                                <div class="divSkipPA">
+                                    <label class="control-label">Skip Project Analysis</label>
+                                    <select id="ddlSkipPA" class="form-control">
+                                        <option value="0">No</option>
+                                        <option value="1">Yes</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group label-floating">
+                                <label class="control-label">Notes</label>
+                                <textarea class="form-control rounded-0" id="TxtGeneralNote" rows="5"></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="col-sm-12">
+            <div class="divTabAction">
+                <span class="btn btn-primary btn-md" id="btnUpdate">Add / Update</span>
+                <span class="btn btn-primary btn-md" id="btnCancel">Cancel</span>
+            </div>
+        </div>
+
+    </div>
+</div>

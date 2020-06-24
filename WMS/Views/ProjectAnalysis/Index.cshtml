@@ -1,0 +1,1626 @@
+﻿@model WMS.Models.BookModels
+@{
+    ViewBag.Title = "Project Analysis";
+
+
+    @Styles.Render("~/CustomScripts/css/jquery.dataTables.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/CustomScripts/resources/syntax/shCore.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/js/jquery.dataTables.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/js/dataTables.fixedColumns.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/dataTables.buttons.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/jszip.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/pdfmake.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/vfs_fonts.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/buttons.html5.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/css/report.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/css/WMS.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/projectAnalysis.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/css/ProjectAnalysis.css?t=" + @DateTime.Now.Ticks.ToString())
+
+    <style>
+        /*.content {
+            background: url(../Images/wood.jpg) !important;
+        }*/
+
+        .btn-label {
+            position: relative;
+            left: -12px;
+            display: inline-block;
+            padding: 6px 12px;
+            background: rgba(0,0,0,0.15);
+            border-radius: 3px 0 0 3px;
+        }
+
+        .btn-labeled {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        /*.btn {
+            margin-bottom: 10px;
+        }*/
+
+        #divBkList {
+            margin: 0px 5% 0 7%;
+        }
+
+        #myModal_attachFiles .modal-body {
+            height: 250px;
+        }
+
+        #TabPASummary {
+            white-space: nowrap !important;
+            font-family: Arial !important;
+        }
+
+            #TabPASummary * {
+                text-align: left !important;
+            }
+
+        .divLeft {
+            left: -20px;
+            position: relative;
+        }
+
+        .spDownload {
+            font-size: 20px;
+        }
+    </style>
+
+    <style type="text/css">
+        /*.content {
+            background: url(../Images/wood.jpg);
+        }*/
+
+        th, td {
+            text-align: left !important;
+        }
+
+        .fa-pen, .fa-list, .fa-info-circle {
+            font-size: 18px;
+            color: #1d2c99;
+            margin-right: 20px;
+            float: right;
+            margin-bottom: 10px;
+        }
+
+        .fa-thumbs-down, .fa-thumbs-up, .fa-undo-alt {
+            font-size: 30px;
+            color: #1d2c99;
+            margin-left: 20px;
+            float: left;
+            /*margin-bottom: 10px;*/
+        }
+
+        .divFilter {
+            margin-right: 20px;
+            float: right;
+            position: relative !important;
+            /*top: -45px !important;*/
+            top: 10px !important;
+            font-weight: bold;
+        }
+
+        #myModal_View .modal-body {
+            font-size: 12px !important;
+            padding-top: 0px;
+        }
+
+        #myModal_View .modal-dialog {
+            width: 1100px;
+        }
+
+        #bookshelf {
+            position: relative;
+            box-sizing: border-box;
+            vertical-align: bottom;
+            padding-bottom: 10px;
+            display: table;
+            /*margin-left: -18px;*/
+        }
+
+            #bookshelf .divDisp {
+                display: inline-block;
+                width: 159px;
+                height: 160px;
+                /*-moz-box-shadow: 10px 0px 5px 5px #00000078;
+                -webkit-box-shadow: 10px 0px 5px 5px #00000078;
+                -o-box-shadow: 10px 0px 5px 5px #00000078;
+                box-shadow: 10px 0px 5px 5px #00000078;
+                box-shadow: 10px -1px 0px 2px #00000078;
+                border-radius: 5px 0px 0px 0px;*/
+                border-radius: 5px;
+                color: #FFF;
+                padding-top: 10px;
+            }
+
+            #bookshelf a {
+                position: relative;
+                display: inline-block;
+                margin-top: 10px;
+                margin-right: -0.25em;
+                padding: 0 15px;
+                text-decoration: none;
+                padding-right: 10px;
+            }
+
+                #bookshelf a:after {
+                    content: "";
+                    position: absolute;
+                    bottom: -6px;
+                    left: 0;
+                    right: 0;
+                    height: 10px;
+                    background: transparent url(../Images/shelf.png) no-repeat center center;
+                }
+
+        .spBookAction .dropdown-menu {
+            /*top: 10px !important;*/
+            min-width: 100%;
+            min-height: 20px;
+            left: -42px;
+            padding-left: 14px;
+            border-radius: 0px;
+            top: 10px;
+        }
+
+        div#bookshelf * {
+            font-weight: bold;
+            letter-spacing: .5px;
+        }
+
+        .divBkInfo {
+            background-color: rgba(24, 85, 105, 0.8) !important;
+        }
+
+        .spBookAction {
+            float: right;
+            right: -12px;
+            position: relative;
+            /*top: -10px;*/
+            top: -25px;
+        }
+
+        .spBilledAction {
+            float: right;
+            right: -23px;
+            position: relative;
+            /*top: -10px;*/
+            top: -10px;
+        }
+
+        .image {
+            cursor: pointer;
+            padding-left: 15px;
+        }
+
+        .divBkAction i {
+            font-size: 15px;
+        }
+
+        .spLabel {
+            top: -5px;
+            position: relative;
+        }
+
+        #note {
+            display: block;
+            height: 50px !important;
+            overflow: auto !important;
+        }
+
+        #spGenNotes {
+            float: right;
+        }
+
+        .spBookLabel {
+            width: 50px;
+        }
+
+        .nav-tabs li a, #tblChapter_wrapper {
+            font-size: 12px !important;
+        }
+
+        .dataTable tbody tr td div {
+            float: left !important;
+            left: 32px !important;
+            position: relative !important;
+        }
+
+        .fa-trash {
+            margin: 0px !important;
+        }
+    </style>
+
+    <script>
+        function openPopup(evt, TabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace("active", "");
+            }
+            document.getElementById(TabName).style.display = "block";
+            evt.currentTarget.className += " active";
+
+            if ($('#hf_UserType').val() == "Manager")
+                $('#divaction').show();
+            else
+                $('#divaction').hide();
+
+            return false;
+        }
+
+
+        /**/</script>
+}
+
+<input id="hf_BookData" type="hidden" value='@Url.Action("BookData", "ProjectAnalysis")'>
+<input id="hf_PopulateBookInfo" type="hidden" value='@Url.Action("PopulateBookInfo", "ProjectAnalysis")'>
+<input id="hf_PopulateSections" type="hidden" value='@Url.Action("PopulateSections", "ProjectAnalysis")'>
+<input id="hf_UpdateSections" type="hidden" value='@Url.Action("UpdateSections", "ProjectAnalysis")'>
+<input id="hf_FileuploadM" type="hidden" value='@Url.Action("FileuploadM", "ProjectAnalysis")'>
+<input id="hf_DeleteFile" type="hidden" value='@Url.Action("DeleteFile", "ProjectAnalysis")'>
+<input id="hf_SectionApprove" type="hidden" value='@Url.Action("SectionApprove", "ProjectAnalysis")'>
+<input id="hf_AddColumnComment" type="hidden" value='@Url.Action("AddColumnComment", "ProjectAnalysis")'>
+<input id="hf_UpdateSections_PM" type="hidden" value='@Url.Action("UpdateSections_PM", "ProjectAnalysis")'>
+<input id="hf_UpdateSections_XML" type="hidden" value='@Url.Action("UpdateSections_XML", "ProjectAnalysis")'>
+<input id="hf_UpdateSections_PG" type="hidden" value='@Url.Action("UpdateSections_PG", "ProjectAnalysis")'>
+<input id="hf_UpdateSections_Artwork" type="hidden" value='@Url.Action("UpdateSections_Artwork", "ProjectAnalysis")'>
+<input id="hf_UpdateSections_QC" type="hidden" value='@Url.Action("UpdateSections_QC", "ProjectAnalysis")'>
+
+<input id="hf_BookID" type="hidden">
+<input id="hf_UploadType" type="hidden">
+<input id="hf_LoginID" type="hidden">
+
+<div class="page-content">
+    <div class="jumbotron content">
+        <div class="spIconView">
+            <i class="fa fa-th iright" aria-hidden="true" title="List View" id="iList" onclick="ShowBookMaster('DivListView','iList')"></i>
+            <i class="fa fa-book iright" aria-hidden="true" title="Book View" id="iBook" style="color:#2196f3;cursor:not-allowed" onclick="ShowBookMaster('DivBookView','iBook')"></i>
+            <i class="fa fa-filter iFilter" id="IFitler" aria-hidden="true" title="Filter"></i>
+        </div>
+        <ul class="nav nav-tabs" id="BkTabul">
+            <li class="active" id="divBkWIP"><a data-toggle="tab" href="#BkWIP">New</a></li>
+            <li><a data-toggle="tab" id="divBkKickOff" href="#BkKickOff">Kick-off</a></li>
+            <li><a data-toggle="tab" id="divBkAll" href="#BkAll">WIP</a></li>
+        </ul>
+        <div class="main">
+
+            <div id="DivContentList" style="overflow:auto;overflow-x:hidden;">
+                @*<div id="bookdetail"></div>*@
+                <div class="BookView" id="DivBookView">
+                    <div class="tab-content">
+                        <div id="BkWIP" class="tab-pane fade in active">
+                            <div class="row">
+                            </div>
+
+                        </div>
+                        <div id="BkKickOff" class="tab-pane fade">
+                            <div class="row">
+                            </div>
+
+                        </div>
+                        <div id="BkAll" class="tab-pane fade">
+                            <div class="row">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div id="bookshelf">
+
+                    </div>
+                    @*<div id="bookdetail">
+
+                        </div>*@
+                </div>
+                <div id="DivListView" class="BookView" style="display:none">
+                    <div class="tab-content">
+                        <div id="WIP" class="tab-pane fade in active">
+
+                        </div>
+                        <div id="KickOff" class="tab-pane fade">
+
+                        </div>
+                        <div id="All" class="tab-pane fade">
+
+                        </div>
+                    </div>
+                    <table id="example" class="display" width="100%"></table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="sideNavi_Filter">
+    <div class="side-navi-data">
+        <div class="side-navi-tab active" id="divQuickNav_filter">
+            <div class="divQuickList">
+                <i class="fas fa-times" id="isideClose_fitler"></i><span style="font-size:15px;">Filter</span>
+                <hr />
+                <div>
+                    <center class="ctContent">
+                        <div class="col-3">
+                            <select id="ddlWIPSearch" class="form-control">
+                                <option value="All">Clear</option>
+                                <option value="Number">Number</option>
+                                <option value="ISBN">ISBN</option>
+                                <option value="Catalog">Catalog</option>
+                                <option value="Publisher">Publisher</option>
+                            </select>
+                        </div>
+
+                        <div id="divFilter">
+                            <span id="divNumberFilter" style="display:none">
+                                <select id="lstNumberList" multiple></select>
+                                @*@Html.ListBoxFor(m => m.NumberList, new SelectList(Model.NumberList, "Value", "Text"), new { Multiple = "multiple", id = "lstNumberList", @class = "form-control" })*@
+                            </span>
+                            <span id="divCatalogFilter" style="display:none">
+                                <select id="lstCatalogList" multiple></select>
+                                @*@Html.ListBoxFor(m => m.CatalogList, new SelectList(Model.CatalogList, "Value", "Text"), new { Multiple = "multiple", id = "lstCatalogList", @class = "form-control" })*@
+                            </span>
+                            <span id="divISBNFilter" style="display:none">
+                                <select id="lstISBNList" multiple></select>
+                                @*@Html.ListBoxFor(m => m.ISBNList, new SelectList(Model.ISBNList, "Value", "Text"), new { Multiple = "multiple", id = "lstISBNList", @class = "form-control" })*@
+                            </span>
+                            <span id="divPublisherFilter" style="display:none">
+                                <select id="lstPublisherList" multiple></select>
+                                @*@Html.ListBoxFor(m => m.PublisherList, new SelectList(Model.PublisherList, "Value", "Text"), new { Multiple = "multiple", id = "lstPublisherList", @class = "form-control" })*@
+                            </span>
+                        </div>
+                        <br />
+                        <div>
+                            <span class="btn btn-primary" title="Get" id="btnBkGet">Get</span>
+                        </div>
+                    </center>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<div id="myModal_View" class="modal fade myModalView" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" id="btnclose">&times;</button>
+                <h4 class="modal-title"><strong>Project Analysis</strong></h4>
+                <hr />
+                <div class="tab">
+                    <button id="btnTabBook" class="tablinks" data-id="BookInfo" onclick="openPopup(event, 'tblBkinfo')">Book Information</button>
+                    <button id="btnTabPM" class="tablinks" data-id="PM" onclick="openPopup(event, 'TabPM')">Project Manager</button>
+                    <button id="btnTabXML" class="tablinks" data-id="XML" onclick="openPopup(event, 'TabXML')">XML</button>
+                    <button id="btnTabPG" class="tablinks" data-id="PG" onclick="openPopup(event, 'TabPG')">Pagination</button>
+                    <button id="btnTabQC" class="tablinks" data-id="QC" onclick="openPopup(event, 'TabQC')">Quality Check</button>
+                    <button id="btnTabArtwork" class="tablinks" data-id="Artwork" onclick="openPopup(event, 'TabArtwork')">Artwork</button>
+                    <button id="btnTabPASummary" class="tablinks" data-id="PASummary" onclick="openPopup(event, 'TabPASummary')" style="display:none">Summary</button>
+                </div>
+            </div>
+
+            <br />
+
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="row divLeft">
+                        <div class="col-sm-3" style="top: 8px;">
+
+                            <table class="tblBkinfo tblMain" width="100%" style="display:none">
+                                <tr>
+                                    <td>Publisher</td>
+                                    <td><span id="lblpublisher"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>Title</td>
+                                    <td><span id="lbltitle"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>Book Catalog</td>
+                                    <td><span id="lblcatalog"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>Book No.</td>
+                                    <td><span id="lblno"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>PE</td>
+                                    <td><span id="lblPE"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>PM</td>
+                                    <td><span id="lblPM"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>Platform</td>
+                                    <td><span id="lblPlatform"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>WorkFlow</td>
+                                    <td><span id="lblworkflow"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>General Comments</td>
+                                    <td> <span name="field6" id="lblGencomment" style="width:100%;color: orangered;"></span></td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="col-sm-9">
+                            <form id="FormPA" class="row" autocomplete="off">
+                                <div id="tblBkinfo" class="tabcontent" style="display: block;">
+                                    <div style="display:none;text-align: center;" class="col-sm-12" id="DivApproved">
+                                        <h2 style="color:#3b83afe0;font-size: 3rem;" id="lblApprovedBy"> Approved By</h2>
+                                        <hr />
+                                        @Html.ActionLink("Click here for more detail", "GetPAFile", "ProjectAnalysis", new { id = "123" }, new { id = "aLinkPA", target = "_blank" })
+                                    </div>
+                                    <div class="col-sm-12" id="divaction" style="text-align: center;display:none">
+                                        <div>
+                                            <h2 style="color:#3b83afe0;font-size: 3rem;white-space:nowrap"> Kindly Review Project Analysis and Approve for this Book </h2>
+                                        </div>
+                                        <hr />
+                                        <button type="button" id="btnapprove" class="btn btn-labeled btn-success">
+                                            <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Approve
+                                        </button>
+                                        <button type="button" id="btnsendback" class="btn btn-labeled btn-warning">
+                                            <span class="btn-label"><i class="glyphicon glyphicon-repeat"></i></span>Send Back
+                                        </button>
+                                        <br />
+                                    </div>
+                                </div>
+
+                                <div id="TabPM" class="tabcontent" data-id="PM">
+                                    <div class="form-style-3">
+                                        <fieldset>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <span for="field1">
+                                                        <span class="spLabel" data-id="spMSS">
+                                                            MSS
+                                                            <span id="spMSS">
+                                                                <i class="fa fa-comment" data-id="MSS"></i>
+                                                            </span>
+                                                        </span>
+                                                        <input type="text" class="form-control IsNumeric" maxlength="8" name="field1" id="txtmss" value="" style="width:100%" />
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span for="field1">
+                                                        <span>
+                                                            Estimate
+                                                            <span id="spestimate">
+                                                                <i class="fa fa-comment" data-id="Estimate"></i>
+                                                            </span>
+                                                        </span>
+                                                        <input type="text" class="form-control IsNumeric" maxlength="8" name="field1" value="" id="txtestimate" style="width:100%" />
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span for="field1">
+                                                        <span>
+                                                            Castoff
+                                                            <span id="spcastoff">
+                                                                <i class="fa fa-comment" data-id="Castoff"></i>
+                                                            </span>
+                                                        </span>
+                                                        <input type="text" class="form-control IsNumeric" maxlength="8" name="field1" value="" id="txtcastoff" style="width:100%" />
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span for="field2">
+                                                        <span class="spLabel" data-id="spCEComplexity">
+                                                            CE Complexity
+                                                            <span id="spCEComplexity">
+                                                                <i class="fa fa-comment" data-id="CE Complexity"></i>
+                                                            </span>
+                                                        </span>
+                                                        <select id="ddlcecomplexicity" class="form-control">
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <span for="field2">
+                                                        <span>
+                                                            Book Complexity
+                                                            <span id="spbookcomp">
+                                                                <i class="fa fa-comment" data-id="Book Complexity"></i>
+                                                            </span>
+                                                        </span>
+                                                        <select id="ddlbookcomp" class="form-control">
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span for="field2">
+                                                        <span>
+                                                            Book Type
+                                                            <span id="spbooktype">
+                                                                <i class="fa fa-comment" data-id="Book Type"></i>
+                                                            </span>
+                                                        </span>
+                                                        <select id="ddlbooktype" class="form-control">
+                                                            <option value="Medical">Medical</option>
+                                                            <option value="Non-Medical">Non-Medical</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span for="field3">
+                                                        <span>
+                                                            Dual Edition
+                                                            <span id="spdualedition">
+                                                                <i class="fa fa-comment" data-id=" Dual Edition"></i>
+                                                            </span>
+                                                        </span>
+                                                        <select id="ddldualedition" class="form-control">
+                                                            <option value="Yes">Yes</option>
+                                                            <option value="No">No</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span for="field3">
+                                                        <span>
+                                                            Previous Edition
+                                                            <span id="sppreviousedition">
+                                                                <i class="fa fa-comment" data-id="Previous Edition"></i>
+                                                            </span>
+                                                        </span>
+                                                        <select id="ddlpreviousedition" class="form-control">
+                                                            <option value="Yes">Yes</option>
+                                                            <option value="No">No</option>
+
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <span for="field2">
+                                                        <span>
+                                                            OSPM
+                                                            <span id="spospm">
+                                                                <i class="fa fa-comment" data-id="OSPM"></i>
+                                                            </span>
+                                                        </span>
+                                                        <select id="ddlospm" class="form-control">
+                                                            <option value="Yes">Yes</option>
+                                                            <option value="No">No</option>
+
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span for="field1">
+                                                        <span>
+                                                            ISBNS
+                                                            <span id="spisbn">
+                                                                <i class="fa fa-comment" data-id="ISBNS"></i>
+                                                            </span>
+                                                        </span>
+                                                        <select id="ddlisbn" class="form-control">
+                                                            <option value="Available">Available</option>
+                                                            <option value="To Come">To Come</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span for="field1">
+                                                        <span>
+                                                            English
+                                                            <span id="spenglish">
+                                                                <i class="fa fa-comment" data-id="English"></i>
+                                                            </span>
+                                                        </span>
+                                                        <select id="ddlenglish" class="form-control">
+                                                            <option value="US">US</option>
+                                                            <option value="UK">UK</option>
+                                                            <option value="Chap Consis">Chap Consis</option>
+                                                        </select>
+
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span for="field3">
+                                                        <span>
+                                                            Catagory
+                                                            <span id="spcatagory">
+                                                                <i class="fa fa-comment" data-id="Catagory"></i>
+                                                            </span>
+                                                        </span>
+                                                        <select id="ddlcatagory" class="form-control">
+                                                            <option value="Mono">Mono</option>
+                                                            <option value="Contribute">Contribute</option>
+                                                        </select>
+
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <span for="field2">
+                                                        <span>
+                                                            Index
+                                                            <span id="spindex_PM">
+                                                                <i class="fa fa-comment" data-id="Index_PM"></i>
+                                                            </span>
+                                                        </span>
+                                                        <select id="ddlindex" class="form-control">
+                                                            <option value="Author">Author</option>
+                                                            <option value="Vendor">Vendor</option>
+                                                            <option value="Page Number Filling">Page Number Filling</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <span for="field6" style="margin-top: 0px;display: block;">
+                                                        <span>
+                                                            Remarks
+                                                            <span id="spremarkPM">
+                                                                <i class="fa fa-comment" data-id="Remarks_PM"></i>
+                                                            </span>
+                                                        </span>
+                                                        <textarea name="field6" class="textarea-field" id="txtremarkPM" style="width: 100%;"></textarea>
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <span for="field6" style="display: block;">
+                                                        <span>
+                                                            Queries
+                                                            <span id="spqueryPM">
+                                                                <i class="fa fa-comment" data-id="Queries_PM"></i>
+                                                            </span>
+                                                        </span>
+                                                        <textarea name="field6" class="textarea-field" id="txtqueryPM" style="width: 100%;"></textarea>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12" style="text-align: center;">
+                                                    <input type="button" value="Save" id="btnUpdate_PM" class="btn btn-primary" />
+                                                    <input type="button" value="Submit" id="btnApprove_PM" class="btn btn-primary" />
+                                                    <input type="button" value="Attachments" class="BtnAttach btn btn-primary" id="BtnPM" data-id="PM" />
+                                                    <span id="spPMDownload" class="spDownload"></span>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </div>
+
+                                <div id="TabXML" class="tabcontent" data-id="XML">
+                                    <div class="form-style-3">
+                                        <fieldset>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <span for="field1">
+                                                        <span>
+                                                            Input Type
+                                                            <span id="spInputType">
+                                                                <i class="fa fa-comment" data-id="Input Type"></i>
+                                                            </span>
+                                                        </span>
+                                                        <select id="ddlinputtype" class="form-control">
+                                                            <option value="Word">Word</option>
+                                                            <option value="Tex">Tex</option>
+                                                            <option value="Mixed">Mixed</option>
+                                                            <option value="Keying">Keying</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span for="field1">
+                                                        <span>
+                                                            ORCID
+                                                            <span id="spORCID">
+                                                                <i class="fa fa-comment" data-id="ORCID"></i>
+                                                            </span>
+                                                        </span>
+                                                        <select id="ddlorcid" class="form-control">
+                                                            <option value="Yes">Yes</option>
+                                                            <option value="No">No</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span for="field1">
+                                                        <span>
+                                                            Metasheet
+                                                            <span id="spMetasheet">
+                                                                <i class="fa fa-comment" data-id="Metasheet"></i>
+                                                            </span>
+                                                        </span>
+                                                        <select id="ddlmetasheet" class="form-control">
+                                                            <option value="Yes">Yes</option>
+                                                            <option value="No">No</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span for="field2">
+                                                        <span>
+                                                            Abstract
+                                                            <span id="spAbstract">
+                                                                <i class="fa fa-comment" data-id="Abstract"></i>
+                                                            </span>
+                                                        </span>
+                                                        <select id="ddlabstract" class="form-control">
+                                                            <option value="Yes">Yes</option>
+                                                            <option value="No">No</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <span for="field2">
+                                                        <span>
+                                                            Reference Format
+                                                            <span id="spReferenceFormat">
+                                                                <i class="fa fa-comment" data-id="Reference Format"></i>
+                                                            </span>
+                                                        </span>
+                                                        <select id="ddlrefformat" class="form-control">
+                                                            <option value="Numbered">Numbered</option>
+                                                            <option value="Unnumbered">Unnumbered</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span for="field2">
+                                                        <span>
+                                                            Section Format
+                                                            <span id="spSectionFormat">
+                                                                <i class="fa fa-comment" data-id="Section Format"></i>
+                                                            </span>
+                                                        </span>
+                                                        <select id="ddlsection" class="form-control">
+                                                            <option value="Numbered">Numbered</option>
+                                                            <option value="Unnumbered">Unnumbered</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span for="field3">
+                                                        <span>
+                                                            Reference Type
+                                                            <span id="spReferenceType">
+                                                                <i class="fa fa-comment" data-id="Reference Type"></i>
+                                                            </span>
+                                                        </span>
+                                                        <select id="ddlreftype" class="form-control">
+                                                            <option value="Chapter End">Chapter End</option>
+                                                            <option value="Book End">Book End</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span for="field3">
+                                                        <span>
+                                                            Final Deliverable
+                                                            <span id="spFinalDeliverable">
+                                                                <i class="fa fa-comment" data-id="Final Deliverable"></i>
+                                                            </span>
+                                                        </span>
+                                                        <select id="ddlfinaldel" class="form-control">
+                                                            <option value="Yes">Yes</option>
+                                                            <option value="No">No</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <span for="field1">
+                                                        <span>
+                                                            Special Keying
+                                                            <span id="spSpecialKeying">
+                                                                <i class="fa fa-comment" data-id="Special Keying"></i>
+                                                            </span>
+                                                        </span>
+                                                        <select id="ddlspkeying" class="form-control">
+                                                            <option value="Equation">Equation</option>
+                                                            <option value="Table">Table</option>
+                                                            <option value="PDF">PDF</option>
+                                                            <option value="NA">NA</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span for="field2">
+                                                        <span>
+                                                            Book Abstract
+                                                            <span id="spbookAbstract">
+                                                                <i class="fa fa-comment" data-id="BookAbstract"></i>
+                                                            </span>
+                                                        </span>
+                                                        <select id="ddlbookabstract" class="form-control">
+                                                            <option value="Yes">Yes</option>
+                                                            <option value="No">No</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span for="field2">
+                                                        <span>
+                                                            DOI
+                                                            <span id="spdoi">
+                                                                <i class="fa fa-comment" data-id="DOI"></i>
+                                                            </span>
+                                                        </span>
+                                                        <select id="ddldoi" class="form-control">
+                                                            <option value="Yes">Yes</option>
+                                                            <option value="No">No</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span for="field2">
+                                                        <span>
+                                                            PAP Deliverable
+                                                            <span id="spPAPDeliverable">
+                                                                <i class="fa fa-comment" data-id="PAP Deliverable"></i>
+                                                            </span>
+                                                        </span>
+                                                        <select id="ddlpap" class="form-control">
+                                                            <option value="Yes">Yes</option>
+                                                            <option value="No">No</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <span for="field1">
+                                                        <span>
+                                                            Table Count
+                                                            <span id="spTableCount_XML">
+                                                                <i class="fa fa-comment" data-id="Table Count_XML"></i>
+                                                            </span>
+                                                        </span><input type="text" id="txttblcount" maxlength="8" style="width:100%" class="form-control IsNumeric" name="field1" value="" />
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span for="field1">
+                                                        <span>
+                                                            Equations Count
+                                                            <span id="spEquationsCount">
+                                                                <i class="fa fa-comment" data-id="Equations Count"></i>
+                                                            </span>
+                                                        </span><input type="text" id="txtequations" maxlength="8" style="width:100%" class="form-control IsNumeric" name="field1" value="" />
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <span for="field6" style="margin-top: 0px;display: block;">
+                                                        <span>
+                                                            Remarks
+                                                            <span id="spRemarks_XML">
+                                                                <i class="fa fa-comment" data-id="Remarks_XML"></i>
+                                                            </span>
+                                                        </span><textarea name="field6" style="width: 100%;" id="txtremarkxml" class="textarea-field"></textarea>
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <span for="field6" style="display: block;">
+                                                        <span>
+                                                            Queries
+                                                            <span id="spQueries_XML">
+                                                                <i class="fa fa-comment" data-id="Queries_XML"></i>
+                                                            </span>
+                                                        </span><textarea name="field6" style="width:100%;" id="txtqueryxml" class="textarea-field"></textarea>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12" style="text-align:center">
+                                                    <input type="button" value="Save" id="btnUpdate_XML" class="btn btn-primary" />
+                                                    <input type="button" value="Submit" id="btnApprove_XML" class="btn btn-primary" />
+                                                    <input type="button" value="Attachments" class="BtnAttach btn btn-primary" id="BtnXML" data-id="XML" />
+                                                    <span id="spXMLDownload" class="spDownload"></span>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </div>
+
+                                <div id="TabPG" class="tabcontent" data-id="PG">
+                                    <div class="form-style-3">
+                                        <fieldset>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <span for="field1">
+                                                        <span>
+                                                            Design
+                                                            <span id="spDesign">
+                                                                <i class="fa fa-comment" data-id="Design"></i>
+                                                            </span>
+                                                        </span><input type="text" id="txtdesign" maxlength="25" class="form-control" name="field1" value="" />
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span for="field1">
+                                                        <span>
+                                                            Trim
+                                                            <span id="spTrim">
+                                                                <i class="fa fa-comment" data-id="Trim"></i>
+                                                            </span>
+                                                        </span><input type="text" id="txttrim" class="form-control" maxlength="25" name="field1" value="" />
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span for="field1">
+                                                        <span>
+                                                            Template
+                                                            <span id="spTemplate">
+                                                                <i class="fa fa-comment" data-id="Template"></i>
+                                                            </span>
+                                                        </span><input type="text" id="txttemplate" class="form-control" maxlength="25" name="field1" value="" />
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span for="field2">
+                                                        <span>
+                                                            Font Available
+                                                            <span id="spFontAvailable">
+                                                                <i class="fa fa-comment" data-id="Font Available"></i>
+                                                            </span>
+                                                        </span>
+                                                        <select id="ddlfont" class="form-control">
+                                                            <option value="Yes">Yes</option>
+                                                            <option value="No">No</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <span for="field2">
+                                                        <span>
+                                                            Figure Slides
+                                                            <span id="spFigureSlides">
+                                                                <i class="fa fa-comment" data-id="Figure Slides"></i>
+                                                            </span>
+                                                        </span>
+                                                        <select id="ddlfigureslide" class="form-control">
+                                                            <option value="Yes">Yes</option>
+                                                            <option value="No">No</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span for="field1">
+                                                        <span>
+                                                            Print
+                                                            <span id="spPrint">
+                                                                <i class="fa fa-comment" data-id="Print"></i>
+                                                            </span>
+                                                        </span>
+                                                        <select id="ddlprint" class="form-control">
+                                                            <option value="Mono">Mono</option>
+                                                            <option value="Color">Color</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span for="field3">
+                                                        <span>
+                                                            EBook  <span id="spEBook">
+                                                                <i class="fa fa-comment" data-id="EBook"></i>
+                                                            </span>
+                                                        </span>
+                                                        <select id="ddlebook" class="form-control">
+                                                            <option value="Mono">Mono</option>
+                                                            <option value="Color">Color</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span for="field3">
+                                                        <span>
+                                                            Color
+                                                            <span id="spColor">
+                                                                <i class="fa fa-comment" data-id="Color"></i>
+                                                            </span>
+                                                        </span>
+                                                        <select id="ddlcolor" class="form-control">
+                                                            <option value="Single">Single</option>
+                                                            <option value="2 Color">2 Color</option>
+                                                            <option value="4 Color">4 Color</option>
+                                                            <option value="Scatter">Scatter</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <span for="field2">
+                                                        <span>
+                                                            Column
+                                                            <span id="spColumn">
+                                                                <i class="fa fa-comment" data-id="Column"></i>
+                                                            </span>
+                                                        </span>
+                                                        <select id="ddlcolumn" class="form-control">
+                                                            <option value="Single">Single</option>
+                                                            <option value="Double">Double</option>
+                                                            <option value="Stub">Stub</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span for="field1">
+                                                        <span>
+                                                            Imprint
+                                                            <span id="spImprint">
+                                                                <i class="fa fa-comment" data-id="Imprint"></i>
+                                                            </span>
+                                                        </span><input type="text" id="txtimprint" maxlength="25" class="form-control" name="field1" value="" />
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <span for="field6" style="margin-top: 0px;display: block;">
+                                                        <span>
+                                                            Remarks
+                                                            <span id="spRemarks_PG">
+                                                                <i class="fa fa-comment" data-id="Remarks_PG"></i>
+                                                            </span>
+                                                        </span><textarea name="field6" style="width:100%" id="txtremarkpn" class="textarea-field"></textarea>
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <span for="field6" style="display: block;">
+                                                        <span>
+                                                            Queries
+                                                            <span id="spQueries_PG">
+                                                                <i class="fa fa-comment" data-id="Queries_PG"></i>
+                                                            </span>
+                                                        </span><textarea name="field6" style="width:100%" id="txtquerypn" class="textarea-field"></textarea>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12" style="text-align:center;">
+                                                    <input type="button" value="Save" id="btnUpdate_PG" class="btn btn-primary" />
+                                                    <input type="button" value="Submit" id="btnApprove_PG" class="btn btn-primary" />
+                                                    <input type="button" value="Attachments" class="BtnAttach btn btn-primary" id="BtnPG" data-id="PG" />
+                                                    <span id="spPGDownload" class="spDownload"></span>
+                                                </div>
+                                            </div>                                            
+                                        </fieldset>
+                                    </div>
+                                </div>
+
+                                <div id="TabQC" class="tabcontent" data-id="QC">
+                                    <div class="form-style-3">
+                                        <fieldset>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <span for="field1">
+                                                        <span>
+                                                            Greek Characters
+                                                            <span id="spGreekCharacters">
+                                                                <i class="fa fa-comment" data-id="Greek Characters"></i>
+                                                            </span>
+                                                        </span>
+                                                        <select id="ddlgreek" class="form-control">
+                                                            <option value="Follow Author">Follow Author</option>
+                                                            <option value="Roman">Roman</option>
+                                                            <option value="Italic">Italic</option>
+                                                            <option value="NA">NA</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span for="field1">
+                                                        <span>
+                                                            Variables
+                                                            <span id="spVariables">
+                                                                <i class="fa fa-comment" data-id="Variables"></i>
+                                                            </span>
+                                                        </span>
+                                                        <select id="ddlvariable" class="form-control">
+                                                            <option value="Follow Author">Follow Author</option>
+                                                            <option value="Roman">Roman</option>
+                                                            <option value="Italic">Italic</option>
+                                                            <option value="NA">NA</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span for="field1">
+                                                        <span>
+                                                            Special Elements
+                                                            <span id="spSpecialElements">
+                                                                <i class="fa fa-comment" data-id="Special Elements"></i>
+                                                            </span>
+                                                        </span>
+                                                        <select id="ddlspclelm" class="form-control">
+                                                            <option value="Boxes">Boxes</option>
+                                                            <option value="Sidebar">Sidebar</option>
+                                                            <option value="Quotes">Quotes</option>
+                                                            <option value="Epigraphs">Epigraphs</option>
+                                                            <option value="Scheme Figures"> Scheme Figures</option>
+                                                            <option value="NA">NA</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span for="field2">
+                                                        <span>
+                                                            Foot Notes
+                                                            <span id="spFootNotes">
+
+                                                                <i class="fa fa-comment" data-id="Foot Notes"></i>
+                                                            </span>
+                                                        </span>
+                                                        <select id="ddlfoot" class="form-control">
+                                                            <option value="Numeral">
+                                                                Numeral
+                                                            </option>
+                                                            <option value="Roman">
+                                                                Roman
+                                                            </option>
+                                                            <option value="Alphabets">Alphabets</option>
+                                                            <option value="No">No</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <span for="field2">
+                                                        <span>
+                                                            End Notes
+                                                            <span id="spEndNotes">
+                                                                <i class="fa fa-comment" data-id="End Notes"></i>
+                                                            </span>
+                                                        </span>
+                                                        <select id="ddlendnote" class="form-control">
+                                                            <option value="Numeral">
+                                                                Numeral
+                                                            </option>
+                                                            <option value="Roman">
+                                                                Roman
+                                                            </option>
+                                                            <option value="Alphabets">Alphabets</option>
+                                                            <option value="No">No</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span for="field2">
+                                                        <span>
+                                                            Color Insert
+                                                            <span id="spColorInsert">
+                                                                <i class="fa fa-comment" data-id="Color Insert"></i>
+                                                            </span>
+                                                        </span>
+                                                        <select id="ddlcolorin" class="form-control">
+                                                            <option value="Yes">Yes</option>
+                                                            <option value="No">No</option>
+                                                            <option value="Scatter Colors">Scatter Colors</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span for="field3">
+                                                        <span>
+                                                            Section Breaks
+                                                            <span id="spSectionBreaks">
+                                                                <i class="fa fa-comment" data-id="Section Breaks"></i>
+                                                            </span>
+                                                        </span>
+                                                        <select id="ddlsectbrk" class="form-control">
+                                                            <option value="Yes">
+                                                                Yes
+                                                            </option>
+                                                            <option value="No">
+                                                                No
+                                                            </option>
+                                                            <option value="NA">NA</option>
+                                                        </select>
+                                                    </span>
+                                                </div>                                               
+                                                <div class="col-sm-3">
+                                                    <span for="field3">
+                                                        <span>
+                                                            Front Matter
+                                                            <span id="spFrontMatter">
+                                                                <i class="fa fa-comment" data-id="Front Matter"></i>
+                                                            </span>
+                                                        </span>
+                                                        <select id="ddlfrontm" class="form-control">
+                                                            <option value="Yes">
+                                                                Yes
+                                                            </option>
+                                                            <option value="No">
+                                                                No
+                                                            </option>
+                                                            <option value="NA">NA</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <span for="field1">
+                                                        <span>
+                                                            Back Matters
+                                                            <span id="spBackMatters">
+                                                                <i class="fa fa-comment" data-id="Back Matters"></i>
+                                                            </span>
+                                                        </span>
+                                                        <select id="ddlbackm" class="form-control">
+                                                            <option value="Yes">Yes</option>
+                                                            <option value="No">No</option>
+                                                            <option value="NA">NA</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span for="field1">
+                                                        <span>
+                                                            Series page
+                                                            <span id="spSeriespage">
+                                                                <i class="fa fa-comment" data-id="Series page"></i>
+                                                            </span>
+                                                        </span>
+                                                        <select id="ddlseries" class="form-control">
+                                                            <option value="Yes">
+                                                                Yes
+                                                            </option>
+                                                            <option value="No">
+                                                                No
+                                                            </option>
+                                                            <option value="NA">NA</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span for="field1">
+                                                        <span>
+                                                            Index
+                                                            <span id="spIndex_QC">
+                                                                <i class="fa fa-comment" data-id="Index_QC"></i>
+                                                            </span>
+                                                        </span>
+                                                        <select id="ddlindexqc" class="form-control">
+                                                            <option value="Author">
+                                                                Author
+                                                            </option>
+                                                            <option value="Subject">
+                                                                Subject
+                                                            </option>
+                                                            <option value="Other Type"> Other Type</option>
+                                                            <option value="NA">NA</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span for="field2">
+                                                        <span>
+                                                            Tables Count
+                                                            <span id="spTablesCount_QC">
+                                                                <i class="fa fa-comment" data-id="Tables Count_QC"></i>
+                                                            </span>
+                                                        </span><input type="text" id="txttblcount1" maxlength="8" class="form-control IsNumeric" name="field2" value="" />
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <span for="field6" style="margin-top: 0px;display:block">
+                                                        <span>
+                                                            Remarks
+                                                            <span id="spRemarks_QC">
+                                                                <i class="fa fa-comment" data-id="Remarks_QC"></i>
+                                                            </span>
+                                                        </span><textarea name="field6" style="width:100%" id="txtremarkqc" class="textarea-field"></textarea>
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <span for="field6" style="display:block">
+                                                        <span>
+                                                            Queries
+                                                            <span id="spQueries_QC">
+                                                                <i class="fa fa-comment" data-id="Queries_QC"></i>
+                                                            </span>
+                                                        </span><textarea name="field6" style="width:100%" id="txtqueryqc" class="textarea-field"></textarea>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12" style="text-align:center;">
+                                                    <input type="button" value="Save" id="btnUpdate_QC" class="btn btn-primary" />
+                                                    <input type="button" value="Submit" id="btnApprove_QC" class="btn btn-primary" />
+                                                    <input type="button" value="Attachments" class="BtnAttach btn btn-primary" id="BtnQC" data-id="QC" />
+                                                    <span id="spQCDownload" class="spDownload"></span>
+                                                </div>
+                                            </div>                                           
+                                        </fieldset>
+                                    </div>
+                                </div>
+
+                                <div id="TabArtwork" class="tabcontent" data-id="Artwork">
+                                    <div class="form-style-3">
+                                        <fieldset>
+                                            <div class="col-sm-12">
+                                                    <label class="control-label" for="chkNoArtwork" style="float: right;">No Artwork</label>
+                                                    <input id="chkNoArtwork" type="checkbox" class="chkFace" style="float: right;">
+                                                    @*<input type="button" value="No Artwork" id="btnNoArtwork" class="btn btn-primary" autocomplete="off" style="float: right;">*@
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <span for="field1">
+                                                        <span>
+                                                            Color Type
+                                                            <span id="spColorType">
+                                                                <i class="fa fa-comment" data-id="Color Type"></i>
+                                                            </span>
+                                                        </span>
+                                                        <select id="ddlcolortype" class="form-control artworkField">
+                                                            <option value="Mono">Mono</option>
+                                                            <option value="2 Color">2 Color</option>
+                                                            <option value="4 Color"> 4 Color</option>
+                                                            <option value="Color Insert"> Color Insert</option>
+                                                            <option value="Scatter color"> Scatter color</option>
+                                                            <option value="E-Book"> E - Book </option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span for="field1">
+                                                        <span>
+                                                            Scatter Colors
+                                                            <span id="spScatterColors">
+                                                                <i class="fa fa-comment" data-id="ScatterColors"></i>
+                                                            </span>
+                                                        </span>
+                                                        <select id="ddlSctColor" class="form-control artworkField" style="height:150px;">
+                                                            <option value="Yes">Yes</option>
+                                                            <option value="No"> No </option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span for="field1">
+                                                        <span>
+                                                            ArtWork
+                                                            <span id="spArtWork">
+                                                                <i class="fa fa-comment" data-id="ArtWork"></i>
+                                                            </span>
+                                                        </span>
+                                                        <select id="ddlArtwork" class="form-control artworkField" multiple style="height:150px;">
+                                                            <option value="Redraw">Redraw</option>
+                                                            <option value="Relabel"> Relabel </option>
+                                                            <option value="Conversion">Conversion</option>
+                                                            <option value="Use as it is"> Use as it is</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span for="field2">
+                                                        <span>
+                                                            Redraws
+                                                            <span id="spRedraws">
+                                                                <i class="fa fa-comment" data-id="Redraws"></i>
+                                                            </span>
+                                                        </span><input type="text" id="txtredraws" style="width: 100%;" maxlength="25" class="form-control artworkField" name="field2" value="" />
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <span for="field3">
+                                                        <span>
+                                                            Page Width
+                                                            <span id="spPageWidth">
+                                                                <i class="fa fa-comment" data-id="Page Width"></i>
+                                                            </span>
+                                                        </span><input type="text" id="txtpagewidth" maxlength="8" style="width: 100%;" class="form-control artworkField" name="field3" value="" />
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span for="field1">
+                                                        <span>
+                                                            Page Height
+                                                            <span id="spPageHeight">
+                                                                <i class="fa fa-comment" data-id="Page Height"></i>
+                                                            </span>
+                                                        </span><input type="text" id="txtpheight" maxlength="8" style="width: 100%;" class="form-control artworkField" name="field1" value="" />
+                                                    </span>
+                                                </div>                                            
+                                                <div class="col-sm-3">
+                                                    <span for="field1">
+                                                        <span>
+                                                            Total Figures
+                                                            <span id="spTotalFigures">
+                                                                <i class="fa fa-comment" data-id="Total Figures"></i>
+                                                            </span>
+                                                        </span><input type="text" id="txttfig" maxlength="8" style="width: 100%;" class="form-control IsNumeric artworkField" name="field1" value="" />
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <span for="field6" style="margin-top: 0px;display:block">
+                                                        <span>
+                                                            Remarks
+                                                            <span id="spRemarks_AW">
+                                                                <i class="fa fa-comment" data-id="Remarks_Artwork"></i>
+                                                            </span>
+                                                        </span><textarea name="field6" style="width:100%" id="txtremarkart" class="textarea-field artworkField"></textarea>
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <span for="field6" style="display:block">
+                                                        <span>
+                                                            Queries
+                                                            <span id="spQueries_AW">
+                                                                <i class="fa fa-comment" data-id="Queries_Artwork"></i>
+                                                            </span>
+                                                        </span><textarea name="field6" id="txtqueryart" class="textarea-field artworkField" style="width:100%"></textarea>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12" style="text-align:center">
+                                                    <input type="button" value="Save" id="btnUpdate_Artwork" class="btn btn-primary" />
+                                                    <input type="button" value="Submit" id="btnApprove_Artwork" class="btn btn-primary" />
+                                                    <input type="button" value="Attachments" class="BtnAttach btn btn-primary artworkField" id="BtnArtwork" data-id="Artwork" />
+                                                    <span id="spARTDownload" class="spDownload"></span>
+                                                </div>
+                                            </div>`
+                                        </fieldset>
+                                    </div>
+                                </div>
+
+                                <div id="TabPASummary" class="tabcontent" data-id="PASummary" style="overflow:auto">
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*General Comments*@
+
+<div id="myModal_View1" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" id="btnclose">&times;</button>
+
+
+                <div class="row">
+                    <div class="input-group">
+                        <div id="div_ddldept">
+                            <label for="lblGI" class="control-label">General Instructions : </label>
+                            <textarea name="field6" class="textarea-field" id="txtGeneralcom" style="width:100%"></textarea>
+                            <hr />
+                            <button type="button" class="btn btn-primary btn-md" style="background-color: #382a8c;color: #fff;border-color: #382a8c;margin-left: 301px;" id="BtnSubmit_Gen">Submit</button>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+@*Indivisual Column Comments*@
+<div id="myModal_View2" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" id="btnclose">&times;</button>
+
+                <div class="row">
+                    <label for="field6" class="col-md-12">
+                        <span id="spcolumnCom">Comment for  :</span>
+                        <textarea name="field6" class="textarea-field" id="txtColComment" style="width:100%"></textarea>
+                    </label>
+                    <label for="field6" class="col-md-12">
+                        <label name="field6" id="lblcomment" style="width:100%;color: orangered;"></label>
+                    </label>
+                    <br />
+                    <button type="button" class="btn btn-primary btn-md" style="background-color: #382a8c;color: #fff;border-color: #382a8c;margin-left: 301px;" id="BtnSubmit_Com">Submit</button>
+                    <button type="button" class="btn btn-primary btn-md" style="background-color: #382a8c;color: #fff;border-color: #382a8c;margin-left: 301px;" id="BtnResolve_Com">Resolve</button>
+                </div>
+            </div>
+            <br />
+        </div>
+
+    </div>
+</div>
+
+<div id="myModal_attachFiles" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><strong>Attachments</strong></h4>
+                <div id="theCountq"></div>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div id="divFileInfo"></div>
+                    <input id="file-input" type="file" name="name" style="display: none;" multiple />
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" title="Close" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+@*<div id="myModal_attachFiles" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"><strong>Attachments</strong></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <input type="file" id="FileUpload" multiple />
+                        </div>
+
+                        <div class="col-md-2">
+                            <input type="button" id="btnFileUpload" class="btn btn-primary pull-right" value="Upload Files" />
+                        </div>
+
+                        <br /> <br />
+                        <div id="divFiles" class="display divIssueList" width="70%"></div>
+
+                    </div>
+                </div>-
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" title="Close" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>*@
+

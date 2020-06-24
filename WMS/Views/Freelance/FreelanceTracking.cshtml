@@ -1,0 +1,100 @@
+﻿@model WMS.Models.FreelanceModel
+@{
+    ViewBag.Title = "Freelancer Tracking";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    @Styles.Render("~/CustomScripts/css/jquery.dataTables.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/CustomScripts/resources/syntax/shCore.css?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Scripts.Render("~/CustomScripts/js/jquery.dataTables.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/js/dataTables.fixedColumns.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/dataTables.buttons.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/jszip.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/pdfmake.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/vfs_fonts.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/buttons.html5.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    
+    @Styles.Render("~/css/report.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/css/Chat.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/css/WMS.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/FreelanceTracking.js?t=" + @DateTime.Now.Ticks.ToString())
+}
+<style type="text/css">
+    .fa-file-invoice {
+        font-size: 20px;
+        color: forestgreen;
+        cursor: pointer;
+    }
+</style>
+<input id="hf_GetFreelanceTrackingBk" type="hidden" value='@Url.Action("GetFreelanceTrackingBk",  "Freelance")'>
+<input id="hf_ExcelFiles" type="hidden" value='@Url.Action("FreelancerInvExcel",  "Freelance" )'>
+<div class="page-content">
+    <div class="jumbotron content">
+        <div class="spIconView">
+            <i class="fa fa-filter iFilter" id="IFitler" aria-hidden="true" title="Filter"></i>
+        </div>
+        <ul class="nav nav-tabs" id="BkTabul">
+            <li class="active" id="divBkTrack"><a data-toggle="tab" href="#BkWIP">Tracking</a></li>
+        </ul>
+        <table id="tblTrackingBk" class="display" width="100%"></table>
+    </div>
+</div>
+<div id="sideNavi_Filter">
+    <div class="side-navi-data">
+        <div class="side-navi-tab active" id="divQuickNav_filter">
+            <div class="divQuickList">
+                <i class="fas fa-times" id="isideClose_fitler"></i><span style="font-size:15px;">Filter</span>
+                <hr />
+                <div>
+                    <center class="ctContent">
+                        <div class="col-3">
+                            <select id="ddlSearch" class="form-control">
+                                <option value="All">Clear</option>
+                                <option value="Pending for Allocation">Pending for Allocation</option>
+                                <option value="Pending for Access">Pending for Access</option>
+                                <option value="Pending for Return">Pending for Return</option>
+                                <option value="Completed">Completed</option>
+                                <option value="Withdrawn">Withdrawn</option>
+                            </select>
+                        </div>
+                        <div class="col-3">
+                            <select id="ddlTrackSearch" class="form-control">
+                                <option value="All">Clear</option>
+                                <option value="Number">Number</option>
+                                <option value="ISBN">ISBN</option>
+                                <option value="Catalog">Catalog</option>
+                                <option value="Publisher">Publisher</option>
+                                <option value="Task">Task</option>
+                            </select>
+                        </div>
+
+                        <div id="divFilter">
+                            <div id="divNumberFilter" style="display:none">
+                                @Html.ListBoxFor(m => m.NumberList, new SelectList(Model.NumberList, "Value", "Text"), new { Multiple = "multiple", id = "lstNumberList", @class = "form-control" })
+                            </div>
+                            <div id="divCatalogFilter" style="display:none">
+                                @Html.ListBoxFor(m => m.CatalogList, new SelectList(Model.CatalogList, "Value", "Text"), new { Multiple = "multiple", id = "lstCatalogList", @class = "form-control" })
+                            </div>
+                            <div id="divISBNFilter" style="display:none">
+                                @Html.ListBoxFor(m => m.ISBNList, new SelectList(Model.ISBNList, "Value", "Text"), new { Multiple = "multiple", id = "lstISBNList", @class = "form-control" })
+                            </div>
+                            <div id="divPublisherFilter" style="display:none">
+                                @Html.ListBoxFor(m => m.PublisherList, new SelectList(Model.PublisherList, "Value", "Text"), new { Multiple = "multiple", id = "lstPublisherList", @class = "form-control" })
+                            </div>
+                            <div id="divTaskFilter" style="display:none">
+                                @Html.ListBoxFor(m => m.TaskList, new SelectList(Model.TaskList, "Value", "Text"), new { Multiple = "multiple", id = "lstTaskList", @class = "form-control" })
+                            </div>
+                        </div>
+                        <br />
+                        <div>
+                            <span class="btn btn-primary" title="Get" id="btnBkGet">Get</span>
+                        </div>
+                    </center>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+

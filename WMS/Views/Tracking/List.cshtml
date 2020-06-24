@@ -1,0 +1,93 @@
+﻿
+@{
+    ViewBag.Title = "Manager Tracking";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    @Styles.Render("~/CustomScripts/css/jquery.dataTables.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/CustomScripts/resources/syntax/shCore.css?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Scripts.Render("~/CustomScripts/js/jquery.dataTables.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/js/dataTables.fixedColumns.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/dataTables.buttons.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/jszip.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/pdfmake.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/vfs_fonts.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/buttons.html5.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/date-dd-MMM-yyyy.js?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Styles.Render("~/css/report.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/MGRTracking.js?t=" + @DateTime.Now.Ticks.ToString())
+
+    <style type="text/css">
+        .spGreen {
+            background-color: #AFD275;
+            color: #FFF !important;
+        }
+
+        .spRed {
+            background-color: #F78888;
+            color: #FFF !important;
+        }
+
+        .spBlue {
+            background-color: #AAAAF9;
+            color: #FFF !important;
+        }
+
+        .dataTable th:last-child {
+            text-align: left !important;
+        }
+        .nav-tabs li a, #tblChapter_wrapper {
+            font-size: 12px !important;
+        }
+    </style>
+}
+<input id="hf_GetManagerTracking" type="hidden" value='@Url.Action("GetManagerTracking", "tracking")'>
+<input id="hf_GetBookData" type="hidden" value='@Url.Action("GetBookDetails", "Book")'>
+<div class="page-content">
+    <div class="jumbotron content">
+        <table id="example" class="display" width="100%"></table>
+    </div>
+</div>
+<div id="myModal" class="modal fade myModalView" role="dialog">
+    <div class="modal-dialog" id="mymodel_art">
+
+        <div class="modal-content" id="modal_contentArt">
+
+            <div class="modal-body">
+                <ul class="nav nav-tabs" id="BkInfoTabul">
+                    <li class="active" id="divBkInfo"><a data-toggle="tab" href="#BkInfo">Book Info</a></li>
+                    <li id="divChapInfo"><a data-toggle="tab" href="#ChapInfo">Chapter Info</a></li>
+                </ul>
+                <div>
+
+                    <div class="tab-content">
+                        <div id="BkInfo" class="tab-pane fade in active">
+                            <div class="row">
+                                <div class="col-md-6" id="divLoadData"></div>
+                                <div class="col-md-6" id="divLoadDataTrns"></div>
+                            </div>
+
+                        </div>
+                        <div id="ChapInfo" class="tab-pane fade">
+
+                            <table id="tblChapter" class="display" width="75%"></table>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <br />
+                <div class="row">
+
+                    <button style="float:right; margin-right:10px" type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+

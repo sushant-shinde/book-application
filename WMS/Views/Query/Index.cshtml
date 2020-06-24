@@ -1,0 +1,342 @@
+﻿@model WMS.Models.FreelanceModel
+@{
+    ViewBag.Title = "Query";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    @Styles.Render("~/CustomScripts/css/jquery.dataTables.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/CustomScripts/resources/syntax/shCore.css?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Scripts.Render("~/CustomScripts/js/jquery.dataTables.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/js/dataTables.fixedColumns.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/dataTables.buttons.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/jszip.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/pdfmake.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/vfs_fonts.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/buttons.html5.min.js?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Styles.Render("~/css/report.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/css/Chat.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/css/WMS.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Query.js?t=" + @DateTime.Now.Ticks.ToString())
+
+    <style>
+        .margin-right{
+            float:right;
+        }
+        .onCursor {
+            cursor: pointer;
+        }
+
+        .changeColor {
+            background-color: #ccc !important;
+        }
+
+        .form-group {
+            font-size: 12px;
+        }
+
+        .form-inline .form-control {
+            width: 100%;
+        }
+
+        #spFileAdd {
+            position: relative;
+            font-size: 20px;
+            color: #337ab7;
+            float: right;
+        }
+
+        .fa-paperclip {
+            font-size: 18px;
+            color: #FF6347;
+            margin: 2px;
+        }
+
+        #btnchat {
+            float: right !important;
+        }
+
+        .panel-footer {
+            height: 100px !important;
+        }
+
+        .modal-dialog {
+            top: -15px;
+        }
+
+        #myModal_Chat .modal-body {
+            padding-top: 5px;
+        }
+
+        .radio-inline span {
+            top: 3px;
+            position: relative;
+        }
+
+        .tblChild th {
+            background: #beddfb !important;
+            color: #000 !important;
+        }
+
+        td.details-control {
+            background: url('../Images/details_open.png') no-repeat center center;
+            cursor: pointer;
+        }
+
+        tr.shown td.details-control {
+            background: url('../Images/details_close.png') no-repeat center center;
+        }
+
+        #myModal_Add .iQryBookInfo {
+            margin-top: 24px;
+        }
+
+        .dataTable tbody tr td span {
+            float: left !important;
+            left: 50px !important;
+            position: relative !important;
+        }
+    </style>
+}
+<input id="hf_GetQueryListBk" type="hidden" value='@Url.Action("GetQueryListBk",  "Query")'>
+<input id="hf_GetCatalogbyUser" type="hidden" value='@Url.Action("GetCatalogbyUser",  "Query")'>
+<input id="hf_GetBookDataByCatalog" type="hidden" value='@Url.Action("GetBookDataByCatalog", "Query")'>
+<input id="hf_GetChatData" type="hidden" value='@Url.Action("GetChatData", "Query")'>
+<input id="hf_AddFileupload" type="hidden" value='@Url.Action("AddFileupload", "Query")'>
+<input id="hf_DeleteAddFile" type="hidden" value='@Url.Action("DeleteAddFile", "Query")'>
+<input id="hf_CheckExistingData" type="hidden" value='@Url.Action("CheckExistingData", "Query")'>
+<input id="hf_AddQuery" type="hidden" value='@Url.Action("AddQuery", "Query")'>
+<input id="hf_AddResponse" type="hidden" value='@Url.Action("AddResponse", "Query")'>
+<input id="hf_QueryResponse" type="hidden" value='@Url.Action("QueryResponse", "Query")'>
+
+<input id="hf_GetQueryTemplate" type="hidden" value='@Url.Action("GetQueryTemplate", "Query")'>
+
+<input id="hf_GetQueryDetails" type="hidden" value='@Url.Action("GetQueryDetails","Query")' />
+
+<div class="page-content">
+    <div class="jumbotron content">
+        <div class="spIconView">
+            <i class="fa fa-filter iFilter" id="IFitler" aria-hidden="true" title="Filter"></i>
+        </div>
+        <ul class="nav nav-tabs" id="BkTabul">
+            <li class="active" id="divBkWIP"><a data-toggle="tab" href="#BkWIP">Pending</a></li>
+            <li id="divBkAll"><a data-toggle="tab" href="#BkAll">Resolved</a></li>
+        </ul>
+
+        @*<table id="tblQueryBk" class="display" width="100%"></table>*@
+
+        <table id="example" class="display" style="width:100%"></table>
+    </div>
+</div>
+
+<div id="sideNavi_Filter">
+    <div class="side-navi-data">
+        <div class="side-navi-tab active" id="divQuickNav_filter">
+            <div class="divQuickList">
+                <i class="fas fa-times" id="isideClose_fitler"></i><span style="font-size:15px;">Filter</span>
+                <hr />
+                <div>
+                    <center class="ctContent">
+                        <div class="col-3">
+                            <select id="ddlWIPSearch" class="form-control">
+                                <option value="All">Clear</option>
+                                <option value="Number">Number</option>
+                                <option value="ISBN">ISBN</option>
+                                <option value="Catalog">Catalog</option>
+                            </select>
+                        </div>
+
+                        <div id="divFilter">
+                            <div id="divNumberFilter" style="display:none">
+                                <select id="lstNumberList" multiple></select>
+                                @*@Html.ListBoxFor(m => m.NumberList, new SelectList(Model.NumberList, "Value", "Text"), new { Multiple = "multiple", id = "lstNumberList", @class = "form-control" })*@
+                            </div>
+                            <div id="divCatalogFilter" style="display:none">
+                                <select id="lstCatalogList" multiple></select>
+                                @*@Html.ListBoxFor(m => m.CatalogList, new SelectList(Model.CatalogList, "Value", "Text"), new { Multiple = "multiple", id = "lstCatalogList", @class = "form-control" })*@
+                            </div>
+                            <div id="divISBNFilter" style="display:none">
+                                <select id="lstISBNList" multiple></select>
+                                @*@Html.ListBoxFor(m => m.ISBNList, new SelectList(Model.ISBNList, "Value", "Text"), new { Multiple = "multiple", id = "lstISBNList", @class = "form-control" })*@
+                            </div>
+                        </div>
+                        <br />
+                        <div>
+                            <span class="btn btn-primary" title="Get" id="btnBkGet">Get</span>
+                        </div>
+                    </center>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<div id="myModal_Add" class="modal fade myModalView" role="dialog">
+    <div class="modal-dialog" id="mymodel_art">
+        <!-- Modal content-->
+        <div class="modal-content" id="modal_contentArt">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><strong><label id="lblTitleAddInfo">Query Creation</label></strong></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group label-floating col-md-6">
+                            <label class="control-label">Catalog</label><em>*</em>
+                            <select id="ddlAddCatalog" class="form-control"></select>
+                        </div>
+                        <div class="col-md-1">
+                            <span><i class="fa fa-info-circle iQryBookInfo" aria-hidden="true" title="Book Info" data-col="Name"></i></span>
+                        </div>
+                        <div class="form-group label-floating col-md-5">
+                            <label class="control-label">Reminder Date</label>
+                            <input id="txtReminderDt" type="text" readonly class="form-control inputHandCursor" />
+                        </div>
+                        <div class="form-group label-floating col-md-12">
+                            <label class="control-label">Chapter</label>
+                            <select id="ddlAddChapter" class="form-control" multiple></select>
+
+                        </div>
+                        <div class="form-group label-floating col-md-12">
+                            <label class="control-label">Subject</label><em>*</em>
+                            <input id="txtSubject" type="text" class="form-control" maxlength="500" />
+                        </div>
+
+                        <div class="form-group label-floating col-md-12">
+                            <label class="control-label">To</label><em>*</em>
+                            <select id="ddlAddQueryTo" class="form-control" multiple>
+                                <option value="Editor">Editor</option>
+                                <option value="PM">PM</option>
+                                <option value="PE">PE</option>
+                            </select>
+                        </div>
+                        <div class="form-group label-floating col-md-12">
+                            <label class="control-label">Priority</label><em>*</em>
+
+                            <form>
+                                <label class="radio-inline">
+                                    <input type="radio" name="optradio" id="optlow" checked>
+                                    <span>Low</span>
+                                </label>
+
+                                <label class="radio-inline">
+                                    <input type="radio" name="optradio" id="optmedium">
+                                    <span>Medium</span>
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="optradio" id="opthigh">
+                                    <span>High</span>
+                                </label>
+                            </form>
+
+
+                        </div>
+                        <br>
+                        <div class="form-group label-floating col-md-12">
+                            <div id="divFileInfo"></div>
+                            <input id="file-input" type="file" name="name" style="display: none;" multiple />
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group label-floating">
+                            <label class="control-label">Template Name</label>
+                            <select id="ddltemplate" class="form-control"></select>
+                        </div>
+
+                        <div class="form-group label-floating" id="divChatInfo">
+                            <label class="control-label">Body Content</label><em>*</em>
+                            <textarea id="txtQuery" class="form-control" style="height: 350px;"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" title="Send Query" id="btnSendQuery">Send Query</button>
+                <button type="button" class="btn btn-primary" title="Close" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="myModal_Chat" class="modal fade myModalView" role="dialog">
+    <div class="modal-dialog" id="mymodel_art">
+        <!-- Modal content-->
+        <div class="modal-content" id="modal_contentArt">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                <h4 class="modal-title"><strong><label id="lblTitleReply">Query Info</label></strong></h4>
+            </div>
+
+            <div class="modal-body">
+                <div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <span id="spnCatalog" style="float:left"></span>
+                            <span style="float:left"><i class="fa fa-info-circle iQryBookInfo" aria-hidden="true" title="Book Info" data-col="Name"></i></span>
+                        </div>
+                        <div class="form-group label-floating col-md-7" id="divQueryHistory">
+                            <div id="divQueryChatInfo">Please Wait....</div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-group label-floating">
+
+                                <label class="control-label">Response</label><em>*</em>
+                                <textarea id="txtResponse" class="form-control" style="height: 200px;"></textarea>
+                                <br />
+                                <div id="divFileInfo_R"></div>
+                                <input id="FResponse" type="file" name="name" style="display: none;" multiple />
+
+                                <div style="text-align:right">
+                                    <button type="button" class="btn btn-primary " title="Send Query" id="btnResolved" style="display:none">Resolved</button>
+                                    <button type="button" class="btn btn-primary" title="Send Query" id="btnQueryReply">Reply</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myModal_BookInfo" class="modal fade in" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content" id="modal_contentArt">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><strong><label id="lblTitleReply">Book Details</label></strong></h4>
+            </div>
+
+            <div class="modal-body">
+                <div id="divBookInfo"></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div id="myModal_QueryInfo" class="modal fade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" id="modal_query">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><strong><label id="querySubject">Query Details : </label></strong></h4>
+            </div>
+            <div class="modal-body">
+                <div id="divQueryInfo">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

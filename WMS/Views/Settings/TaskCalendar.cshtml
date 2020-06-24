@@ -1,0 +1,147 @@
+﻿@model WMS.Models.UserViewModel
+@{
+    ViewBag.Title = "Task Calendar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+    @Scripts.Render("~/Scripts/jquery.min.js")
+
+    @Styles.Render("~/Scripts/FullCalendar/fullcalendar.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/FullCalendar/lib/moment.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/FullCalendar/fullcalendar.js?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Scripts.Render("~/CustomScripts/taskCalendar.js?t=" + @DateTime.Now.Ticks.ToString())
+
+
+    @Scripts.Render("~/Scripts/FullCalendar/theme-chooser.js?t=" + @DateTime.Now.Ticks.ToString())
+
+
+    <style type="text/css">
+        #divContent {
+            margin: 10px 50px !important;
+            /* padding: 0; */
+            font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif !important;
+            font-size: 14px !important;
+        }
+
+        .fc-time * {
+            text-transform: uppercase !important;
+        }
+
+        #myModal_View .modal-body {
+            font-size: 12px !important;
+            padding-top: 0px;
+        }
+
+        .context-menu-item {
+            font-size: 12px !important;
+        }
+
+        .divColor {
+            bottom: 10px;
+            position: relative;
+            text-align: center;
+            float: right;
+            right: 50px;
+        }
+
+            .divColor div {
+                float: left;
+                padding: 5px 10px;
+                color: #FFF;
+            }
+
+        div.divTask {
+            background: #0b7eca;
+        }
+
+        div.divPipeline {
+            background: #acb81d;
+        }
+
+        div.divSchedule {
+            background: #F78888;
+        }
+    </style>
+}
+
+
+<input id="hf_GetTaskList" type="hidden" value='@Url.Action("GetTaskList", "settings")'>
+<input id="hf_GetTaskDetails" type="hidden" value='@Url.Action("GetTaskDetails", "settings")'>
+<input id="hf_UpdateTaskDetails" type="hidden" value='@Url.Action("UpdateTaskDetails", "settings")'>
+<input id="hf_DeleteTaskDetails" type="hidden" value='@Url.Action("DeleteTaskDetails", "settings")'>
+
+<div class="page-content">
+    <div class="jumbotron content" style="overflow:auto">
+        <div id="divContent">
+            <div id='calendar'></div>
+        </div>
+        <div class="divColor">
+            <div class="divTask">
+                Task
+            </div>
+            <div class="divPipeline">
+                Pipeline
+            </div>
+            <div class="divSchedule">
+                Schedule
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myModal_View" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><strong>Task Calendar</strong></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <br />
+                    <div class="col-sm-12">
+                        <label>Title</label><em>*</em>
+                        <input id="Txt_Title" type="text" class="form-control" maxlength="50" />
+                        <br />
+                        <label>Start Date</label><em>*</em>
+                        <input id="Txt_StartDate" type="text" class="form-control TaskDate" />
+                        <br />
+                        <label>End Date</label><em>*</em>
+                        <input id="Txt_EndDate" type="text" class="form-control TaskDate" />
+                        <br />
+                        <label>Description</label>
+                        <textarea id="Txt_Description" class="form-control" style="height: 110px;" maxlength="255"></textarea>
+                        <br />
+                        <label>User List</label>
+                        @Html.DropDownListFor(m => m.aUserModel.ddlUserList, new SelectList(Model.aUserModel.ddlUserList, "Value", "Text"), new {Multiple = "multiple", @id = "ddl_UserList", @class = "form-control" })
+                       
+                        <br />
+
+
+                        <label>Actions</label>
+                        <div class="form-group label-floating">
+                            <div class="col-sm-4">
+                                <input id="Rb_View" type="radio" name="Actions" value="View" checked />View
+                            </div>
+                            <div class="col-sm-4">
+                                <input id="Rb_Completed" type="radio" name="Actions" value="Completed" />Completed
+                            </div>
+                            <div class="col-sm-4">
+                                <input id="Rb_Close" type="radio" name="Actions" value="Close" />Close
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" title="Update" id="btnTask">Update</button>
+                <button type="button" class="btn btn-primary" title="Close" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" title="Delete" id="btnDeleteTask">Delete</button>
+            </div>
+        </div>
+
+    </div>
+</div>

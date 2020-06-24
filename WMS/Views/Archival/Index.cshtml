@@ -1,0 +1,152 @@
+﻿@model WMS.Models.ArchivalModel
+@{
+    ViewBag.Title = "Archive & Restoration";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    @Styles.Render("~/CustomScripts/css/jquery.dataTables.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/CustomScripts/resources/syntax/shCore.css?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Scripts.Render("~/CustomScripts/js/jquery.dataTables.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/js/dataTables.fixedColumns.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/dataTables.buttons.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/jszip.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/pdfmake.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/vfs_fonts.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/buttons.html5.min.js?t=" + @DateTime.Now.Ticks.ToString())
+
+
+    @Styles.Render("~/css/report.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/css/WMS.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Archival.js?t=" + @DateTime.Now.Ticks.ToString())
+    <style>
+        .divFilter {
+            margin-right: 20px;
+            float: right;
+            position: relative !important;
+            /*top: -45px !important;*/
+            top: 10px !important;
+            font-weight: bold;
+        }
+
+        .divTabAction {
+            border: none !important;
+        }
+    </style>
+}
+<input id="hf_GetArchiveRestoreData" type="hidden" value='@Url.Action("GetArchiveRestoreData",  "Archival")'>
+<input id="hf_UpdateArchiveRestoreInfo" type="hidden" value='@Url.Action("UpdateArchiveRestoreInfo",  "Archival")'>
+<input id="hf_GetArchiveRestoreRpt" type="hidden" value='@Url.Action("GetArchiveRestoreRpt",  "Archival")'>
+<div class="page-content">
+    <div class="jumbotron content">
+
+        <div class="spIconView">
+            <i class="fa fa-filter iFilter" id="IFitler" aria-hidden="true" title="Filter"></i>
+        </div>
+        <ul class="nav nav-tabs" id="BkTabul">
+            <li class="active" id="divBkArchive"><a data-toggle="tab" href="#BkArchive">Archive</a></li>
+            <li id="divBkRestore"><a data-toggle="tab" href="#BkRestore">Restore</a></li>
+            <li id="divBkReport"><a data-toggle="tab" href="#BkReport">Report</a></li>
+        </ul>
+
+        <div class="divBookContent">
+
+            <div class="tab-content">
+                <div id="BkArchive" class="tab-pane fade in active">
+                    <div class="row">
+                    </div>
+
+                </div>
+                <div id="BkRestore" class="tab-pane fade">
+                    <div class="row">
+                    </div>
+
+                </div>
+                <div id="BkReport" class="tab-pane fade">
+                    <div class="row">
+                    </div>
+
+                </div>
+            </div>
+
+            <table id="example" class="display" width="100%"></table>
+            <table id="tblReport" class="display" width="100%"></table>
+        </div>
+        <br />
+
+        <div class="divTabAction">
+            <span class="btn btn-primary btn-md btnArchive" id="btnArchive">Archive</span>
+            <span class="btn btn-primary btn-md btnRestore" id="btnReprint">Reprint</span>
+            <span class="btn btn-primary btn-md btnRestore" id="btnRework">Rework</span>
+
+        </div>
+    </div>
+
+</div>
+
+<div id="sideNavi_Filter">
+    <div class="side-navi-data">
+        <div class="side-navi-tab active" id="divQuickNav_filter">
+            <div class="divQuickList">
+                <i class="fas fa-times" id="isideClose_fitler"></i><span style="font-size:15px;">Filter</span>
+                <hr />
+                <div>
+                    <center class="ctContent">
+                        <div class="col-3">
+                            <select id="ddlWIPSearch" class="form-control">
+                                <option value="All">Clear</option>
+                                <option value="Number">Number</option>
+                                <option value="ISBN">ISBN</option>
+                                <option value="Catalog">Catalog</option>
+                                <option value="Publisher">Publisher</option>
+                                <option value="Type">Type</option>
+                            </select>
+                        </div>
+
+                        <div id="divFilter">
+                            <div id="divNumberFilter" style="display:none">
+                                <select id="lstNumberList" multiple></select>
+                                @*@Html.ListBoxFor(m => m.NumberList, new SelectList(Model.NumberList, "Value", "Text"), new { Multiple = "multiple", id = "lstNumberList", @class = "form-control" })*@
+                            </div>
+                            <div id="divCatalogFilter" style="display:none">
+                                <select id="lstCatalogList" multiple></select>
+                                @*@Html.ListBoxFor(m => m.CatalogList, new SelectList(Model.CatalogList, "Value", "Text"), new { Multiple = "multiple", id = "lstCatalogList", @class = "form-control" })*@
+                            </div>
+                            <div id="divISBNFilter" style="display:none">
+                                <select id="lstISBNList" multiple></select>
+                                @*@Html.ListBoxFor(m => m.ISBNList, new SelectList(Model.ISBNList, "Value", "Text"), new { Multiple = "multiple", id = "lstISBNList", @class = "form-control" })*@
+                            </div>
+                            <div id="divPublisherFilter" style="display:none">
+                                <select id="lstPublisherList" multiple></select>
+                                @*@Html.ListBoxFor(m => m.PublisherList, new SelectList(Model.PublisherList, "Value", "Text"), new { Multiple = "multiple", id = "lstPublisherList", @class = "form-control" })*@
+                            </div>
+                            <div id="divTypeFilter" style="display:none">
+                                <select id="ddlType" class="form-control">
+                                    <option value="">Select</option>
+                                    <option value="Archival Pending">Archival Pending</option>
+                                    <option value="Archival Completed">Archival Completed</option>
+                                    <option value="Restore Pending">Restore Pending</option>
+                                    <option value="Restore Completed">Restore Completed</option>
+                                </select>
+                                <br />
+                                <br />
+
+                                <input id="txtFromDt" type="text" readonly class="form-control inputHandCursor" placeholder="From Date" />
+                                <br />
+
+                                <input id="txtToDt" type="text" readonly class="form-control inputHandCursor" placeholder="To Date" />
+
+                            </div>
+                        </div>
+                        <br />
+                        <div>
+                            <span class="btn btn-primary" title="Get" id="btnBkGet">Get</span>
+                        </div>
+                    </center>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+

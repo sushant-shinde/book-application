@@ -1,0 +1,101 @@
+﻿@model WMS.Models.UserViewModel
+
+@{
+    ViewBag.Title = "Roles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    @Styles.Render("~/css/userInfo.css?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Scripts.Render("~/CustomScripts/RoleInfo.js?t=" + @DateTime.Now.Ticks.ToString())
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css?t=@DateTime.Now.Ticks.ToString()" />
+}
+
+<div class="page-content">
+    <div class="jumbotron content">
+        <br />
+        <form id="FormUserInfo">
+            <input id="hf_RoleInfoPopulate" type="hidden" value='@Url.Action("RoleAccessPopulate", "User")'>
+            <input id="hf_RoleAccessUpdate" type="hidden" value='@Url.Action("RoleAccessUpdate", "User")'>
+            <input id="hf_RoleInfoUpdate" type="hidden" value='@Url.Action("RoleInfoUpdate", "User")'>
+
+            <input id="hf_CheckExistingData_Role" type="hidden" value='@Url.Action("CheckExistingData", "User")'>
+            <input id="hf_RoleDelete" type="hidden" value='@Url.Action("RoleDelete", "User")'>
+
+            <div id="divContent" class="row">
+
+                <div class="col-sm-3">
+                    <div class="row">
+                        <div class="input-group">
+                            <div id="div_ddlrole">
+                                <label for="ddlrole" class="control-label">Select Role for Update<em>*</em></label>
+                                @Html.DropDownListFor(m => m.aUserModel, new SelectList(Model.aUserModel.ddlRoleID, "Value", "Text"), new { @id = "ddlRole_Info", @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group">
+                            <div class="form-group label-floating">
+                                <label for="txtRoleName" class="control-label">Role Name<em>*</em></label>
+                                <input class="form-control skipSpecialChar" type="text" maxlength="30" id="txtRoleName">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group">
+                            <div class="form-group label-floating">
+                                <label for="txtDescription" class="control-label">Description<em>*</em></label>
+                                <input class="form-control" type="text" id="txtDescription">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9">
+
+                    <div id="divContent" class="row">
+                    </div>
+                    <div>
+                        <table width="100%">
+                            <tr>
+                                <td>
+                                    <label for="MenuID" class="control-label">Menu<em>*</em></label>
+
+                                </td>
+                                <td>
+                                    <span style="float:right;position: relative;">
+                                        <label for="MenuID" class="control-label">Select All</label> <input class="chkActionAll" type="checkbox" name="ChkAll">
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <div class="tblRightsList" style="overflow:auto">
+                            <table class="table" id="tblRightsList">
+                                <thead>
+                                    <tr>
+                                        <th>Menu Name</th>
+                                        <th>Add</th>
+                                        <th>Update</th>
+                                        <th>Delete</th>
+                                        <th>View</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <div class="divTabAction">
+                <span class="btn btn-primary btn-md" id="BtnUpdate_RA">Update</span>
+                <span class="btn btn-primary btn-md" id="BtnCancel_RA">Cancel</span>
+                <span class="btn btn-primary btn-md" id="BtnDelete_RA">Delete</span>
+            </div>
+        </form>
+    </div>
+</div>
+
+

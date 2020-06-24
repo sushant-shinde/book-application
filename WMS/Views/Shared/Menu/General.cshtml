@@ -1,0 +1,241 @@
+﻿<li class="sidebar-menu Li_Home">
+    <a>
+        <table>
+            <tr>
+                <td><i class="fa fa-home"></i></td>
+                <td><span>@Html.ActionLink("Dashboard", "index", new { controller = "Home" })</span></td>
+            </tr>
+        </table>
+    </a>
+</li>
+
+<li class="sidebar-dropdown Li_NewBook Li_BookMaster Li_ProjectAnalysis Li_ProofDistribution" style="display:none">
+    <a>
+        <table>
+            <tr>
+                <td><i class="fa fa-book"></i></td>
+                <td><span>Book</span></td>
+            </tr>
+        </table>
+    </a>
+    <div class="sidebar-submenu">
+        <ul>
+            <li class="Li_NewBook" style="display:none">
+                @Html.ActionLink("New Books", "NewBook", new { controller = "book" }, null)
+            </li>
+            <li class="Li_BookMaster" style="display:none">
+                @Html.ActionLink("Book Master", "Index", new { controller = "book" }, null)
+            </li>
+            <li class="Li_ProjectAnalysis" style="display:none">
+                @Html.ActionLink("Project Analysis", "Index", new { controller = "ProjectAnalysis" }, null)
+            </li>
+
+            <li class="Li_ProofDistribution" style="display:none">
+                @Html.ActionLink("Proof Distribution", "Index", new { controller = "ProofDistribution" })
+            </li>
+            <li class="Li_Archival" style="display:none">
+                @Html.ActionLink("Archive & Restoration", "Index", new { controller = "Archival" }, null)
+            </li>
+        </ul>
+    </div>
+</li>
+
+<li class="sidebar-dropdown Li_WorkflowManager Li_ProjectPlan" style="display:none">
+    <a>
+        <table>
+            <tr>
+                <td><i class="fa fa-building"></i></td>
+                <td><span>Workflow</span></td>
+            </tr>
+        </table>
+    </a>
+    <div class="sidebar-submenu">
+        <ul>
+            <li class="Li_WorkflowManager" style="display:none">
+                @Html.ActionLink("Workflow Manager", "Workflow", new { controller = "settings" })
+            </li>
+            <li class="Li_ProjectPlan" style="display:none">
+                @Html.ActionLink("Project Plan", "Projectplan", new { controller = "settings" })
+            </li>
+        </ul>
+    </div>
+</li>
+
+<li class="sidebar-dropdown Li_WISH Li_Progress Li_PipeLine Li_ManagerTracking Li_OutOfFacility Li_Feedback Li_Informationdisseminationinstruction Li_PMPerformance" style="display:none">
+    <a>
+        <table>
+            <tr>
+                <td><i class="fa fa fa-tasks"></i></td>
+                <td><span>Tracking</span></td>
+            </tr>
+        </table>
+    </a>
+    <div class="sidebar-submenu">
+        <ul>
+            <li class="Li_WISH" style="display:none">
+                @Html.ActionLink("WISH", "index", new { controller = "wish" })
+            </li>
+            <li class="Li_Progress" style="display:none">
+                @Html.ActionLink("Progress", "progress", new { controller = "book" }, null)
+            </li>
+            <li class="Li_PipeLine" style="display:none">
+                @Html.ActionLink("Pipeline", "Index", new { controller = "Pipeline" })
+            </li>
+            <li class="Li_ManagerTracking" style="display:none">
+                @Html.ActionLink("Manager Tracking", "List", new { controller = "tracking" })
+            </li>
+            <li class="Li_OutOfFacility" style="display:none">
+                @Html.ActionLink("Out Of Facility", "oof", new { controller = "tracking" })
+            </li>
+            <li class="Li_Feedback" style="display:none">
+                @Html.ActionLink("Feedback & Appreciation", "Feedback", new { controller = "Home" })
+            </li>
+            <li class="Li_Informationdisseminationinstruction" style="display:none">
+                @Html.ActionLink("Information dissemination", "instruction", new { controller = "helpdesk" })
+            </li>
+            <li class="Li_PMPerformance" style="display:none">
+                @Html.ActionLink("PM Performance", "instruction", new { controller = "helpdesk" })
+            </li>
+            
+        </ul>
+    </div>
+</li>
+
+<li class="sidebar-dropdown Li_FreelancerMaster Li_FreelancerSelection Li_FreelancerAllocation Li_FreelanceSettings Li_FreelancerTrackingReport" style="display:none">
+    <a>
+        <table>
+            <tr>
+                <td><i class="fa fa-users"></i></td>
+                <td><span>Freelancer</span></td>
+            </tr>
+        </table>
+    </a>
+    <div class="sidebar-submenu">
+        <ul>
+            <li class="Li_FreelancerMaster" style="display:none">
+                @Html.ActionLink("Master", "index", new { controller = "Freelance" })
+            </li>
+            <li class="Li_FreelancerSelection" style="display:none">
+                @Html.ActionLink("Selection", "selection", new { controller = "Freelance" })
+            </li>
+            <li class="Li_FreelancerAllocation" style="display:none">
+                @Html.ActionLink("Allocation", "allocation", new { controller = "Freelance" })
+            </li>
+            <li class="Li_FreelanceTracking" style="display:none">
+                @Html.ActionLink("Tracking", "FreelanceTracking", new { controller = "Freelance" })
+            </li>
+            <li class="Li_FreelanceSettings" style="display:none">
+                @Html.ActionLink("Settings", "FreelanceSettings", new { controller = "Freelance" })
+            </li>
+            <li class="Li_FreelancerReport" style="display:none">
+                @Html.ActionLink("Tracking Report", "Index", new { controller = "FreelancerActivitiesTracking" })
+            </li>
+        </ul>
+    </div>
+</li>
+
+<li class="sidebar-menu Li_Query">
+    <a>
+        <table>
+            <tr>
+                <td><i class="fa fa-question-circle"></i></td>
+                <td>@Html.ActionLink("Query", "index", new { controller = "Query" })</td>
+            </tr>
+        </table>
+    </a>
+</li>
+
+<li class="sidebar-dropdown Li_Budget Li_PriceGrid Li_Invoice" style="display:none">
+    <a>
+        <table>
+            <tr>
+                <td><i class="fas fa-coins"></i></td>
+                <td><span>Budget</span></td>
+            </tr>
+        </table>
+    </a>
+    <div class="sidebar-submenu">
+        <ul>
+            <li class="Li_PriceGrid" style="display:none">
+                @Html.ActionLink("Price Grid", "Index", new { controller = "Budget" })
+            </li>
+            <li class="Li_Invoice" style="display:none">
+                @Html.ActionLink("Invoice", "Budget", new { controller = "Budget" })
+            </li>
+        </ul>
+    </div>
+</li>
+
+<li class="sidebar-dropdown Li_UsersManagement" style="display:none">
+    <a>
+        <table>
+            <tr>
+                <td><i class="fas fa-user-cog"></i></td>
+                <td><span>Users</span></td>
+            </tr>
+        </table>
+    </a>
+    <div class="sidebar-submenu">
+        <ul>
+            <li class="Li_UsersManagement">
+                @Html.ActionLink("Users", "Index", new { controller = "User" }, null)
+            </li>
+            <li class="Li_UsersManagement">
+
+                @Html.ActionLink("Roles", "Role", new { controller = "User" }, null)
+            </li>
+        </ul>
+    </div>
+</li>
+
+<li class="sidebar-dropdown Li_General Li_MailTemplate Li_QueryTemplate Li_Publisher" style="display:none">
+    <a>
+        <table>
+            <tr>
+                <td><i class="fa fa-cogs"></i></td>
+                <td><span>General Settings</span></td>
+            </tr>
+        </table>
+    </a>
+    <div class="sidebar-submenu">
+        <ul>
+            <li class="Li_MailTemplate">
+                @Html.ActionLink("Mail Template", "mailtemplate", new { controller = "general" }, null)
+            </li>
+            <li class="Li_QueryTemplate">
+                @Html.ActionLink("Query Template", "querytemplate", new { controller = "general" }, null)
+            </li>
+            <li class="Li_Publisher">
+                @Html.ActionLink("Publisher", "publisher", new { controller = "general" }, null)
+            </li>
+
+        </ul>
+    </div>
+</li>
+
+<li class="sidebar-dropdown Li_Reports Li_OOFHistory Li_ProofDistributionReport Li_AETrackingReport Li_FreelacnerAllocateReport" style="display:none">
+    <a>
+        <table>
+            <tr>
+                <td><i class="fa fa-chart-bar"></i></td>
+                <td><span>Reports</span></td>
+            </tr>
+        </table>
+    </a>
+    <div class="sidebar-submenu">
+        <ul>
+            <li class="Li_OOFHistory">
+                @Html.ActionLink("OOF History", "oofhistory", new { controller = "report" }, null)
+            </li>
+            <li class="Li_ProofDistributionReport">
+                @Html.ActionLink("Proof Distribution", "ptreport", new { controller = "report" }, null)
+            </li>
+            <li class="Li_AETrackingReport">
+                @Html.ActionLink("Author/Editor Proof History", "AEAllocate", new { controller = "report" }, null)
+            </li>
+            <li class="Li_FreelacnerAllocateReport">
+                @Html.ActionLink("Freelancer History", "FSAllocate", new { controller = "report" }, null)
+            </li>
+        </ul>
+    </div>
+</li>

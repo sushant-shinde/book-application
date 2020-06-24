@@ -1,0 +1,407 @@
+﻿
+@{
+    
+    ViewBag.Title = "Survey";
+    Layout = null;
+
+    var Book_Cat = ViewBag.BookCatalog;
+    var Title = ViewBag.BookTitle;
+    var Uname = ViewBag.Username;
+    var CurrentDate = ViewBag.CDate;
+
+}
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Survey</title>
+    <link rel="shortcut icon" href="~/Images/sesame.png" />
+    <link href="~/CustomScripts/Survey/" rel="stylesheet" />
+    <link href="~/css/font-awesome.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.min.js"></script>
+    @Scripts.Render("~/CustomScripts/ready.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Survey.js?t=" + @DateTime.Now.Ticks.ToString())
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    @*<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>*@
+    @Scripts.Render("~/CustomScripts/Export/buttons.html5.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    @Scripts.Render("~/Scripts/jquery.bootstrap-growl.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/css/survey.css?t=" + @DateTime.Now.Ticks.ToString())
+
+
+</head>
+
+<body style="padding: 0; margin: 0;background-color:whitesmoke">
+    <input id="hf_GetSurveyPopulate" type="hidden" value='@Url.Action("GetSurveyPopulate",  "Home" )' />
+    <input id="hf_SubmitResponse" type="hidden" value='@Url.Action("SubmitResponse",  "Home" )' />
+    <input id="hf_CheckExistingData_survey" type="hidden" value='@Url.Action("CheckExistingData_survey",  "Home" )' />
+    
+
+    <!-- / Full width container -->
+    <table class="full-width-container" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" bgcolor="#eeeeee" style="width: 100%; height: 100%; padding: 30px 0 30px 0;background-color:#bcdae847">
+        <tr>
+            <td align="center" valign="top">
+                <!-- / 700px container -->
+                <div id="tbldata">
+                    <table class="container" border="0" cellpadding="0" cellspacing="0" width="700" bgcolor="#ffffff" style="width: 85%;">
+                        <tr>
+                            <td align="center" valign="top">
+                                <!-- / Header -->
+                                <table class="container header" border="0" cellpadding="0" cellspacing="0" width="620" style="width: 94%;">
+                                    <tr>
+                                        <td style="padding: 16px 0 16px 0; border-bottom: solid 1px #eeeeee;" align="left">
+                                            <label style="font-size: 17px;font-weight: bold; text-decoration: none; color: #000000;">@Book_Cat</label>
+                                            <label style="font-size: 17px;font-weight: bold; text-decoration: none; color: #000000;float:right">@Title</label>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <table class="container cta-block" id="tblInProcess" border="0" cellpadding="0" cellspacing="0" width="100%">
+                                    <tr>
+                                        <td align="center" valign="top">
+                                            <table class="container" border="0" cellpadding="0" cellspacing="0" width="820" style="width: 94%;">
+                                                <tr>
+
+                                                    <td class="cta-block__content" style="padding: 8px 0 0px 0; font-size: 16px; line-height: 27px; color: #969696;">
+                                                        <h6 style="font-family: sans-serif;font-weight: bold;"> Dear @Uname ,</h6>
+                                                        <p style="text-align:justify">Going forward, we are glad to inform you that, at the completion of each project we would be sending you the project performance report (PPR) to get your feedback on the various broad activites like Schedule compliance,Quality and Communication. The idea behind this is that we thought your feedbacks are very valuable to improve our quality of service. We do hope that you will find this very useful. Thank You.</p>
+                                                    </td>
+                                                </tr>
+
+                                            </table>
+                                        </td>
+                                    </tr>
+
+                                </table>
+
+
+
+                                <div class="col-sm-12">
+
+                                    <div id="customers"></div>
+
+                                </div>
+
+                                <br />
+
+                                <h3 style="color:white;border:medium;border:3px; border-style:solid;background-color: #1d6680; padding: 7px; width:95%;font-size: 17px;font-weight: bold;"> Customer Review</h3>
+                                <div class="col-md-12">
+                                    <div class="box" id="table2">
+                                        <div>
+                                            <b><label style="color:#352020;">Accuracy of text matter</label> </b>
+                                            <label>
+                                                <input type="radio" name="like" value="Excellent" />
+                                                <span class="yes">Excellent</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="like" value="Good" />
+                                                <span class="yes">Good</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="like" value="Satisfactory" />
+                                                <span class="yes">Satisfactory</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="like" value="Poor" />
+                                                <span class="yes">Poor</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="like" value="NA" />
+                                                <span class="yes">NA</span>
+                                            </label>
+                                        </div>
+
+                                        <div>
+                                            <b><label style="color:#352020;">Quality of Art production</label> </b>
+                                            <label>
+                                                <input type="radio" name="like1" value="Excellent" />
+                                                <span class="yes">Excellent</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="like1" value="Good" />
+                                                <span class="yes">Good</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="like1" value="Satisfactory" />
+                                                <span class="yes">Satisfactory</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="like1" value="Poor" />
+                                                <span class="yes">Poor</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="like1" value="NA" />
+                                                <span class="yes">NA</span>
+                                            </label>
+                                        </div>
+
+                                        <div>
+                                            <b><label style="color:#352020;">Pagination/Style aspects</label> </b>
+                                            <label>
+                                                <input type="radio" name="like2" value="Excellent" />
+                                                <span class="yes">Excellent</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="like2" value="Good" />
+                                                <span class="yes">Good</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="like2" value="Satisfactory" />
+                                                <span class="yes">Satisfactory</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="like2" value="Poor" />
+                                                <span class="yes">Poor</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="like2" value="NA" />
+                                                <span class="yes">NA</span>
+                                            </label>
+                                        </div>
+
+                                        <div>
+                                            <b><label style="color:#352020;">Copyediting aspects</label> </b>
+                                            <label>
+                                                <input type="radio" name="like3" value="Excellent" />
+                                                <span class="yes">Excellent</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="like3" value="Good" />
+                                                <span class="yes">Good</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="like3" value="Satisfactory" />
+                                                <span class="yes">Satisfactory</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="like3" value="Poor" />
+                                                <span class="yes">Poor</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="like3" value="NA" />
+                                                <span class="yes">NA</span>
+                                            </label>
+                                        </div>
+
+                                        <div>
+                                            <b><label style="color:#352020;">Timely delivery</label> </b>
+                                            <label>
+                                                <input type="radio" name="like4" value="Excellent" />
+                                                <span class="yes">Excellent</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="like4" value="Good" />
+                                                <span class="yes">Good</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="like4" value="Satisfactory" />
+                                                <span class="yes">Satisfactory</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="like4" value="Poor" />
+                                                <span class="yes">Poor</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="like4" value="NA" />
+                                                <span class="yes">NA</span>
+                                            </label>
+                                        </div>
+
+                                        <div>
+                                            <b><label style="color:#352020;">Accuracy of End products</label> </b>
+                                            <label>
+                                                <input type="radio" name="like5" value="Excellent" />
+                                                <span class="yes">Excellent</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="like5" value="Good" />
+                                                <span class="yes">Good</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="like5" value="Satisfactory" />
+                                                <span class="yes">Satisfactory</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="like5" value="Poor" />
+                                                <span class="yes">Poor</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="like5" value="NA" />
+                                                <span class="yes">NA</span>
+                                            </label>
+                                        </div>
+
+                                        <div>
+                                            <b><label style="color:#352020;">Response to specific/Special Requirements</label> </b>
+                                            <label>
+                                                <input type="radio" name="like6" value="Excellent" />
+                                                <span class="yes">Excellent</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="like6" value="Good" />
+                                                <span class="yes">Good</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="like6" value="Satisfactory" />
+                                                <span class="yes">Satisfactory</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="like6" value="Poor" />
+                                                <span class="yes">Poor</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="like6" value="NA" />
+                                                <span class="yes">NA</span>
+                                            </label>
+                                        </div>
+
+                                        <div>
+                                            <b><label style="color:#352020;">Communication aspects</label> </b>
+                                            <label>
+                                                <input type="radio" name="like7" value="Excellent" />
+                                                <span class="yes">Excellent</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="like7" value="Good" />
+                                                <span class="yes">Good</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="like7" value="Satisfactory" />
+                                                <span class="yes">Satisfactory</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="like7" value="Poor" />
+                                                <span class="yes">Poor</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="like7" value="NA" />
+                                                <span class="yes">NA</span>
+                                            </label>
+                                        </div>
+                                        <div>
+                                            <b><label style="color:#352020;">Response time on your specific complaints</label> </b>
+                                            <label>
+                                                <input type="radio" name="like8" value="Excellent" />
+                                                <span class="yes">Excellent</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="like8" value="Good" />
+                                                <span class="yes">Good</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="like8" value="Satisfactory" />
+                                                <span class="yes">Satisfactory</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="like8" value="Poor" />
+                                                <span class="yes">Poor</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="like8" value="NA" />
+                                                <span class="yes">NA</span>
+                                            </label>
+                                        </div>
+
+                                        <div>
+                                            <b><label style="color:#352020;">Raising appropriate Queries/Clarifications</label> </b>
+                                            <label>
+                                                <input type="radio" name="like9" value="Excellent" />
+                                                <span class="yes">Excellent</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="like9" value="Good" />
+                                                <span class="yes">Good</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="like9" value="Satisfactory" />
+                                                <span class="yes">Satisfactory</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="like9" value="Poor" />
+                                                <span class="yes">Poor</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="like9" value="NA" />
+                                                <span class="yes">NA</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="col-md-12">
+                                    <table class="container cta-block" id="tblInProcess" border="0" cellpadding="0" cellspacing="0" width="93%">
+                                        <tr>
+                                            <td>
+                                                <table class="container" border="0" cellpadding="0" cellspacing="0" width="820" style="width: 100%;">
+                                                    <tr>
+
+                                                        <td class="cta-block__content" style="padding: 0px 0 0px 0; font-size: 16px; line-height: 27px; color: #969696;">
+                                                            <h5 style="color:#382a8c;margin-left: 12px;">&nbsp;Please give your comments and suggestions in general to improve the quality of our service.</h5>
+                                                            <textarea id="txtcomment" style="margin-left: 17px; width:97%;height: 56px" placeholder="Leave Your Comments Here...."></textarea>
+                                                        </td>
+                                                    </tr>
+
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <br />
+                                <div>
+                                    <span class="btn btn-primary" id="BtnSubmit">Submit</span>
+                                </div>
+                                <br />
+                                <hr />
+                                <table id="customers" style=" width: 95%; margin-left: 5px;">
+                                    <tr>
+                                        <th style="background-color: #1d6680">Date : @CurrentDate</th>
+                                        <th style="background-color: #1d6680">Name : @Uname</th>
+
+                                    </tr>
+
+
+                                </table>
+                                <hr />
+
+                                <br />
+
+                            </td>
+
+                        </tr>
+
+                    </table>
+                </div>
+            </td>
+        </tr>
+
+    </table>
+
+    <div id="Message1" style="position:fixed;width:100%">
+        <img src="~/images/SurveyImg/img1.jpg" width="100%" />
+        <video autoplay=autoplay loop=loop id="video-background" muted=muted plays-inline=plays-inline width="100%">
+            <source src="~/images/SurveyImg/Video%20Background%20HD-Bubble%20Animation%20Video!%20As%20Realistic!.mp4" type="video/mp4" />
+        </video>
+        <div style="position:absolute;top: 45%;left: 50%;transform: translate(-50%, -50%);">
+            <h2 style="color:black">Thank You for Submitting Your Response!!</h2>
+        </div>
+
+    </div>
+
+    <div id="Exists" style="position:fixed;width:100%">
+        <img src="~/Images/SurveyImg/5.jpg" width="100%" />
+    </div>
+
+    <div id="LoadingImage">
+        <center>
+            <img src="~/Images/loader.gif" class="imgLoadimg" />
+        </center>
+    </div>
+</body>
+
+</html>

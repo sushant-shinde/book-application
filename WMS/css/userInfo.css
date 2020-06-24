@@ -1,0 +1,78 @@
+﻿#example_wrapper {
+    margin-top: 10px;
+}
+.divBody {
+    /*height: 100%;*/
+    font-size: 12px;
+}
+
+.divTabAction {
+    border-top: solid 1px silver;
+    padding-top: 5px;
+    text-align: center;
+}
+
+
+th {
+    background: #1d6680 !important;
+    color: #FFF !important;
+}
+
+.tblRightsList tr td {
+    background: #FFF !important;
+}
+
+.input-group {
+    display: inherit !important;
+    margin: 15px !important;
+}
+
+.divCenterInfo {
+    border: solid 1px silver;
+    padding: 20px;
+    border-radius: 5px;
+    /*color: #807e7e;*/
+    display: flex;
+    margin:20px 50px;
+}
+
+header h1 {
+    font-size: 22px !important;
+}
+
+#imgUserLogo {
+    width: 100px !important;
+    height: 100px !important;
+}
+
+.fa-pen {
+    font-size: 18px;
+    color: #1d2c99;
+}
+
+.divprofileInfo {
+    cursor: pointer;
+}
+
+table.dataTable thead .sorting, td {
+    text-align: left !important;
+}
+
+.modal-open .modal {
+    top: -10px;
+}
+
+#myModal_View .modal-body {
+    font-size: 14px !important;
+    padding-top: 0px;
+}
+
+#myModal_View .modal-dialog {
+    width: 1100px;
+}
+
+.imgCover {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}

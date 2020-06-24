@@ -1,0 +1,80 @@
+﻿@model WMS.Models.BookModels
+@{
+    ViewBag.Title = "Book Details";
+    @Styles.Render("~/CustomScripts/css/jquery.dataTables.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/CustomScripts/resources/syntax/shCore.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/CustomScripts/css/Uploadbootstrap.min.css?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Scripts.Render("~/CustomScripts/js/jquery.dataTables.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/js/dataTables.fixedColumns.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/dataTables.buttons.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/jszip.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/pdfmake.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/vfs_fonts.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/buttons.html5.min.js?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Styles.Render("~/css/WMS.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Book.js?t=" + @DateTime.Now.Ticks.ToString())
+
+
+    <script src="~/Scripts/bootstrap.min.js" type="text/javascript"></script>
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" media="screen" />
+    <script src="~/CustomScripts/js/dist/bs-custom-file-input.js"></script>
+
+  
+    <script type="text/javascript" src="~/CustomScripts/Mail/jquery.emailinput.min.js"></script>
+
+   
+<link href="~/CustomScripts/css/StyleSheet1.css" rel="stylesheet" />
+}
+
+<div class="page-content">
+    <div class="jumbotron content">
+        <div class="row">
+            <div class="col-sm-4">
+                <h2 style="font-size: 24px;">&nbsp;&nbsp;&nbsp;&nbsp;<b>Book Details</b></h2>
+            </div>
+            @*<div class="col-sm-8 divHideAdd">
+                    <span class="btn btn-link pull-right"><i class="fas fa-th-large"></i></span>
+                    <span class="btn btn-link pull-right"><i class="fas fa-list"></i></span>
+                    <span class="btn btn-link pull-right"><i class="fas fa-th"></i></span>
+                </div>*@
+        </div>
+        <div style="overflow:auto" id="DivBookList">
+            <div class="row">
+
+                @foreach (var item in Model.NewBookList)
+                {
+                    
+
+                    <div class="card col-sm-3" style="margin-top:25px">
+                        <div class="module top" style="height: fit-content; ">
+                            <div class="header bg-red">
+                                <h2 style="font-size: large;font-weight: bold;color: seashell;">
+                                   @item.Book_Number<i class="fa fa-pen" title="Edit" style="padding-left: 127px;margin-right: 0px;color: white;" aria-hidden="true" data-col="Name" onmouseover="Edit"></i>
+                                </h2>
+
+                            </div>
+                            <div style="background: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url('@item.Book_Img'); ">
+                                <h2>@item.Book_Title</h2>
+
+                                <h2>@item.Book_ISBN</h2>
+                               
+                                <h2>@item.Book_PEName</h2>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                   
+
+                }
+
+            </div>
+                </div>
+    </div>
+</div>
+

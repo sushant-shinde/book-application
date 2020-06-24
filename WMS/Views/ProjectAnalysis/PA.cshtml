@@ -1,0 +1,348 @@
+﻿
+@{
+    ViewBag.Title = "Project Analysis";
+
+
+    @Styles.Render("~/CustomScripts/css/jquery.dataTables.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/CustomScripts/resources/syntax/shCore.css?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Scripts.Render("~/CustomScripts/js/jquery.dataTables.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/js/dataTables.fixedColumns.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/dataTables.buttons.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/jszip.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/pdfmake.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/vfs_fonts.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/buttons.html5.min.js?t=" + @DateTime.Now.Ticks.ToString())
+
+
+    @Styles.Render("~/css/report.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/css/WMS.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/projectAnalysis.js?t=" + @DateTime.Now.Ticks.ToString())
+
+    <script src="~/Scripts/bootstrap.min.js" type="text/javascript"></script>
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" media="screen" />
+    <script src="~/CustomScripts/js/dist/bs-custom-file-input.js"></script>
+
+    <link rel="stylesheet" href="~/CustomScripts/Mail/jquery.emailinput.min.css">
+    <script type="text/javascript" src="~/CustomScripts/Mail/jquery.emailinput.min.js"></script>
+    <link href="~/css/ProjectAnalysis.css" rel="stylesheet" />
+
+    <style type="text/css">
+        .content {
+            background: url(../Images/wood.jpg) !important;
+        }
+    </style>
+
+    <script>
+        function openPopup(evt, TabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(TabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+
+/**/</script>
+
+
+}
+
+
+<input id="hf_BookData" type="hidden" value='@Url.Action("BookData", "ProjectAnalysis")'>
+<input id="hf_PopulateBookInfo" type="hidden" value='@Url.Action("PopulateBookInfo", "ProjectAnalysis")'>
+<input id="hf_PopulateSections" type="hidden" value='@Url.Action("PopulateSections", "ProjectAnalysis")'>
+<input id="hf_UpdateSections" type="hidden" value='@Url.Action("UpdateSections", "ProjectAnalysis")'>
+<input id="hf_BookID" type="hidden">
+
+<div class="page-content">
+    <div class="jumbotron content">
+        <h2>Book Details</h2>
+        <hr />
+        <br />
+        <div class="main">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-10">
+                <br />  <br />
+                <div id="bookdetail"></div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div id="myModal_View" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" id="btnclose">&times;</button>
+                <h4 class="modal-title"><strong>Project Analysis</strong></h4>
+                <hr />
+                <div class="tab">
+                    <button id="btnTabBook" class="tablinks" onclick="openPopup(event, 'tblBkinfo')">Book Information</button>
+                    <button class="tablinks" onclick="openPopup(event, 'TabPM')">Project Manager</button>
+                    <button class="tablinks" onclick="openPopup(event, 'TabXML')">XML</button>
+                    <button class="tablinks" onclick="openPopup(event, 'TabPG')">Pagination</button>
+                    <button class="tablinks" onclick="openPopup(event, 'TabQC')">Quality Check</button>
+                    <button class="tablinks" onclick="openPopup(event, 'TabArtwork')">Artwork</button>
+                </div>
+            </div>
+
+            <br />
+
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-3">
+
+                            <table class="tblBkinfo" width="100%" style="display:none">
+                                <tr>
+                                    <td colspan="4"><center>Book Information</center></td>
+                                </tr>
+                                <tr>
+                                    <td>Title :</td>
+                                    <td><span id="lbltitle"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>Book Catalog :</td>
+                                    <td><span id="lblcatalog"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>Book No :</td>
+                                    <td><span id="lblno"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>PE :</td>
+                                    <td><span id="lblPE"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>PM :</td>
+                                    <td><span id="lblPM"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>Platform :</td>
+                                    <td><span id="lblPlatform"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>WorkFlow :</td>
+                                    <td><span id="lblworkflow"></span></td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="col-sm-9">
+                            <form id="FormPA" class="row">
+                                <div id="TabPM" class="tabcontent">
+
+                                    <div class="form-style-3">
+                                        <h4 style="font-weight:bold;margin-top: 1px;">Project Manager</h4>
+                                        <fieldset>
+                                            <div class="col-sm-4" style="width:50%">
+                                                <label for="field1"><span>MSS <span class="required">*</span></span><input type="text" class="input-field" name="field1" id="txtmss" value="" /></label>
+                                                <label for="field2"><span>CE Complexity <span class="required">*</span></span><input type="text" class="input-field" name="field2" id="txtcecomplexicity" value="" /></label>
+                                                <label for="field3"><span>Dual Edition <span class="required">*</span></span><input type="text" class="input-field" name="field3" id="txtdualedition" value="" /></label>
+                                                <label for="field1"><span>ISBNS <span class="required">*</span></span><input type="text" class="input-field" name="field1" id="txtisbn" value="" /></label>
+                                                <label for="field2"><span>Index <span class="required">*</span></span><input type="text" class="input-field" name="field2" id="txtindex" value="" /></label>
+                                                <label for="field3"><span>Catagory <span class="required">*</span></span><input type="text" class="input-field" name="field3" id="txtcatagory" value="" /></label>
+                                            </div>
+                                            <div class="col-sm-4" style="width:50%">
+
+                                                <label for="field1"><span>Estimate <span class="required">*</span></span><input type="text" class="input-field" name="field1" value="" id="txtestimate" /></label>
+                                                <label for="field2"><span>Book Complexity <span class="required">*</span></span><input type="text" class="input-field" name="field2" value="" id="txtbookcomp" /></label>
+                                                <label for="field3"><span>Previous Edition <span class="required">*</span></span><input type="text" class="input-field" name="field3" value="" id="txtpreviousedition" /></label>
+                                                <label for="field1"><span>English <span class="required">*</span></span><input type="text" class="input-field" name="field1" value="" id="txtenglish" /></label>
+                                                <label for="field1"><span>Castoff <span class="required">*</span></span><input type="text" class="input-field" name="field1" value="" id="txtcastoff" /></label>
+                                                <label for="field2"><span>Book Type <span class="required">*</span></span><input type="text" class="input-field" name="field2" value="" id="txtbooktype" /></label>
+
+
+                                            </div>
+
+                                            <div class="col-sm-9" style="width:100%">
+                                                <label for="field6"><span>Remarks <span class="required">*</span></span><textarea name="field6" class="textarea-field" id="txtremarkPM"></textarea></label>
+                                                <label for="field6"><span>Queries <span class="required">*</span></span><textarea name="field6" class="textarea-field" id="txtqueryPM"></textarea></label>
+                                            </div>
+
+                                            <br /> <label style="margin-left: 246px;">
+                                                <span> </span><input type="button" value="Update" id="btnUpdate_PM" />
+                                                <span> </span><input type="button" value="Cancel" data-dismiss="modal" id="btnCancel_PM" />
+                                            </label>
+                                        </fieldset>
+
+
+                                    </div>
+                                </div>
+
+                                <div id="TabXML" class="tabcontent">
+                                    <div class="form-style-3">
+                                        <h4 style="font-weight:bold;margin-top: 1px;">XML</h4>
+                                        <fieldset>
+                                            <div class="col-sm-4" style="width:50%">
+                                                <label for="field1"><span>Input Type <span class="required">*</span></span><input type="text" id="txtinputtype" class="input-field" name="field1" value="" /></label>
+                                                <label for="field2"><span>Abstract <span class="required">*</span></span><input type="text" id="txtabstract" class="input-field" name="field2" value="" /></label>
+                                                <label for="field3"><span>Reference Type <span class="required">*</span></span><input type="text" id="txtreftype" class="input-field" name="field3" value="" /></label>
+                                                <label for="field1"><span>Table Count <span class="required">*</span></span><input type="text" id="txttblcount" class="input-field" name="field1" value="" /></label>
+                                                <label for="field1"><span>Special Keying <span class="required">*</span></span><input type="text" id="txtspkeying" class="input-field" name="field1" value="" /></label>
+                                                <label for="field2"><span>PAP Deliverable <span class="required">*</span></span><input type="text" id="txtpap" class="input-field" name="field2" value="" /></label>
+                                            </div>
+                                            <div class="col-sm-4" style="width:50%">
+
+                                                <label for="field1"><span>ORCID <span class="required">*</span></span><input type="text" id="txtorcid" class="input-field" name="field1" value="" /></label>
+                                                <label for="field2"><span>Reference Format <span class="required">*</span></span><input type="text" id="txtrefformat" class="input-field" name="field2" value="" /></label>
+                                                <label for="field3"><span>Final Deliverable <span class="required">*</span></span><input type="text" id="txtfinaldel" class="input-field" name="field3" value="" /></label>
+                                                <label for="field1"><span>Equations Count <span class="required">*</span></span><input type="text" id="txtequations" class="input-field" name="field1" value="" /></label>
+                                                <label for="field1"><span>Metasheet <span class="required">*</span></span><input type="text" id="txtmetasheet" class="input-field" name="field1" value="" /></label>
+                                                <label for="field2"><span>Section Format <span class="required">*</span></span><input type="text" id="txtsection" class="input-field" name="field2" value="" /></label>
+
+
+                                            </div>
+
+                                            <div class="col-sm-9" style="width:100%">
+                                                <label for="field6"><span>Remarks <span class="required">*</span></span><textarea name="field6" id="txtremarkxml" class="textarea-field"></textarea></label>
+                                                <label for="field6"><span>Queries <span class="required">*</span></span><textarea name="field6" id="txtqueryxml" class="textarea-field"></textarea></label>
+                                            </div>
+
+                                            <br />
+                                            <label style="margin-left: 246px;">
+                                                <span> </span><input type="button" value="Update" id="btnUpdate_XML" />
+                                                <span> </span><input type="button" value="Cancel" data-dismiss="modal" id="btnCancel_XML" />
+                                            </label>
+                                        </fieldset>
+
+
+                                    </div>
+                                </div>
+
+                                <div id="TabPG" class="tabcontent">
+                                    <div class="form-style-3">
+                                        <h4 style="font-weight:bold;margin-top: -7px;">Pagination</h4>
+                                        <fieldset>
+                                            <div class="col-sm-4" style="width:50%">
+                                                <label for="field1"><span>Design <span class="required">*</span></span><input type="text" id="txtdesign" class="input-field" name="field1" value="" /></label>
+                                                <label for="field2"><span>Font Available <span class="required">*</span></span><input type="text" id="txtfont" class="input-field" name="field2" value="" /></label>
+                                                <label for="field3"><span>EBook <span class="required">*</span></span><input type="text" id="txtebook" class="input-field" name="field3" value="" /></label>
+                                                <label for="field1"><span>Imprint <span class="required">*</span></span><input type="text" id="txtimprint" class="input-field" name="field1" value="" /></label>
+                                                <label for="field2"><span>Column <span class="required">*</span></span><input type="text" id="txtcolumn" class="input-field" name="field2" value="" /></label>
+                                            </div>
+                                            <div class="col-sm-4" style="width:50%">
+
+                                                <label for="field1"><span>Trim <span class="required">*</span></span><input type="text" id="txttrim" class="input-field" name="field1" value="" /></label>
+                                                <label for="field2"><span>Figure Slides <span class="required">*</span></span><input type="text" id="txtfigureslide" class="input-field" name="field2" value="" /></label>
+                                                <label for="field3"><span>Color <span class="required">*</span></span><input type="text" id="txtcolor" class="input-field" name="field3" value="" /></label>
+                                                <label for="field1"><span>template <span class="required">*</span></span><input type="text" id="txttemplate" class="input-field" name="field1" value="" /></label>
+                                                <label for="field1"><span>Print <span class="required">*</span></span><input type="text" id="txtprint" class="input-field" name="field1" value="" /></label>
+
+                                            </div>
+
+                                            <div class="col-sm-9" style="width:100%">
+                                                <label for="field6"><span>Remarks <span class="required">*</span></span><textarea name="field6" id="txtremarkpn" class="textarea-field"></textarea></label>
+                                                <label for="field6"><span>Queries <span class="required">*</span></span><textarea name="field6" id="txtquerypn" class="textarea-field"></textarea></label>
+                                            </div>
+
+                                            <br /> <label style="margin-left: 246px;">
+                                                <span> </span><input type="button" value="Update" id="btnUpdate_PG" />
+                                                <span> </span><input type="button" value="Cancel" data-dismiss="modal" id="btnCancel_PG" />
+                                            </label>
+                                        </fieldset>
+
+
+                                    </div>
+                                </div>
+
+                                <div id="TabQC" class="tabcontent">
+                                    <div class="form-style-3">
+                                        <h4 style="font-weight:bold;margin-top: 1px;">Quality Check</h4>
+                                        <fieldset>
+                                            <div class="col-sm-4" style="width:50%">
+                                                <label for="field1"><span>Greek Characters <span class="required">*</span></span><input type="text" id="txtgreek" class="input-field" name="field1" value="" /></label>
+                                                <label for="field2"><span>Foot Notes <span class="required">*</span></span><input type="text" id="txtfoot" class="input-field" name="field2" value="" /></label>
+                                                <label for="field3"><span>Section Breaks<span class="required">*</span></span><input type="text" id="txtsectbrk" class="input-field" name="field3" value="" /></label>
+                                                <label for="field1"><span>Series page <span class="required">*</span></span><input type="text" id="txtseries" class="input-field" name="field1" value="" /></label>
+                                                <label for="field1"><span>Back Matters <span class="required">*</span></span><input type="text" id="txtbackm" class="input-field" name="field1" value="" /></label>
+                                                <label for="field2"><span>Tables Count<span class="required">*</span></span><input type="text" id="txttblcount1" class="input-field" name="field2" value="" /></label>
+                                            </div>
+                                            <div class="col-sm-4" style="width:50%">
+
+                                                <label for="field1"><span>Variables <span class="required">*</span></span><input type="text" id="txtvariable" class="input-field" name="field1" value="" /></label>
+                                                <label for="field2"><span>End Notes <span class="required">*</span></span><input type="text" id="txtendnote" class="input-field" name="field2" value="" /></label>
+                                                <label for="field3"><span>front Matter <span class="required">*</span></span><input type="text" id="txtfrontm" class="input-field" name="field3" value="" /></label>
+                                                <label for="field1"><span>Index <span class="required">*</span></span><input type="text" id="txtindexqc" class="input-field" name="field1" value="" /></label>
+                                                <label for="field1"><span>Special Elements <span class="required">*</span></span><input type="text" id="txtspclelm" class="input-field" name="field1" value="" /></label>
+                                                <label for="field2"><span>Color Insert<span class="required">*</span></span><input type="text" id="txtcolorin" class="input-field" name="field2" value="" /></label>
+
+
+                                            </div>
+
+                                            <div class="col-sm-9" style="width:100%">
+                                                <label for="field6"><span>Remarks <span class="required">*</span></span><textarea name="field6" id="txtremarkqc" class="textarea-field"></textarea></label>
+                                                <label for="field6"><span>Queries <span class="required">*</span></span><textarea name="field6" id="txtqueryqc" class="textarea-field"></textarea></label>
+                                            </div>
+
+                                            <br /> <label style="margin-left: 246px;">
+                                                <span> </span><input type="button" value="Update" id="btnUpdate_QC" />
+                                                <span> </span><input type="button" value="Cancel" data-dismiss="modal" id="btnCancel_QC" />
+                                            </label>
+                                        </fieldset>
+
+
+                                    </div>
+                                </div>
+
+                                <div id="TabArtwork" class="tabcontent">
+                                    <div class="form-style-3">
+                                        <h4 style="font-weight:bold;margin-top: 1px;">ArtWork</h4>
+                                        <fieldset>
+                                            <div class="col-sm-4" style="width:50%">
+                                                <label for="field1"><span>Color Type <span class="required">*</span></span><input type="text" id="txtcolortype" class="input-field" name="field1" value="" /></label>
+                                                <label for="field2"><span>Process<span class="required">*</span></span><input type="text" id="txtprocess" class="input-field" name="field2" value="" /></label>
+                                                <label for="field3"><span>Page Width <span class="required">*</span></span><input type="text" id="txtpagewidth" class="input-field" name="field3" value="" /></label>
+
+
+                                            </div>
+                                            <div class="col-sm-4" style="width:50%">
+
+                                                <label for="field1"><span>Total Figures <span class="required">*</span></span><input type="text" id="txttfig" class="input-field" name="field1" value="" /></label>
+                                                <label for="field2"><span>Redraws <span class="required">*</span></span><input type="text" id="txtredraws" class="input-field" name="field2" value="" /></label>
+                                                <label for="field1"><span>Page Height <span class="required">*</span></span><input type="text" id="txtpheight" class="input-field" name="field1" value="" /></label>
+
+
+                                            </div>
+
+                                            <div class="col-sm-9" style="width:100%">
+                                                <label for="field6"><span>Remarks <span class="required">*</span></span><textarea name="field6" id="txtremarkart" class="textarea-field"></textarea></label>
+                                                <label for="field6"><span>Queries <span class="required">*</span></span><textarea name="field6" id="txtqueryart" class="textarea-field"></textarea></label>
+                                            </div>
+
+                                            <br /> <label style="margin-left: 246px;">
+                                                <span> </span><input type="button" value="Update" id="btnUpdate_Artwork" />
+                                                <span> </span><input type="button" value="Cancel" data-dismiss="modal" id="btnCancel_Artwork" />
+                                            </label>
+                                        </fieldset>
+
+
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+

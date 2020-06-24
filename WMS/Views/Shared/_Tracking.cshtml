@@ -1,0 +1,198 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
+    <title>@ViewBag.Title - Sesame</title>
+    <link rel="shortcut icon" href="~/Images/sesame.png">
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css?t=@DateTime.Now.Ticks.ToString()">
+    <link rel="stylesheet" href="~/Content/css/all.css?t=@DateTime.Now.Ticks.ToString()">
+    <link rel="stylesheet" href="~/Content/css/custom.css?t=@DateTime.Now.Ticks.ToString()">
+    <link rel="stylesheet" href="~/Content/css/custom-themes.css?t=@DateTime.Now.Ticks.ToString()">
+    <link rel="stylesheet" href="~/Content/css/main.css?t=@DateTime.Now.Ticks.ToString()">
+    @Scripts.Render("~/Scripts/moment.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/jquery.min.js")
+    @Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
+    @Scripts.Render("~/Scripts/jquery.validate.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/jquery.validate.unobtrusive.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/datetimepicker_css.js?t=" + @DateTime.Now.Ticks.ToString())
+
+
+    @Scripts.Render("~/Scripts/Editor/jquery-te-1.4.0.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/Scripts/Editor/jquery-te-1.4.0.css?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Styles.Render("~/Sidebar/sidenavi-right.css?t=" + @DateTime.Now.Ticks.ToString())
+
+    <style type="text/css">
+        /*Hide all Menu on Load time*/
+        .Mainmenu {
+            display: none;
+        }
+
+        .jumbotron {
+            background-color: rgba(255, 255, 255, 0.99) !important;
+            color: #000 !important;
+        }
+
+            .jumbotron > hr {
+                background-color: #000 !important;
+            }
+
+        .page-wrapper .page-content {
+            padding-left: 0px !important;
+        }
+
+        .ImgLogo {
+            height: 40px;
+            position: relative;
+            top: -12px;
+        }
+
+        .page-wrapper .page-content {
+            color: #FFFFFF;
+            background: linear-gradient(40deg,#cfe8f7,#096e8a) !important;
+        }
+          #divLogo {
+            height: 40px;
+        }
+
+        .spTitle {
+            position: relative;
+            top: -10px;
+        }
+        .divHeight {
+            height:45px !important;
+        }
+        h1 {
+            font-size: 2em;
+            margin: 0.67em 0;
+            font-weight: bold;
+        }
+    </style>
+    <script type="text/javascript">
+        //window.history.forward();
+        window.history.pushState(null, "", window.location.href);
+        window.onpopstate = function () {
+            window.history.pushState(null, "", window.location.href);
+        };
+                                    //$(document).keydown(function (event) {
+                                    //    if (event.keyCode == 123) { // Prevent F12
+                                    //        return false;
+                                    //    } else if (event.ctrlKey && event.shiftKey && event.keyCode == 73) { // Prevent Ctrl+Shift+I
+                                    //        return false;
+                                    //    }
+                                    //});
+
+
+/**/</script>
+</head>
+
+<body oncontextmenu="return false;">
+
+    <div class="page-wrapper chiller-theme sidebar-bg bg1 toggle">
+
+        <main class="page-content container-fluid">
+            <div class="row">
+                <div class="col-md-5 divHeight">
+                    <div id="divLogo">
+                        <h1 class="heading"><img class="ImgLogo" src="~/Images/sesame_logo.png" /></h1>
+                    </div>
+                </div>
+                <div class="col-md-4 divHeight"><h1 class="heading"><span class="spTitle">@ViewBag.Title</span></h1></div>
+                <div class="col-md-3 headerUserName">
+                    <span class="nav">
+                        <a href=@Url.Action("UserProfile", "user") title="Profile">
+                            <img class="imgProfile" title="Profile" src="../../images/profile.png" onError="this.onerror=null;this.src='../../images/profile.png';">
+                        </a>
+                        <a href=@Url.Action("logout", "home") title="Logout">
+                            <i class="fa fa-power-off"></i>
+                        </a>
+                    </span>
+                </div>
+            </div>
+        </main>
+
+        <div class="body-content">
+            @RenderBody()
+            <footer>
+                <center>
+                    &copy; @DateTime.Now.Year Sesame NovaTechset
+                </center>
+            </footer>
+        </div>
+    </div>
+
+    <div id="LoadingImage">
+        <center>
+            <img src="~/Images/loader.gif" class="imgLoadimg" />
+        </center>
+    </div>
+
+
+
+    <script src="~/Scripts/js/bootstrap.min.js?t=@DateTime.Now.Ticks.ToString()"></script>
+    <script src="~/Scripts/js/custom.js?t=@DateTime.Now.Ticks.ToString()"></script>
+
+    <link rel="stylesheet" href="~/css/normalize.css?t=@DateTime.Now.Ticks.ToString()">
+    <link rel="stylesheet" href="~/css/main.css?t=@DateTime.Now.Ticks.ToString()">
+    <link rel="stylesheet" href="~/css/jquery.steps.css?t=@DateTime.Now.Ticks.ToString()">
+    <script src="~/Scripts/StepsJS/modernizr-2.6.2.min.js?t=@DateTime.Now.Ticks.ToString()"></script>
+
+
+    @Scripts.Render("~/Scripts/StepsJS/jquery.cookie-1.3.1.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/StepsJS/jquery.steps.js?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Scripts.Render("~/Scripts/select2-2.1/select2.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    <link rel="stylesheet" href="~/Scripts/select2-2.1/select2.css?t= @DateTime.Now.Ticks.ToString()">
+
+
+    @Scripts.Render("~/Scripts/bootbox.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/jquery.bootstrap-growl.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/jquery.table2excel.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/bootbox.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/bundles/modernizr?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Styles.Render("~/Scripts/jquery-ui.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/jquery-ui.js?t=" + @DateTime.Now.Ticks.ToString())
+
+
+    @Scripts.Render("~/Scripts/moment.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/daterangepicker.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/Scripts/daterangepicker.css?t=" + @DateTime.Now.Ticks.ToString())
+
+
+    @Scripts.Render("~/Sidebar/SideNavi.js?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Scripts.Render("~/CustomScripts/ready.js?t=" + @DateTime.Now.Ticks.ToString())
+
+
+    @Styles.Render("~/Scripts/jquery.contextMenu.min.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/jquery.contextMenu.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/jquery.ui.position.js?t=" + @DateTime.Now.Ticks.ToString())
+
+
+    @Styles.Render("~/Scripts/jquery.datetimepicker.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/date-formatter.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/jquery.datetimepicker.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/js/jquery-asProgress.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/Scripts/js/css/asProgress.css?t=" + @DateTime.Now.Ticks.ToString())
+
+    @RenderSection("scripts", required: false)
+    <input id="hf_GetRights" type="hidden" value='@Url.Action("GetRights", "home")'>
+
+    <input id="hf_KeepAlive" type="hidden" value='@Url.Action("KeepAlive", "home")'>
+    <input id="hf_LoginURL" type="hidden" value="@Url.Action("login", "home")">
+    <input id="hf_UserMaster" type="hidden" data-value="@Session["UserData"]">
+    <input id="hf_ArticleSort" type="hidden" value='@Url.Action("ArticleSortMethod", "SesameAPI")'>
+    <input id="hf_UserType" type="hidden">
+    <input id="hf_PublisherID" type="hidden">
+    <input id="hf_PublisherCode" type="hidden">
+    <input id="hf_Menu" type="hidden">
+    <input id="hf_UserID" type="hidden">
+    <input id="hf_UserName" type="hidden">
+    <input id="hf_RoleID" type="hidden">
+
+</body>
+</html>

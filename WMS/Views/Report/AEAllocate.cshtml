@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewBag.Title = "Author/Editor Proof History";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    @Styles.Render("~/CustomScripts/css/jquery.dataTables.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/CustomScripts/resources/syntax/shCore.css?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Scripts.Render("~/CustomScripts/js/jquery.dataTables.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/js/dataTables.fixedColumns.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/dataTables.buttons.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/jszip.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/pdfmake.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/vfs_fonts.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/buttons.html5.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/date-dd-MMM-yyyy.js?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Styles.Render("~/css/report.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Report.js?t=" + @DateTime.Now.Ticks.ToString())
+
+    <style type="text/css">
+        .spGreen {
+            background-color: #AFD275;
+            color: #FFF !important;
+        }
+
+        .spRed {
+            background-color: #F78888;
+            color: #FFF !important;
+        }
+
+        .spBlue {
+            background-color: #AAAAF9;
+            color: #FFF !important;
+        }
+
+        .dataTable th:last-child {
+            text-align: left !important;
+        }
+
+        .nav-tabs li a, #tblChapter_wrapper {
+            font-size: 12px !important;
+        }
+    </style>
+}
+<input id="hf_GetAEAllocate" type="hidden" value='@Url.Action("GetAEAllocate", "Report")'>
+
+<div class="page-content">
+    <div class="jumbotron content">
+
+        <div class="row">
+            <div class="col-sm-2">
+                From
+                <input id="Txt_FromDate" type="text" readonly class="form-control inputHandCursor" />
+            </div>
+            <div class="col-sm-2">
+                To
+                <input id="Txt_ToDate" type="text" readonly class="form-control inputHandCursor" />
+            </div>
+            <div class="col-sm-2">
+                Filter Type
+                <select id="ddlFilterType" class="form-control">
+                    <option value="Allocate" selected>Allocate</option>
+                    <option value="Upload">Upload</option>
+                </select>
+            </div>
+            <div class="col-sm-2">
+                <br />
+                <span class="btn btn-primary" title="Get" id="btnGetHistory">Get</span>
+            </div>
+        </div>
+
+
+        <table id="example" class="display" width="100%"></table>
+    </div>
+</div>

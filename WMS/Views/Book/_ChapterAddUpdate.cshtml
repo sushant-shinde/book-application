@@ -1,0 +1,154 @@
+﻿@model WMS.TBL_SubMaster
+
+<form id="ChapterInfo">
+    <div class="modal fade" id="myModal_Chapter_Info" role="dialog" aria-labelledby="myModalLabel">
+        @*<div id="myModal_Chapter_Info" class="model fade">*@
+        <div class="modal-dialog" id="mymodel_art">
+            <div class="modal-content" id="modal_contentArt">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">
+                        <strong>Chapter Details</strong>
+                    </h4>
+                </div>
+
+                <div class="modal-body">
+                    @Html.HiddenFor(model => model.ID)
+                    @Html.HiddenFor(model => model.MainID)
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group label-floating">
+                                <label class="control-label">Title</label><em>*</em>
+                                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group label-floating">
+                                <label class="control-label">Number</label><em>*</em>
+                                @Html.EditorFor(model => model.Number, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group label-floating">
+                                <label class="control-label">MS Pages</label>
+                                @Html.EditorFor(model => model.MSPages, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group label-floating">
+                                <label class="control-label">Figures</label>
+                                @Html.EditorFor(model => model.ColorFig, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group label-floating">
+                                <label class="control-label">Tables</label>
+                                @Html.EditorFor(model => model.Tables, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group label-floating">
+                                <label class="control-label">Auther Name</label>
+                                @Html.EditorFor(model => model.AuthorName, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group label-floating">
+                                <label class="control-label">Auther Email</label>
+                                @Html.EditorFor(model => model.AuthorEmail, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnSaveChapter">Add/Update</button>
+                    <button type="button" class="btn btn-primary" id="btnCloseChapterModal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#btnSaveChapter').click(function () {
+            $('#LoadingImage').show();
+            if ($('#Title').val() == '') {
+                $.bootstrapGrowl("Please Enter Title", {
+                    type: 'danger',
+                    delay: 2000,
+                });
+                ('#LoadingImage').hide();
+                return false;
+            }
+
+            if ($('#Number').val() == '') {
+                $.bootstrapGrowl("Please Enter Number", {
+                    type: 'danger',
+                    delay: 2000,
+                });
+                ('#LoadingImage').hide();
+                return false;
+            }
+            debugger
+            var chNumber = $('#Number').val();
+
+            if (parseInt($('#ID').val()) > 0) {
+                chaptNumbers = jQuery.grep(chaptNumbers, function (value) {
+                    return value != chNumber;
+                });
+            }
+
+            if (jQuery.inArray(chNumber, chaptNumbers) != '-1') {
+                $.bootstrapGrowl("Number already present", {
+                    type: 'danger',
+                    delay: 2000,
+                });
+                ('#LoadingImage').hide();
+                return false;
+            }       
+
+            $.ajax({
+                type: 'GET',
+                url: $('#hf_SaveChapterInfo').val(),
+                data: $("#ChapterInfo").serialize(),
+                success: function (data) {
+                    if (data.status) {
+                        $.bootstrapGrowl(data.message, {
+                            type: 'info',
+                            delay: 5000,
+                        });
+
+                        $('#myModal_Chapter_Info').modal('hide');
+                        GoToChapterDetails($('#MainID').val());
+                        $('#LoadingImage').hide();
+                    } else {
+                        ('#LoadingImage').hide();
+                        $.bootstrapGrowl(data.message, {
+                            type: 'danger',
+                            delay: 2000,
+                        });
+                    }
+                }, error: function (err) {
+                    ('#LoadingImage').hide();
+                    $.bootstrapGrowl(err, {
+                        type: 'danger',
+                        delay: 2000,
+                    });
+                }
+            });
+        });
+
+        $("#btnCloseChapterModal").click(function () {
+            $('#myModal_Chapter_Info').modal('hide');
+        });
+
+        $('#myModal_Chapter_Info').modal({
+            backdrop: 'static',
+            keyboard: false
+        });
+    });
+</script>

@@ -1,0 +1,284 @@
+﻿@model WMS.Models.settings
+@{
+    ViewBag.Title = "Project Plan";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+    @Styles.Render("~/CustomScripts/css/jquery.dataTables.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/CustomScripts/resources/syntax/shCore.css?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Scripts.Render("~/CustomScripts/js/jquery.dataTables.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/js/dataTables.fixedColumns.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/dataTables.buttons.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/jszip.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/pdfmake.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/vfs_fonts.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/buttons.html5.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/date-dd-MMM-yyyy.js?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Scripts.Render("~/CustomScripts/projectplan.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/css/report.css?t=" + @DateTime.Now.Ticks.ToString())
+
+    <style type="text/css">
+        .divFilterTop {
+            margin: 0 0 10px 10px;
+        }
+
+        #example_wrapper {
+            margin-top: 10px;
+        }
+
+        #Txt_BufferDays {
+            text-align: right !important;
+        }
+
+        .TxtScheduleDays {
+            text-align: right !important;
+            width: 50px;
+        }
+
+        #spAddActivity {
+            left: 96%;
+            position: relative;
+            font-size: 20px;
+            color: #337ab7;
+        }
+
+        .modal-open .modal {
+            top: -10px;
+        }
+
+        table.dataTable thead .sorting, td {
+            text-align: left !important;
+        }
+
+        .context-menu-list {
+            min-width: 10em !important;
+            width: 10em !important;
+            font-size: 14px !important;
+            border-radius: 10px;
+        }
+
+        #DivActivityLisy *:not(.TxtPercentage) {
+            text-align: center !important;
+        }
+
+        .spCenter, th, td {
+            text-align: left !important;
+            padding-left: 5px;
+        }
+
+        #myModal_View .modal-body {
+            font-size: 14px !important;
+            padding-top: 0px;
+        }
+
+        #myModal_View .modal-dialog {
+            width: 1100px;
+        }
+
+        .tblBkinfo tr td:first-child {
+            white-space: nowrap !important;
+        }
+
+        .tblBkinfo tr {
+            /*background: #edf6ff;*/
+            font-weight: bold;
+            padding-left: 10px;
+            border-bottom: 1px solid #c6c6c6;
+        }
+
+        .tblBkinfo td {
+            padding: 10px 10px;
+            font-size: 12px;
+        }
+
+        .tblBkinfo {
+            margin-left: 20px;
+        }
+
+        #myModal_View .modal-body table {
+            width: 98% !important;
+        }
+
+        .trParallelFlow td {
+            background-color: #c6f7ff;
+        }
+
+        .trOverDue td {
+            background-color: #ffbfbf;
+        }
+
+        .trManualClose td {
+            background-color: #4dff8c;
+        }
+
+        .trGreen td {
+            background-color: #fff38d;
+        }
+
+        .divError {
+            color: red;
+            float: left;
+            font-weight: bold;
+        }
+
+        .tblTrans thead th {
+            text-align: center !important;
+        }
+
+        table#tblPPList th:nth-child(3), table#tblPPList td:nth-child(3) {
+            display: none;
+        }
+
+        div.divGreen {
+            background: #fff38d;
+            text-align: center;
+        }
+
+        div.divOverDue {
+            background: #ffbfbf;
+            text-align: center;
+        }
+
+        div.divOnime {
+            background: #4dff8c;
+            text-align: center;
+        }
+    </style>
+
+}
+
+<input id="hf_GetProjectPlanList" type="hidden" value='@Url.Action("GetProjectPlanList", "settings")'>
+<input id="hf_GetWorkFlowList_ByBookID" type="hidden" value='@Url.Action("GetWorkFlowList_ByBookID", "settings")'>
+<input id="hf_GetActivityList" type="hidden" value='@Url.Action("GetActivityList", "settings")'>
+<input id="hf_PopulateProjectPlan" type="hidden" value='@Url.Action("PopulateProjectPlan", "settings")'>
+<input id="hf_UpdateProjectPlan" type="hidden" value='@Url.Action("UpdateProjectPlan", "settings")'>
+<input id="hf_DeleteProjectPlan" type="hidden" value='@Url.Action("DeleteProjectPlan", "settings")'>
+
+<input id="hf_GetScheduleDate" type="hidden" value='@Url.Action("GetScheduleDate", "settings")'>
+
+<div class="page-content">
+    <div class="jumbotron content">
+        <table id="example" class="display" width="100%"></table>
+    </div>
+</div>
+
+
+<div id="myModal_View" class="modal fade myModalView" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><strong>Project Planning</strong></h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="row divFilterTop">
+                            <div class="col-sm-4">
+                                <label>Books</label>
+                                <span id="spddlBookList">
+                                    @Html.DropDownListFor(m => m.CatalogList, new SelectList(Model.CatalogList, "Value", "Text"), new { @id = "ddlBookList", @class = "form-control" })
+                                </span>
+                                <span id="spBookID" style="display:none"></span>
+                            </div>
+                            <div class="col-sm-4">
+                                <label>Workflow</label>
+                                @*@Html.DropDownListFor(m => m.WorkFlowList, new SelectList(Model.WorkFlowList, "Value", "Text"), new { @id = "ddlWorkFlowList", @class = "form-control" })*@
+                                <select id="ddlWorkFlowList"></select>
+                            </div>
+                            <div class="col-sm-2">
+                                <label>Buffer Days</label>
+                                <input id="Txt_BufferDays" type="text" class="form-control IsNumeric" maxlength="3" />
+                            </div>
+                            <div class="col-sm-2">
+                                <br />
+                                <button type="button" class="btn btn-primary" title="Get" id="btnGet">Get</button>
+                            </div><br />
+                        </div>
+                        <div class="row" id="divBookCover">
+                            <div class="col-sm-4">
+                                <table class="tblBkinfo tblMain" width="100%" style="display:none">
+                                    @*<tr>
+                                            <td colspan="2"><center>Book Info</center></td>
+                                        </tr>*@
+                                    <tr>
+                                        <td>Received date</td>
+                                        <td><span id="LblReceivedDt"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Due date</td>
+                                        <td><span id="LblDueDt"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>TAT Details</td>
+                                        <td><span id="LblTATDetails"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>ISBN</td>
+                                        <td><span id="LblISBN"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Platform</td>
+                                        <td><span id="LblPlatform"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Authors</td>
+                                        <td><span id="LblAuthorName"></span></td>
+                                    </tr>
+                                    @*<tr>
+                                            <td colspan="2"><center>Workflow Info</center></td>
+                                        </tr>*@
+                                    <tr>
+                                        <td>Workflow Min.Days</td>
+                                        <td><span id="LblMinDays"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Workflow Max.Days</td>
+                                        <td><span id="LblMaxDays"></span></td>
+                                    </tr>
+                                </table>
+                                <div class="col-sm-12">
+                                    <br />
+                                    <table width="100%">
+                                        <tr>
+                                            <td>
+                                                <div class="divGreen">
+                                                    Ahead
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="divOnime">
+                                                    On-time
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="divOverDue">
+                                                    Overdue
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div id="DivActivityList_Plan" style="overflow:auto"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div class="divError" style="display:none"></div>
+                <button type="button" class="btn btn-primary" title="Update" id="btnPP" style="display:none">Add / Update</button>
+                <button type="button" class="btn btn-primary" title="Close" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+

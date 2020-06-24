@@ -1,0 +1,2206 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Books">
+    <Key>
+      <PropertyRef Name="Book_ID" />
+    </Key>
+    <Property Name="Book_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Book_Number" Type="nvarchar" MaxLength="10" />
+    <Property Name="Book_Title" Type="nvarchar" MaxLength="200" />
+    <Property Name="Book_ReceivedDt" Type="datetime" />
+    <Property Name="Book_DueDt" Type="datetime" />
+    <Property Name="Book_PublID" Type="int" />
+    <Property Name="Book_Catalog" Type="nvarchar" MaxLength="20" />
+    <Property Name="Book_ISBN" Type="nvarchar" MaxLength="20" />
+    <Property Name="Book_Platform" Type="nvarchar" MaxLength="20" />
+    <Property Name="Book_AuthorName" Type="nvarchar" MaxLength="200" />
+    <Property Name="Book_AuthorEmail" Type="nvarchar" MaxLength="200" />
+    <Property Name="Book_EditorName" Type="nvarchar" MaxLength="200" />
+    <Property Name="Book_EditorEmail" Type="nvarchar" MaxLength="200" />
+    <Property Name="Book_PEName" Type="nvarchar" MaxLength="200" />
+    <Property Name="Book_PEEmail" Type="nvarchar" MaxLength="200" />
+    <Property Name="Book_PMName" Type="nvarchar" MaxLength="200" />
+    <Property Name="Book_PMEmail" Type="nvarchar" MaxLength="200" />
+    <Property Name="Book_Notes" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Book_Status" Type="nvarchar" MaxLength="50" />
+    <Property Name="Book_SeriesTitle" Type="nvarchar" MaxLength="100" />
+    <Property Name="Book_Type" Type="nvarchar" MaxLength="20" />
+    <Property Name="Book_Category" Type="nvarchar" MaxLength="40" />
+    <Property Name="Book_Billed" Type="int" />
+    <Property Name="Book_SentDt" Type="datetime" />
+    <Property Name="Book_Remark" Type="nvarchar" MaxLength="200" />
+    <Property Name="Book_Subject" Type="nvarchar" MaxLength="50" />
+    <Property Name="Book_Edition" Type="nvarchar" MaxLength="50" />
+    <Property Name="Book_Workflow" Type="nvarchar" MaxLength="50" />
+    <Property Name="Book_TSPM" Type="nvarchar" MaxLength="200" />
+    <Property Name="Book_Img" Type="nvarchar" MaxLength="200" />
+    <Property Name="Book_Origin" Type="nvarchar" MaxLength="20" />
+    <Property Name="IsSynch" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'WMS.dbo.Books_JTS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Books_JTS">
+    <Key>
+      <PropertyRef Name="Book_ID" />
+    </Key>
+    <Property Name="Book_ID" Type="int" Nullable="false" />
+    <Property Name="Book_Number" Type="nvarchar" MaxLength="20" />
+    <Property Name="Book_Title" Type="nvarchar" MaxLength="500" />
+    <Property Name="Book_Publisher" Type="nvarchar" MaxLength="50" />
+    <Property Name="Book_AuthorName" Type="nvarchar" MaxLength="300" />
+    <Property Name="Book_ProdOrMfg" Type="nvarchar" MaxLength="50" />
+    <Property Name="Book_TrimSize" Type="nvarchar" MaxLength="25" />
+    <Property Name="Book_PagesEst" Type="nvarchar" MaxLength="10" />
+    <Property Name="Book_PagesAct" Type="nvarchar" MaxLength="10" />
+    <Property Name="Book_ISBN" Type="nvarchar" MaxLength="100" />
+    <Property Name="Book_Printer" Type="nvarchar" MaxLength="50" />
+    <Property Name="Book_CopyEditing" Type="nvarchar" MaxLength="25" />
+    <Property Name="Book_ProofReader" Type="nvarchar" MaxLength="25" />
+    <Property Name="Book_Indexer" Type="nvarchar" MaxLength="25" />
+    <Property Name="Book_Priority" Type="nvarchar" MaxLength="25" />
+    <Property Name="Book_Platform" Type="nvarchar" MaxLength="20" />
+    <Property Name="Book_Received" Type="datetime" />
+    <Property Name="Book_Uploaded" Type="datetime" />
+    <Property Name="Book_TargetedPubDate" Type="datetime" />
+    <Property Name="Book_CompletionDate" Type="datetime" />
+    <Property Name="Book_SupplierGraphics" Type="nvarchar" MaxLength="50" />
+    <Property Name="Book_Notes" Type="nvarchar" MaxLength="100" />
+    <Property Name="Book_Delivery" Type="nvarchar" MaxLength="100" />
+    <Property Name="Book_Status" Type="nvarchar" MaxLength="50" />
+    <Property Name="Book_IsQuery" Type="bit" />
+    <Property Name="Book_IsFeedback" Type="bit" />
+    <Property Name="Book_IsOnHold" Type="bit" />
+    <Property Name="Book_OnHoldRemarks" Type="nvarchar" MaxLength="50" />
+    <Property Name="LastModifiedDate" Type="datetime" />
+    <Property Name="UsrID" Type="int" />
+    <Property Name="Book_Catalog" Type="nvarchar" MaxLength="50" />
+    <Property Name="Book_ArchivalSent" Type="datetime" />
+    <Property Name="Book_Color" Type="nvarchar" MaxLength="100" />
+    <Property Name="Book_Layout" Type="nvarchar" MaxLength="20" />
+    <Property Name="Book_PTRFiles" Type="bit" />
+    <Property Name="Book_DARTFiles" Type="bit" />
+    <Property Name="Book_PublID" Type="int" />
+    <Property Name="Book_FolderCreated" Type="bit" />
+    <Property Name="Book_speInstruction" Type="nvarchar(max)" />
+    <Property Name="Book_Complexity" Type="varchar" MaxLength="25" />
+    <Property Name="Book_ProofReaderbk" Type="varchar" MaxLength="500" />
+    <Property Name="Book_PtrComplexity" Type="varchar" MaxLength="25" />
+    <Property Name="Book_RevisesComplexity" Type="varchar" MaxLength="25" />
+    <Property Name="Book_Type" Type="varchar" MaxLength="25" />
+    <Property Name="Book_InvoiceStage" Type="varchar" MaxLength="25" />
+    <Property Name="Book_ProjectMgmt" Type="nvarchar" MaxLength="25" />
+    <Property Name="Book_EBookCon" Type="nvarchar" MaxLength="25" />
+    <Property Name="Book_Reprint" Type="nvarchar" MaxLength="25" />
+    <Property Name="Book_SpecialJob" Type="nvarchar" MaxLength="25" />
+    <Property Name="Book_Postage" Type="nvarchar" MaxLength="25" />
+    <Property Name="Book_PartInvDtl" Type="nvarchar" MaxLength="25" />
+    <Property Name="Book_ProofReading" Type="nvarchar" MaxLength="25" />
+    <Property Name="Book_ProjectManager" Type="nvarchar" MaxLength="250" />
+    <Property Name="Book_ApprovedDate" Type="datetime" />
+    <Property Name="Book_InvoiceDate" Type="datetime" />
+    <Property Name="Book_InvoiceRemarks" Type="nvarchar(max)" />
+    <Property Name="ID" Type="bigint" />
+    <Property Name="Book_InvoiceNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="Book_ArchivalApprovedDate" Type="datetime" />
+    <Property Name="Book_ArchivalApproved" Type="nvarchar" MaxLength="20" />
+    <Property Name="Book_EditorName" Type="varchar(max)" />
+    <Property Name="Book_Address1" Type="varchar(max)" />
+    <Property Name="Book_Address2" Type="varchar(max)" />
+    <Property Name="Book_Address3" Type="varchar(max)" />
+    <Property Name="Book_city" Type="varchar(max)" />
+    <Property Name="Book_EditorEmail" Type="varchar(max)" />
+    <Property Name="Book_AuthorEditorName" Type="varchar" MaxLength="500" />
+    <Property Name="Book_AuthorEdtorEmail" Type="varchar" MaxLength="500" />
+    <Property Name="Book_ProcessType" Type="varchar" MaxLength="100" />
+    <Property Name="Book_ProofReturn_DueDt" Type="datetime" />
+    <Property Name="Book_ProofReturn_Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="Book_ProofReturn_Type" Type="nvarchar" MaxLength="10" />
+    <Property Name="Book_Telephone" Type="nvarchar" MaxLength="20" />
+    <Property Name="Book_Proof_CC" Type="nvarchar" MaxLength="500" />
+    <Property Name="Book_Proof_BCC" Type="nvarchar" MaxLength="500" />
+    <Property Name="Book_Proof_Approval" Type="bit" />
+    <Property Name="Book_ProofReturn_Email" Type="nvarchar" MaxLength="500" />
+    <Property Name="Book_Country" Type="nvarchar" MaxLength="100" />
+    <Property Name="Book_PinCode" Type="nvarchar" MaxLength="100" />
+    <Property Name="Book_ProdEditor_Name" Type="nvarchar" MaxLength="200" />
+    <Property Name="Book_ProdEditor_Email" Type="nvarchar" MaxLength="200" />
+    <Property Name="Book_EFax" Type="nvarchar" MaxLength="100" />
+    <Property Name="Book_ProofReturn_Days" Type="nvarchar" MaxLength="20" />
+    <Property Name="Book_ProofReturn_Weeks" Type="nvarchar" MaxLength="20" />
+    <Property Name="Book_Proof_PECC" Type="bit" />
+    <Property Name="Book_download" Type="bit" />
+    <Property Name="Book_PEIntroDt" Type="datetime" />
+    <Property Name="Book_PMIntroDt" Type="datetime" />
+    <Property Name="Book_ProofSent_User" Type="nvarchar" MaxLength="500" />
+    <Property Name="Book_Acronym" Type="nvarchar" MaxLength="50" />
+    <Property Name="Book_Volume" Type="nvarchar" MaxLength="50" />
+    <Property Name="Book_IntroEmail_SentDt" Type="datetime" />
+    <Property Name="Book_ProofSendOn_Dt" Type="datetime" />
+    <Property Name="Book_Intrlno" Type="varchar" MaxLength="25" />
+    <Property Name="Book_SecondPages_Approve" Type="bit" />
+    <Property Name="Book_SecondPages_SentDt" Type="datetime" />
+    <Property Name="Book_FinalPages_Approve" Type="bit" />
+    <Property Name="Book_FinalPages_SentDt" Type="datetime" />
+    <Property Name="Book_Tetra" Type="datetime" />
+    <Property Name="Book_EbkISBN" Type="nvarchar" MaxLength="200" />
+    <Property Name="Book_EPubISBN" Type="nvarchar" MaxLength="200" />
+    <Property Name="Book_WebPDFISBN" Type="nvarchar" MaxLength="200" />
+    <Property Name="Book_MobiISBN" Type="nvarchar" MaxLength="200" />
+    <Property Name="Book_CoverPath" Type="nvarchar" MaxLength="500" />
+    <Property Name="Book_FSAPath" Type="nvarchar" MaxLength="500" />
+    <Property Name="Book_MetaDataPath" Type="nvarchar" MaxLength="500" />
+    <Property Name="Book_InternalDesign" Type="nvarchar" MaxLength="100" />
+    <Property Name="Book_TextArea" Type="nvarchar" MaxLength="200" />
+    <Property Name="Book_HBKISBN" Type="nvarchar" MaxLength="200" />
+    <Property Name="Book_Color_Insert" Type="bit" />
+    <Property Name="Book_Color_Ebook" Type="bit" />
+    <Property Name="Book_Scatter_Color" Type="bit" />
+    <Property Name="Book_CastOff" Type="nvarchar" MaxLength="100" />
+    <Property Name="Book_Color_Plate" Type="bit" />
+    <Property Name="Book_Dual_Edition" Type="bit" />
+    <Property Name="Book_TSPM" Type="nvarchar" MaxLength="200" />
+    <Property Name="Book_PEDueDt" Type="datetime" />
+    <Property Name="Book_CEDueDt" Type="datetime" />
+    <Property Name="Book_GFXDueDt" Type="datetime" />
+    <Property Name="Book_Location" Type="nvarchar" MaxLength="100" />
+    <Property Name="Book_SeriesTitle" Type="nvarchar" MaxLength="2000" />
+    <Property Name="Book_CEType" Type="nvarchar" MaxLength="50" />
+    <Property Name="Book_Initial_Invoice" Type="nvarchar" MaxLength="20" />
+    <Property Name="Book_EndDelivery_Approve" Type="bit" />
+    <Property Name="Book_EndDelivery_SentDt" Type="datetime" />
+    <Property Name="Book_KickOff_Status" Type="nvarchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="Chapter">
+    <Key>
+      <PropertyRef Name="Chapter_ID" />
+    </Key>
+    <Property Name="Chapter_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Chapter_Number" Type="nvarchar" MaxLength="10" />
+    <Property Name="Chapter_Title" Type="nvarchar" MaxLength="200" />
+    <Property Name="Chapter_BookID" Type="int" />
+    <Property Name="Chapter_ReceivedDt" Type="datetime" />
+    <Property Name="Chapter_DueDt" Type="datetime" />
+    <Property Name="Chapter_MSPages" Type="int" />
+    <Property Name="Chapter_ColorFig" Type="int" />
+    <Property Name="Chapter_BWFig" Type="int" />
+    <Property Name="Chapter_ProofPages" Type="int" />
+    <Property Name="Chapter_Tables" Type="int" />
+    <Property Name="Chapter_AuthorName" Type="nvarchar" MaxLength="200" />
+    <Property Name="Chapter_AuthorEmail" Type="nvarchar" MaxLength="200" />
+    <Property Name="Chapter_Notes" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Chapter_Status" Type="bit" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'WMS.dbo.Chapter_JTS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Chapter_JTS">
+    <Key>
+      <PropertyRef Name="Chapter_ID" />
+    </Key>
+    <Property Name="Chapter_ID" Type="int" Nullable="false" />
+    <Property Name="Chapter_BookNo" Type="nvarchar" MaxLength="20" />
+    <Property Name="Chapter_BookID" Type="int" />
+    <Property Name="Chapter_ChapNo" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Chapter_Title" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Chapter_AuthorName" Type="nvarchar" MaxLength="500" />
+    <Property Name="Chapter_MSReceived" Type="datetime" />
+    <Property Name="Chapter_ArtReceived" Type="datetime" />
+    <Property Name="Chapter_MSPages" Type="nvarchar" MaxLength="5" />
+    <Property Name="Chapter_Tables" Type="nvarchar" MaxLength="5" />
+    <Property Name="Chapter_LineArt" Type="nvarchar" MaxLength="5" />
+    <Property Name="Chapter_HalfTone" Type="nvarchar" MaxLength="5" />
+    <Property Name="Chapter_Colour" Type="nvarchar" MaxLength="5" />
+    <Property Name="Chapter_ReKey" Type="bit" />
+    <Property Name="Chapter_eART" Type="bit" />
+    <Property Name="Chapter_Notes" Type="nvarchar" MaxLength="100" />
+    <Property Name="Chapter_ToCE" Type="datetime" />
+    <Property Name="Chapter_FromCE" Type="datetime" />
+    <Property Name="Chapter_FirstContact" Type="nvarchar" MaxLength="75" />
+    <Property Name="Chapter_IsQuery" Type="bit" />
+    <Property Name="Chapter_IsFeedback" Type="bit" />
+    <Property Name="Chapter_IsOnHold" Type="bit" />
+    <Property Name="Chapter_OnHoldRemarks" Type="nvarchar" MaxLength="50" />
+    <Property Name="Chapter_IsCompleted" Type="bit" />
+    <Property Name="LastModifiedDate" Type="datetime" />
+    <Property Name="UsrID" Type="int" />
+    <Property Name="Chapter_Complexity" Type="nvarchar" MaxLength="25" />
+    <Property Name="Chapter_TotalFigures" Type="int" />
+    <Property Name="Chapter_SourceType" Type="nvarchar" MaxLength="25" />
+    <Property Name="Chapter_Status" Type="int" />
+    <Property Name="Chapter_UploadedDt" Type="datetime" />
+    <Property Name="Chapter_StatusGFX" Type="int" />
+    <Property Name="Chapter_CompletedDt" Type="datetime" />
+    <Property Name="Chapter_ScheduledDt" Type="datetime" />
+    <Property Name="Chapter_ExpectedDt" Type="datetime" />
+    <Property Name="Chapter_Schemes" Type="numeric" Precision="4" Scale="0" />
+    <Property Name="Chapter_FolderCreated" Type="bit" />
+    <Property Name="Chapter_FirstPage" Type="nvarchar" MaxLength="50" />
+    <Property Name="Chapter_LastPage" Type="nvarchar" MaxLength="50" />
+    <Property Name="Chapter_ProofPage" Type="nvarchar" MaxLength="50" />
+    <Property Name="Chpater_BlankPage" Type="varchar" MaxLength="250" />
+    <Property Name="Chapter_BlankPageCount" Type="int" />
+    <Property Name="Chapter_TICategory" Type="varchar" MaxLength="50" />
+    <Property Name="Chapter_TblLandscape" Type="int" />
+    <Property Name="Chapter_TblPotrait" Type="int" />
+    <Property Name="Chapter_PreULRemarks" Type="varchar" MaxLength="1000" />
+    <Property Name="Chapter_TransID" Type="varchar" MaxLength="10" />
+    <Property Name="Chapter_TransStatus" Type="varchar" MaxLength="10" />
+    <Property Name="Chapter_TransTime" Type="datetime" />
+    <Property Name="Chapter_TransIDGFX" Type="varchar" MaxLength="10" />
+    <Property Name="Chapter_TransStatusGFX" Type="varchar" MaxLength="10" />
+    <Property Name="Chapter_TransTimeGFX" Type="datetime" />
+    <Property Name="Chapter_speInstruction" Type="nvarchar(max)" />
+    <Property Name="Chapter_Invno" Type="varchar" MaxLength="15" />
+    <Property Name="Chapter_InvDate" Type="datetime" />
+    <Property Name="Chapter_InvBy" Type="varchar" MaxLength="25" />
+    <Property Name="Chapter_InvSys" Type="varchar" MaxLength="25" />
+    <Property Name="Chapter_Comments" Type="varchar(max)" />
+    <Property Name="Chapter_License" Type="varchar" MaxLength="25" />
+    <Property Name="Chapter_FigComment" Type="varchar" MaxLength="500" />
+    <Property Name="Chapter_FigQueryDt" Type="datetime" />
+    <Property Name="Chapter_AuthorMail" Type="nvarchar" MaxLength="500" />
+    <Property Name="Chapter_Actseq" Type="numeric" Precision="18" Scale="0" />
+    <Property Name="Chapter_ProofReturn_DueDt" Type="datetime" />
+    <Property Name="Chapter_Proof_Approval" Type="bit" />
+    <Property Name="Chapter_Miscellaneous" Type="bit" />
+    <Property Name="Chapter_Proof_CC" Type="nvarchar" MaxLength="300" />
+    <Property Name="Chapter_Proof_PECC" Type="bit" />
+    <Property Name="Chapter_Proof_EDCC" Type="bit" />
+    <Property Name="chapter_EstimateHours" Type="nvarchar" MaxLength="250" />
+    <Property Name="chapter_EstimateCompleteHours" Type="nvarchar" MaxLength="250" />
+    <Property Name="chapter_EstimateWorkingHours" Type="nvarchar" MaxLength="250" />
+    <Property Name="Chapter_ChapType" Type="nvarchar" MaxLength="100" />
+    <Property Name="Chapter_InvRemark" Type="nvarchar" MaxLength="4000" />
+    <Property Name="Chapter_PEAllocate_Emp" Type="nvarchar" MaxLength="40" />
+    <Property Name="Chapter_CastOff_Pages" Type="decimal" Precision="10" Scale="3" />
+    <Property Name="Chapter_Copyright_Text" Type="varchar" MaxLength="500" />
+    <Property Name="Chapter_Copyright" Type="varchar" MaxLength="500" />
+    <Property Name="Chapter_Pagewidth_fig" Type="varchar" MaxLength="500" />
+    <Property Name="Chapter_Columnwidth_fig" Type="varchar" MaxLength="500" />
+    <Property Name="Chapter_Midwidth_fig" Type="varchar" MaxLength="500" />
+    <Property Name="Chapter_Landscape_fig" Type="varchar" MaxLength="500" />
+    <Property Name="Chapter_Noteson_fig" Type="varchar" MaxLength="500" />
+    <Property Name="Chapter_Figshare_doi" Type="varchar" MaxLength="500" />
+    <Property Name="Chapter_MSWord_Count" Type="varchar" MaxLength="20" />
+    <Property Name="Chapter_StatusAMS" Type="int" />
+    <Property Name="Chapter_TransIDAMS" Type="varchar" MaxLength="10" />
+    <Property Name="Chapter_Booking_Method" Type="varchar" MaxLength="10" />
+    <Property Name="Chapter_AMSUploadedDt" Type="datetime" />
+    <Property Name="Chapter_DOI" Type="varchar" MaxLength="200" />
+    <Property Name="Chapter_ORCID" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Holidays">
+    <Key>
+      <PropertyRef Name="Leave_Id" />
+    </Key>
+    <Property Name="Leave_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Leave_Date" Type="datetime" Nullable="false" />
+    <Property Name="Leave_Description" Type="nvarchar(max)" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+    <Property Name="UpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="UpdatedTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Publisher">
+    <Key>
+      <PropertyRef Name="Publ_ID" />
+    </Key>
+    <Property Name="Publ_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Publ_Acronym" Type="nvarchar" MaxLength="50" />
+    <Property Name="Publ_Title" Type="nvarchar" MaxLength="200" />
+    <Property Name="Publ_Status" Type="bit" />
+    <Property Name="Publ_Journal" Type="bit" />
+    <Property Name="Publ_Book" Type="bit" />
+    <Property Name="Active" Type="tinyint" />
+    <Property Name="ActiveYear" Type="nvarchar" MaxLength="10" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'WMS.dbo.Scheduler' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Scheduler">
+    <Key>
+      <PropertyRef Name="Sch_ID" />
+      <PropertyRef Name="UpdatedTime" />
+    </Key>
+    <Property Name="Sch_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Sch_BookID" Type="int" />
+    <Property Name="Sch_Stage" Type="nvarchar" MaxLength="50" />
+    <Property Name="Sch_PlannedDt" Type="datetime" />
+    <Property Name="Sch_RevisedDt" Type="datetime" />
+    <Property Name="Sch_ActualDt" Type="datetime" />
+    <Property Name="UpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="UpdatedTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tbl_ActivityInfo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Book_ID" Type="nvarchar" MaxLength="50" />
+    <Property Name="Act_Date" Type="datetime" />
+    <Property Name="Activity" Type="nvarchar" MaxLength="100" />
+    <Property Name="Createdby" Type="varchar" MaxLength="50" />
+    <Property Name="CreatedTime" Type="datetime" />
+    <Property Name="UpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="UpdatedTime" Type="datetime" />
+    <Property Name="IsDeleted" Type="tinyint" />
+  </EntityType>
+  <EntityType Name="TBL_ArchiveRestore">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MainID" Type="int" />
+    <Property Name="Type" Type="nvarchar" MaxLength="20" />
+    <Property Name="ArchivalRequestDt" Type="datetime" />
+    <Property Name="ArchivalStatus" Type="nvarchar" MaxLength="50" />
+    <Property Name="ArchivalSucceedDate" Type="datetime" />
+    <Property Name="ArchivalPath" Type="nvarchar" MaxLength="1000" />
+    <Property Name="ArchivalSize" Type="nvarchar" MaxLength="300" />
+    <Property Name="RestoreRequestDate" Type="datetime" />
+    <Property Name="RestoreRequestStatus" Type="nvarchar" MaxLength="50" />
+    <Property Name="RestoreSucceedDate" Type="datetime" />
+    <Property Name="RestoreSourceSize" Type="nvarchar" MaxLength="300" />
+    <Property Name="Restorepath" Type="nvarchar" MaxLength="1000" />
+    <Property Name="RestoreType" Type="nvarchar" MaxLength="20" />
+    <Property Name="ArchiveRequestedBy" Type="int" />
+    <Property Name="RestoreRequestedBy" Type="int" />
+  </EntityType>
+  <EntityType Name="TBL_BookStages">
+    <Key>
+      <PropertyRef Name="SNo" />
+    </Key>
+    <Property Name="SNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StageName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+    <Property Name="IsFirstProof" Type="int" />
+  </EntityType>
+  <EntityType Name="TBL_Category">
+    <Key>
+      <PropertyRef Name="SNo" />
+    </Key>
+    <Property Name="SNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Category" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TBL_Cities">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CityName" Type="nvarchar" MaxLength="100" />
+    <Property Name="StateID" Type="int" />
+  </EntityType>
+  <EntityType Name="TBL_Complexity">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Complexity" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="TBL_Countries">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CountryName" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TBL_Edition">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Edition" Type="nvarchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="tbl_errorLog">
+    <Key>
+      <PropertyRef Name="SNo" />
+    </Key>
+    <Property Name="SNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Page" Type="varchar" MaxLength="100" />
+    <Property Name="ErrorLog" Type="varchar" MaxLength="1000" />
+    <Property Name="Updatetime" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Tbl_Feedback">
+    <Key>
+      <PropertyRef Name="FeedbackID" />
+    </Key>
+    <Property Name="FeedbackID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PulisherID" Type="int" />
+    <Property Name="BookID" Type="int" />
+    <Property Name="ChapterNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="ComplaintType" Type="nvarchar" MaxLength="50" />
+    <Property Name="CriticalLevel" Type="nvarchar" MaxLength="50" />
+    <Property Name="FeedbackDate" Type="datetime" />
+    <Property Name="FeedbackTo" Type="nvarchar" MaxLength="50" />
+    <Property Name="Feedback" Type="varchar(max)" />
+    <Property Name="Rootcause" Type="nvarchar(max)" />
+    <Property Name="Correctiveaction" Type="nvarchar(max)" />
+    <Property Name="Preventiveaction" Type="nvarchar(max)" />
+    <Property Name="ImplementDate" Type="datetime" />
+    <Property Name="Verifiedby" Type="int" />
+    <Property Name="Appreciation" Type="nvarchar(max)" />
+    <Property Name="Type" Type="nvarchar" MaxLength="50" />
+    <Property Name="Attachment" Type="nvarchar" MaxLength="100" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedTime" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedTime" Type="datetime" />
+    <Property Name="IsDeleted" Type="tinyint" />
+  </EntityType>
+  <EntityType Name="Tbl_ForgotPassword">
+    <Key>
+      <PropertyRef Name="SNo" />
+    </Key>
+    <Property Name="SNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmailID" Type="varchar" MaxLength="100" />
+    <Property Name="EntryDate" Type="datetime" />
+    <Property Name="OldPassword" Type="varchar" MaxLength="50" />
+    <Property Name="NewPassword" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="IsMailSent" Type="tinyint" />
+    <Property Name="Remarks" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="TBL_FreelanceBooking">
+    <Key>
+      <PropertyRef Name="TaskID" />
+      <PropertyRef Name="PublisherID" />
+    </Key>
+    <Property Name="TaskID" Type="int" Nullable="false" />
+    <Property Name="PublisherID" Type="int" Nullable="false" />
+    <Property Name="NextBooking" Type="tinyint" Nullable="false" />
+    <Property Name="NextBookingStage" Type="nvarchar" MaxLength="100" />
+    <Property Name="NextBookingStatus" Type="nvarchar" MaxLength="100" />
+    <Property Name="NewNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="DownloadPath" Type="nvarchar" MaxLength="500" />
+    <Property Name="SkipSelection" Type="tinyint" Nullable="false" />
+    <Property Name="GuideLine" Type="nvarchar" MaxLength="250" />
+    <Property Name="UpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="UpdatedTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TBL_FreelanceBooks">
+    <Key>
+      <PropertyRef Name="MainID" />
+      <PropertyRef Name="TaskID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MainID" Type="int" Nullable="false" />
+    <Property Name="TaskID" Type="int" Nullable="false" />
+    <Property Name="WordCount" Type="int" />
+    <Property Name="FileCapacity" Type="int" />
+    <Property Name="SuggestedFreelancer" Type="nvarchar" MaxLength="300" />
+    <Property Name="SuggestedMailDt" Type="datetime" />
+    <Property Name="SuggestedCost" Type="money" />
+    <Property Name="SuggestedVolume" Type="int" />
+    <Property Name="SuggestedUnitType" Type="nvarchar" MaxLength="100" />
+    <Property Name="Bookwise" Type="tinyint" />
+    <Property Name="Chapterwise" Type="tinyint" />
+    <Property Name="DueDate" Type="datetime" />
+    <Property Name="SuggestionSkip" Type="tinyint" />
+  </EntityType>
+  <EntityType Name="TBL_Freelancer_Master">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="DOB" Type="datetime" />
+    <Property Name="Available" Type="varchar" MaxLength="50" />
+    <Property Name="FromDate" Type="datetime" />
+    <Property Name="ToDate" Type="datetime" />
+    <Property Name="AvailableRemarks" Type="nvarchar" MaxLength="255" />
+    <Property Name="Gender" Type="varchar" MaxLength="50" />
+    <Property Name="Address" Type="nvarchar" MaxLength="500" />
+    <Property Name="CountryID" Type="int" />
+    <Property Name="StateID" Type="int" />
+    <Property Name="CityID" Type="int" />
+    <Property Name="Pincode" Type="nvarchar" MaxLength="50" />
+    <Property Name="EmailID" Type="nvarchar" MaxLength="100" />
+    <Property Name="EmailID1" Type="nvarchar" MaxLength="100" />
+    <Property Name="SkypeId" Type="nvarchar" MaxLength="100" />
+    <Property Name="MobileNo" Type="nvarchar" MaxLength="100" />
+    <Property Name="Specialization" Type="nvarchar" MaxLength="100" />
+    <Property Name="PerformanceRecord" Type="nvarchar" MaxLength="100" />
+    <Property Name="BankName" Type="nvarchar" MaxLength="255" />
+    <Property Name="AccountNo" Type="nvarchar" MaxLength="255" />
+    <Property Name="IFSCCode" Type="nvarchar" MaxLength="100" />
+    <Property Name="BranchName" Type="nvarchar" MaxLength="100" />
+    <Property Name="NDADocument" Type="nvarchar" MaxLength="100" />
+    <Property Name="PANCard" Type="nvarchar" MaxLength="50" />
+    <Property Name="PublisherList" Type="nvarchar(max)" />
+    <Property Name="Language" Type="nvarchar(max)" />
+    <Property Name="Source" Type="nvarchar" MaxLength="50" />
+    <Property Name="Interest" Type="nvarchar(max)" />
+    <Property Name="Restriction" Type="nvarchar(max)" />
+    <Property Name="IsActive" Type="tinyint" />
+    <Property Name="Image" Type="nvarchar(max)" />
+    <Property Name="Remarks" Type="nvarchar(max)" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedTime" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedTime" Type="datetime" />
+    <Property Name="IsDeleted" Type="tinyint" />
+  </EntityType>
+  <EntityType Name="TBL_Freelancer_Task">
+    <Key>
+      <PropertyRef Name="SNo" />
+    </Key>
+    <Property Name="SNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TaskName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TBL_Freelancer_TaskPrice">
+    <Key>
+      <PropertyRef Name="FreelancerID" />
+      <PropertyRef Name="TaskID" />
+    </Key>
+    <Property Name="FreelancerID" Type="int" Nullable="false" />
+    <Property Name="TaskID" Type="int" Nullable="false" />
+    <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Capacity" Type="int" />
+    <Property Name="WordPrice" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="WordCapacity" Type="int" />
+    <Property Name="TablePrice" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="TableCapacity" Type="int" />
+    <Property Name="FigurePrice" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="FigureCapacity" Type="int" />
+  </EntityType>
+  <EntityType Name="TBL_FreelanceSubMaster">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MainID" Type="int" />
+    <Property Name="TaskID" Type="int" />
+    <Property Name="Number" Type="nvarchar" MaxLength="100" />
+    <Property Name="FreelancerID" Type="int" />
+    <Property Name="TAT" Type="int" />
+    <Property Name="MSPages" Type="int" />
+    <Property Name="TypesetPages" Type="int" />
+    <Property Name="WordCount" Type="int" />
+    <Property Name="AllocationType" Type="nvarchar" MaxLength="300" />
+    <Property Name="AllocationDate" Type="datetime" />
+    <Property Name="DueDate" Type="datetime" />
+    <Property Name="FileName" Type="nvarchar" MaxLength="200" />
+    <Property Name="FileUploadStatus" Type="nvarchar" MaxLength="50" />
+    <Property Name="FileUploadDate" Type="datetime" />
+    <Property Name="DownloadStatus" Type="nvarchar" MaxLength="50" />
+    <Property Name="DownloadDate" Type="datetime" />
+    <Property Name="FinalFileName" Type="varchar" MaxLength="100" />
+    <Property Name="FinalStatus" Type="nvarchar" MaxLength="50" />
+    <Property Name="FinalDate" Type="datetime" />
+    <Property Name="Withdrawn" Type="tinyint" Nullable="false" />
+    <Property Name="WithdrawnRemarks" Type="nvarchar(max)" />
+    <Property Name="TotalPages" Type="int" />
+    <Property Name="TotalWords" Type="int" />
+    <Property Name="TotalTables" Type="int" />
+    <Property Name="TotalFigures" Type="int" />
+    <Property Name="IsInvoiced" Type="tinyint" />
+    <Property Name="MailSentUserID" Type="int" />
+    <Property Name="ReminderSentDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+    <Property Name="UpdatedBy" Type="int" Nullable="false" />
+    <Property Name="UpdatedTime" Type="datetime" Nullable="false" />
+    <Property Name="IsTransfer" Type="tinyint" />
+    <Property Name="TransferDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Tbl_ftpDetails">
+    <Key>
+      <PropertyRef Name="SNo" />
+    </Key>
+    <Property Name="SNo" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="HostID" Type="varchar" MaxLength="100" />
+    <Property Name="PortNo" Type="varchar" MaxLength="100" />
+    <Property Name="UserName" Type="varchar" MaxLength="100" />
+    <Property Name="Password" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Tbl_HelpDesk">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="subject" Type="nvarchar" MaxLength="100" />
+    <Property Name="description" Type="nvarchar(max)" />
+    <Property Name="submitttedBy" Type="int" />
+    <Property Name="Created_Date" Type="datetime" />
+    <Property Name="priority" Type="nvarchar" MaxLength="50" />
+    <Property Name="UpdatedTime" Type="datetime" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsDeleted" Type="tinyint" />
+    <Property Name="ResolvedBy" Type="nvarchar" MaxLength="100" />
+    <Property Name="Ticket_No" Type="int" />
+    <Property Name="Attachment" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Tbl_HelpdeskComment">
+    <Key>
+      <PropertyRef Name="CommentID" />
+    </Key>
+    <Property Name="CommentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID" Type="int" />
+    <Property Name="Comment" Type="varchar(max)" />
+    <Property Name="SubmittedBy" Type="int" />
+    <Property Name="SubmittedDate" Type="datetime" />
+    <Property Name="UpdatedTime" Type="date" />
+    <Property Name="IsDeleted" Type="tinyint" />
+  </EntityType>
+  <EntityType Name="TBL_History">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="TableName" Type="nvarchar" MaxLength="100" />
+    <Property Name="ColumnName" Type="nvarchar" MaxLength="100" />
+    <Property Name="ColumnID" Type="int" />
+    <Property Name="OldValue" Type="nvarchar(max)" />
+    <Property Name="NewValue" Type="nvarchar(max)" />
+    <Property Name="ModifiedDt" Type="datetime" />
+    <Property Name="HostName" Type="nvarchar" MaxLength="300" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tbl_Instruction">
+    <Key>
+      <PropertyRef Name="Inst_ID" />
+    </Key>
+    <Property Name="Inst_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BookID" Type="int" />
+    <Property Name="ChapterNo" Type="nvarchar" MaxLength="100" />
+    <Property Name="Instruction_Type" Type="nvarchar" MaxLength="50" />
+    <Property Name="Instruction" Type="nvarchar(max)" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedTime" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedTime" Type="datetime" />
+    <Property Name="IsTriggered" Type="tinyint" />
+    <Property Name="IsDeleted" Type="tinyint" />
+  </EntityType>
+  <EntityType Name="TBL_Invoice">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BookID" Type="int" />
+    <Property Name="Service" Type="nvarchar" MaxLength="500" />
+    <Property Name="Complexity" Type="varchar" MaxLength="100" />
+    <Property Name="Type" Type="varchar" MaxLength="50" />
+    <Property Name="PublisherCost" Type="money" />
+    <Property Name="InitialUnitVolume" Type="money" />
+    <Property Name="InitialUnitCost" Type="money" />
+    <Property Name="InvoiceUnitVolume" Type="money" />
+    <Property Name="InvoiceUnitCost" Type="money" />
+    <Property Name="AccountingCode" Type="nvarchar" MaxLength="100" />
+    <Property Name="UpdatedBy" Type="varchar" MaxLength="10" />
+    <Property Name="UpdatedTime" Type="datetime" />
+    <Property Name="Count" Type="money" />
+    <Property Name="UnitPrice" Type="money" />
+    <Property Name="Factor" Type="money" />
+    <Property Name="PrimaryInvoice" Type="tinyint" />
+    <Property Name="FinalInvoice" Type="tinyint" />
+  </EntityType>
+  <EntityType Name="TBL_Languages">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Language" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TBL_LoginHistory">
+    <Key>
+      <PropertyRef Name="SNo" />
+    </Key>
+    <Property Name="SNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LoginID" Type="int" />
+    <Property Name="IPAddress" Type="varchar" MaxLength="100" />
+    <Property Name="LoginTime" Type="datetime" />
+    <Property Name="LogoutTime" Type="datetime" />
+  </EntityType>
+  <EntityType Name="TBL_MailTemplate">
+    <Key>
+      <PropertyRef Name="SNo" />
+    </Key>
+    <Property Name="SNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Template" Type="varchar" MaxLength="100" />
+    <Property Name="MailContent" Type="varchar(max)" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CreatedTime" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="UpdatedBy" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="UpdatedTime" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TBL_MainMaster">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Number" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" />
+    <Property Name="SubTitle" Type="nvarchar(max)" />
+    <Property Name="ReceivedDt" Type="datetime" />
+    <Property Name="DueDt" Type="datetime" />
+    <Property Name="PublisherID" Type="int" />
+    <Property Name="Catalog" Type="nvarchar" MaxLength="255" />
+    <Property Name="ISBN" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="PBISBN" Type="nvarchar" MaxLength="20" />
+    <Property Name="Platform" Type="nvarchar" MaxLength="20" />
+    <Property Name="AuthorName" Type="nvarchar" MaxLength="200" />
+    <Property Name="AuthorEmail" Type="nvarchar" MaxLength="200" />
+    <Property Name="EditorName" Type="nvarchar" MaxLength="200" />
+    <Property Name="EditorEmail" Type="nvarchar" MaxLength="200" />
+    <Property Name="SeriesEditorName" Type="nvarchar" MaxLength="200" />
+    <Property Name="SeriesEditorEmail" Type="nvarchar" MaxLength="200" />
+    <Property Name="PEName" Type="int" />
+    <Property Name="PEEmail" Type="nvarchar" MaxLength="200" />
+    <Property Name="PMName" Type="int" />
+    <Property Name="PMEmail" Type="nvarchar" MaxLength="200" />
+    <Property Name="Notes" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
+    <Property Name="SeriesTitle" Type="nvarchar" MaxLength="100" />
+    <Property Name="UploadType" Type="nvarchar" MaxLength="20" />
+    <Property Name="Category" Type="nvarchar" MaxLength="100" />
+    <Property Name="Billed" Type="int" Nullable="false" />
+    <Property Name="SentDt" Type="datetime" />
+    <Property Name="Remark" Type="nvarchar" MaxLength="200" />
+    <Property Name="Subject" Type="nvarchar" MaxLength="50" />
+    <Property Name="Edition" Type="nvarchar" MaxLength="50" />
+    <Property Name="Workflow" Type="nvarchar" MaxLength="50" />
+    <Property Name="TSPM" Type="int" />
+    <Property Name="ImgPath" Type="varchar(max)" />
+    <Property Name="Origin" Type="nvarchar" MaxLength="20" />
+    <Property Name="IsSynch" Type="tinyint" Nullable="false" />
+    <Property Name="EbookISBN" Type="nvarchar" MaxLength="20" />
+    <Property Name="WebISBN" Type="nvarchar" MaxLength="20" />
+    <Property Name="EpubISBN" Type="nvarchar" MaxLength="20" />
+    <Property Name="MobiISBN" Type="nvarchar" MaxLength="20" />
+    <Property Name="TransferMode" Type="varchar" MaxLength="100" />
+    <Property Name="TransferPMName" Type="int" />
+    <Property Name="TransferFromDate" Type="datetime" />
+    <Property Name="TransferToDate" Type="datetime" />
+    <Property Name="TransferRemarks" Type="varchar" MaxLength="255" />
+    <Property Name="IsTransfer" Type="tinyint" />
+    <Property Name="NotifyAuthorEmail" Type="varchar" MaxLength="255" />
+    <Property Name="NotifyEditorEmail" Type="varchar" MaxLength="255" />
+    <Property Name="PrimaryInvoice" Type="tinyint" />
+    <Property Name="FinalInvoice" Type="tinyint" />
+    <Property Name="WordCount" Type="int" />
+    <Property Name="ProofPages" Type="int" />
+    <Property Name="Relabel" Type="int" />
+    <Property Name="Conversion" Type="int" />
+    <Property Name="SimpleRedraw" Type="int" />
+    <Property Name="MediumRedraw" Type="int" />
+    <Property Name="ComplexRedraw" Type="int" />
+    <Property Name="IsCompleted" Type="tinyint" />
+    <Property Name="WithdrawReason" Type="nvarchar(max)" />
+    <Property Name="RevertReason" Type="nvarchar(max)" />
+    <Property Name="Archived" Type="tinyint" />
+    <Property Name="SurveyLinkSentDate" Type="datetime" />
+    <Property Name="ArchiveScucceed" Type="tinyint" />
+    <Property Name="ProcessType" Type="nvarchar" MaxLength="200" />
+    <Property Name="Outsource" Type="nvarchar" MaxLength="500" />
+    <Property Name="SkipPA" Type="tinyint" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+    <Property Name="UpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="UpdatedTime" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="tinyint" Nullable="false" />
+    <Property Name="PMAssignedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Tbl_MenuList">
+    <Key>
+      <PropertyRef Name="MenuID" />
+    </Key>
+    <Property Name="MenuID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MenuName" Type="varchar" MaxLength="50" />
+    <Property Name="ParentMenu" Type="int" />
+    <Property Name="Action" Type="varchar" MaxLength="100" />
+    <Property Name="Description" Type="varchar" MaxLength="255" />
+    <Property Name="UpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="UpdatedTime" Type="datetime" />
+    <Property Name="Position" Type="int" />
+    <Property Name="IsDeleted" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tbl_OOFHistory">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MainID" Type="int" />
+    <Property Name="TransferMode" Type="varchar" MaxLength="100" />
+    <Property Name="CurrentPM" Type="int" />
+    <Property Name="TransferToPM" Type="int" />
+    <Property Name="TransferFromDate" Type="datetime" />
+    <Property Name="TransferToDate" Type="datetime" />
+    <Property Name="Remark" Type="varchar" MaxLength="255" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedTime" Type="datetime" />
+  </EntityType>
+  <EntityType Name="TBL_Pipeline">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ISBN" Type="nvarchar" MaxLength="50" />
+    <Property Name="Title" Type="nvarchar" MaxLength="1000" />
+    <Property Name="AuthorName" Type="nvarchar" MaxLength="1000" />
+    <Property Name="ExpectedDt" Type="datetime" />
+    <Property Name="PublisherID" Type="int" />
+    <Property Name="UpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="UpdatedTime" Type="datetime" />
+    <Property Name="IsDeleted" Type="tinyint" />
+  </EntityType>
+  <EntityType Name="TBL_Platform">
+    <Key>
+      <PropertyRef Name="SNo" />
+    </Key>
+    <Property Name="SNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Platform" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TBL_PriceGrid">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PublisherID" Type="int" />
+    <Property Name="Services" Type="nvarchar" MaxLength="100" />
+    <Property Name="Complexity" Type="varchar" MaxLength="100" />
+    <Property Name="OnShoreUnitPrize" Type="money" />
+    <Property Name="OnShoreFactor" Type="int" />
+    <Property Name="OnShoreUnitType" Type="nvarchar" MaxLength="50" />
+    <Property Name="OffShoreUnitPrize" Type="money" />
+    <Property Name="OffShoreFactor" Type="int" />
+    <Property Name="OffShoreUnitType" Type="nvarchar" MaxLength="50" />
+    <Property Name="UpdatedTime" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="TBL_Process">
+    <Key>
+      <PropertyRef Name="SNo" />
+    </Key>
+    <Property Name="SNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProcessGroup" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="ProcessName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TBL_ProcessType">
+    <Key>
+      <PropertyRef Name="SNo" />
+    </Key>
+    <Property Name="SNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProcessName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TBL_ProjectAnalysis">
+    <Key>
+      <PropertyRef Name="MainID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MainID" Type="int" Nullable="false" />
+    <Property Name="Art_Color_Type" Type="nvarchar" MaxLength="50" />
+    <Property Name="Art_Page_Width" Type="nvarchar" MaxLength="50" />
+    <Property Name="Art_Page_Height" Type="nvarchar" MaxLength="50" />
+    <Property Name="Art_ArtWork" Type="nvarchar" MaxLength="500" />
+    <Property Name="Art_Figures_Count" Type="nvarchar" MaxLength="50" />
+    <Property Name="Art_Redraws" Type="nvarchar" MaxLength="500" />
+    <Property Name="Art_Spl_Instruction" Type="nvarchar(max)" />
+    <Property Name="Art_Remarks" Type="nvarchar(max)" />
+    <Property Name="Art_Query" Type="nvarchar(max)" />
+    <Property Name="Art_Completed" Type="nvarchar" MaxLength="10" />
+    <Property Name="QC_Greek_Chars" Type="nvarchar" MaxLength="50" />
+    <Property Name="QC_Variables" Type="nvarchar" MaxLength="50" />
+    <Property Name="QC_Spl_Elements" Type="nvarchar" MaxLength="50" />
+    <Property Name="QC_Footnotes" Type="nvarchar" MaxLength="10" />
+    <Property Name="QC_EndNotes" Type="nvarchar" MaxLength="10" />
+    <Property Name="QC_ColorInsert" Type="nvarchar" MaxLength="10" />
+    <Property Name="QC_Sec_Breaks" Type="nvarchar" MaxLength="10" />
+    <Property Name="QC_FM" Type="nvarchar" MaxLength="10" />
+    <Property Name="QC_BM" Type="nvarchar" MaxLength="10" />
+    <Property Name="QC_Series_Page" Type="nvarchar" MaxLength="10" />
+    <Property Name="QC_Index" Type="nvarchar" MaxLength="50" />
+    <Property Name="QC_Tables_Count" Type="nvarchar" MaxLength="50" />
+    <Property Name="QC_Remarks" Type="nvarchar(max)" />
+    <Property Name="QC_Query" Type="nvarchar(max)" />
+    <Property Name="QC_Completed" Type="nvarchar" MaxLength="10" />
+    <Property Name="PG_Platform" Type="nvarchar" MaxLength="50" />
+    <Property Name="PG_Design" Type="nvarchar" MaxLength="50" />
+    <Property Name="PG_Trim" Type="nvarchar" MaxLength="50" />
+    <Property Name="PG_Column" Type="nvarchar" MaxLength="50" />
+    <Property Name="PG_Font_Availability" Type="nvarchar" MaxLength="10" />
+    <Property Name="PG_Figure_Slides" Type="nvarchar" MaxLength="10" />
+    <Property Name="PG_Print" Type="nvarchar" MaxLength="50" />
+    <Property Name="PG_Ebook" Type="nvarchar" MaxLength="50" />
+    <Property Name="PG_Color" Type="nvarchar" MaxLength="50" />
+    <Property Name="PG_ImPrint" Type="nvarchar" MaxLength="50" />
+    <Property Name="PG_Template" Type="nvarchar" MaxLength="100" />
+    <Property Name="PG_Remarks" Type="nvarchar(max)" />
+    <Property Name="PG_Query" Type="nvarchar(max)" />
+    <Property Name="PG_Completed" Type="nvarchar" MaxLength="10" />
+    <Property Name="XML_Abstract" Type="nvarchar" MaxLength="50" />
+    <Property Name="XML_Input_Type" Type="nvarchar" MaxLength="50" />
+    <Property Name="XML_Ref_Type" Type="nvarchar" MaxLength="50" />
+    <Property Name="XML_Ref_Format" Type="nvarchar" MaxLength="50" />
+    <Property Name="XML_Sec_Format" Type="nvarchar" MaxLength="50" />
+    <Property Name="XML_Spl_Keying" Type="nvarchar" MaxLength="50" />
+    <Property Name="XML_Orcid" Type="nvarchar" MaxLength="10" />
+    <Property Name="XML_MetaSheet" Type="nvarchar" MaxLength="10" />
+    <Property Name="XML_FinalDeliverable" Type="nvarchar" MaxLength="10" />
+    <Property Name="XML_PAPDeliverable" Type="nvarchar" MaxLength="10" />
+    <Property Name="XML_EQ_Count" Type="nvarchar" MaxLength="50" />
+    <Property Name="XML_Tab_Count" Type="nvarchar" MaxLength="50" />
+    <Property Name="XML_Remarks" Type="nvarchar(max)" />
+    <Property Name="XML_Query" Type="nvarchar(max)" />
+    <Property Name="XML_Completed" Type="nvarchar" MaxLength="10" />
+    <Property Name="PM_MSS" Type="nvarchar" MaxLength="50" />
+    <Property Name="PM_Estimate" Type="nvarchar" MaxLength="50" />
+    <Property Name="PM_Castoff" Type="nvarchar" MaxLength="50" />
+    <Property Name="PM_CEComplexity" Type="nvarchar" MaxLength="50" />
+    <Property Name="PM_BKComplexity" Type="nvarchar" MaxLength="50" />
+    <Property Name="PM_BookType" Type="nvarchar" MaxLength="50" />
+    <Property Name="PM_DualEdition" Type="nvarchar" MaxLength="50" />
+    <Property Name="PM_PreEdition" Type="nvarchar" MaxLength="50" />
+    <Property Name="PM_OSPM" Type="nvarchar" MaxLength="50" />
+    <Property Name="PM_ISBN" Type="nvarchar" MaxLength="50" />
+    <Property Name="PM_English" Type="nvarchar" MaxLength="50" />
+    <Property Name="PM_Index" Type="nvarchar" MaxLength="50" />
+    <Property Name="PM_Category" Type="nvarchar" MaxLength="50" />
+    <Property Name="PM_Remarks" Type="nvarchar(max)" />
+    <Property Name="PM_Queries" Type="nvarchar(max)" />
+    <Property Name="PM_Completed" Type="nvarchar" MaxLength="10" />
+    <Property Name="Approved_date" Type="datetime" />
+    <Property Name="ApprovedBy" Type="int" />
+    <Property Name="UpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="UpdatedTime" Type="datetime" />
+    <Property Name="IsDeleted" Type="tinyint" Nullable="false" />
+    <Property Name="PM_Isapproved" Type="datetime" />
+    <Property Name="XML_Isapproved" Type="datetime" />
+    <Property Name="PG_Isapproved" Type="datetime" />
+    <Property Name="QC_Isapproved" Type="datetime" />
+    <Property Name="Artwork_Isapproved" Type="datetime" />
+    <Property Name="PM_Attachment" Type="nvarchar" MaxLength="100" />
+    <Property Name="XML_Attachment" Type="nvarchar" MaxLength="100" />
+    <Property Name="PG_Attachment" Type="nvarchar" MaxLength="100" />
+    <Property Name="QC_Attachment" Type="nvarchar" MaxLength="100" />
+    <Property Name="Art_Attachment" Type="nvarchar" MaxLength="100" />
+    <Property Name="XML_BookAbstract" Type="nvarchar" MaxLength="50" />
+    <Property Name="XML_DOI" Type="nvarchar" MaxLength="50" />
+    <Property Name="Art_ScatterColors" Type="nvarchar" MaxLength="50" />
+    <Property Name="Is_NoArtwork" Type="bit" />
+  </EntityType>
+  <EntityType Name="TBL_ProjectAnalysis_CMTS">
+    <Key>
+      <PropertyRef Name="SNo" />
+    </Key>
+    <Property Name="SNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BookID" Type="int" Nullable="false" />
+    <Property Name="TabName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="ColumnName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Comment" Type="varchar" MaxLength="5000" Nullable="false" />
+    <Property Name="IsResolved" Type="tinyint" Nullable="false" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+    <Property Name="UpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="UpdatedTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TBL_ProjectPlanning">
+    <Key>
+      <PropertyRef Name="PlanID" />
+    </Key>
+    <Property Name="PlanID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BookID" Type="int" Nullable="false" />
+    <Property Name="WorkFlowID" Type="int" Nullable="false" />
+    <Property Name="EntryDate" Type="datetime" Nullable="false" />
+    <Property Name="BufferDays" Type="int" Nullable="false" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+    <Property Name="UpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="UpdatedTime" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TBL_ProjectPlanning_Flow">
+    <Key>
+      <PropertyRef Name="PlanID" />
+      <PropertyRef Name="ActivityID" />
+    </Key>
+    <Property Name="PlanID" Type="int" Nullable="false" />
+    <Property Name="ActivityID" Type="int" Nullable="false" />
+    <Property Name="Percentage" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="Days" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="ScheduleDate" Type="datetime" Nullable="false" />
+    <Property Name="RevisedScheduleDate" Type="datetime" />
+    <Property Name="CompletedDate" Type="datetime" />
+    <Property Name="AutoRevisedDate" Type="tinyint" />
+    <Property Name="UpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="UpdatedTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TBL_ProofDistribution">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BookID" Type="int" />
+    <Property Name="ChapterID" Type="nvarchar" MaxLength="100" />
+    <Property Name="UploadType" Type="nvarchar" MaxLength="50" />
+    <Property Name="UserType" Type="nvarchar" MaxLength="50" />
+    <Property Name="Stage" Type="nvarchar" MaxLength="50" />
+    <Property Name="EmailID" Type="nvarchar" MaxLength="200" />
+    <Property Name="DueDate" Type="datetime" />
+    <Property Name="InsertDate" Type="datetime" />
+    <Property Name="FileUploadDate" Type="datetime" />
+    <Property Name="UploadFileName" Type="nvarchar" MaxLength="500" />
+    <Property Name="MailSentDate" Type="datetime" />
+    <Property Name="LoginID" Type="int" />
+    <Property Name="IsReminder" Type="tinyint" />
+    <Property Name="IsReminder1" Type="tinyint" />
+    <Property Name="Reminder1Date" Type="datetime" />
+    <Property Name="Reminder1Sent" Type="tinyint" />
+    <Property Name="Reminder1Off" Type="tinyint" />
+    <Property Name="IsReminder2" Type="tinyint" />
+    <Property Name="Reminder2Date" Type="datetime" />
+    <Property Name="Reminder2Sent" Type="tinyint" />
+    <Property Name="Reminder2Off" Type="tinyint" />
+    <Property Name="IsReminder3" Type="tinyint" />
+    <Property Name="Reminder3Date" Type="datetime" />
+    <Property Name="Reminder3Sent" Type="tinyint" />
+    <Property Name="Reminder3Off" Type="tinyint" />
+    <Property Name="DownloadDate" Type="datetime" />
+    <Property Name="NoCorrection" Type="tinyint" />
+    <Property Name="CorrectionReceiveDt" Type="datetime" />
+    <Property Name="CorrectionFileName" Type="nvarchar" MaxLength="500" />
+    <Property Name="SeriesFlow" Type="tinyint" />
+    <Property Name="CorrectionToED" Type="tinyint" />
+    <Property Name="AllEDCorrection" Type="tinyint" />
+    <Property Name="PEinCC" Type="tinyint" />
+    <Property Name="EDinCC" Type="tinyint" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
+    <Property Name="AcceptDate" Type="datetime" />
+    <Property Name="Booked" Type="tinyint" />
+    <Property Name="SkipCEReview" Type="tinyint" />
+  </EntityType>
+  <EntityType Name="TBL_ProofDistribution_History">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MainID" Type="int" Nullable="false" />
+    <Property Name="Stage" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="EntryDate" Type="datetime" Nullable="false" />
+    <Property Name="SkipCE" Type="tinyint" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TBL_ProofEmail">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BookID" Type="int" />
+    <Property Name="FromEmail" Type="nvarchar" MaxLength="500" />
+    <Property Name="ToEmail" Type="nvarchar(max)" />
+    <Property Name="CCEmail" Type="nvarchar(max)" />
+    <Property Name="BCCEmail" Type="nvarchar(max)" />
+    <Property Name="MailSubject" Type="nvarchar(max)" />
+    <Property Name="MailBody" Type="nvarchar(max)" />
+    <Property Name="MailSent" Type="tinyint" />
+    <Property Name="SentDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="TBL_QueryMaster">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MainID" Type="int" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="UserType" Type="nvarchar" MaxLength="30" />
+    <Property Name="Number" Type="nvarchar" MaxLength="200" />
+    <Property Name="QuerySubject" Type="nvarchar" MaxLength="500" />
+    <Property Name="QueryDate" Type="datetime" />
+    <Property Name="Query" Type="nvarchar(max)" />
+    <Property Name="QueryTo" Type="nvarchar" MaxLength="50" />
+    <Property Name="Resolved" Type="tinyint" />
+    <Property Name="ResolvedDate" Type="datetime" />
+    <Property Name="ReminderDate" Type="datetime" />
+    <Property Name="Solution" Type="nvarchar(max)" />
+    <Property Name="ResolvedBy" Type="int" />
+    <Property Name="Priority" Type="nvarchar" MaxLength="10" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TBL_QuerySubMaster">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="QueryID" Type="int" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="QueryResponse" Type="nvarchar(max)" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="Attachment" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="TBL_QueryTemplate">
+    <Key>
+      <PropertyRef Name="SNo" />
+    </Key>
+    <Property Name="SNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TemplateName" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="PublisherID" Type="int" Nullable="false" />
+    <Property Name="Subject" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="MailBoady" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+    <Property Name="UpdatedBy" Type="int" Nullable="false" />
+    <Property Name="UpdatedTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tbl_RoleMaster">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleName" Type="varchar" MaxLength="100" />
+    <Property Name="Description" Type="varchar" MaxLength="255" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+    <Property Name="UpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="UpdatedTime" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_RoleMenuAction">
+    <Key>
+      <PropertyRef Name="MenuID" />
+      <PropertyRef Name="MenuType" />
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="MenuID" Type="int" Nullable="false" />
+    <Property Name="MenuType" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="RoleID" Type="int" Nullable="false" />
+    <Property Name="Actions" Type="varchar" MaxLength="100" />
+    <Property Name="UpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="UpdatedTime" Type="datetime" />
+  </EntityType>
+  <EntityType Name="TBL_Signaldetails">
+    <Key>
+      <PropertyRef Name="SNo" />
+    </Key>
+    <Property Name="SNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="varchar(max)" />
+    <Property Name="Status" Type="varchar" MaxLength="50" />
+    <Property Name="Response" Type="varchar(max)" />
+    <Property Name="IsSynch" Type="tinyint" />
+    <Property Name="Type" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="BookNo" Type="varchar" MaxLength="100" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedTime" Type="datetime" />
+  </EntityType>
+  <EntityType Name="TBL_SignalDetails_FromClient">
+    <Key>
+      <PropertyRef Name="SNo" />
+    </Key>
+    <Property Name="SNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SignalDetails" Type="varchar(max)" Nullable="false" />
+    <Property Name="ClientID" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TBL_SourceList">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SourceName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TBL_States">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StateName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="CountryID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TBL_Subject">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Subject" Type="nvarchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="TBL_SubMaster">
+    <Key>
+      <PropertyRef Name="Number" />
+      <PropertyRef Name="MainID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Number" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" />
+    <Property Name="MainID" Type="int" Nullable="false" />
+    <Property Name="ReceivedDt" Type="datetime" />
+    <Property Name="DueDt" Type="datetime" />
+    <Property Name="MSPages" Type="int" />
+    <Property Name="ColorFig" Type="int" />
+    <Property Name="BWFig" Type="int" />
+    <Property Name="ProofPages" Type="int" />
+    <Property Name="Tables" Type="int" />
+    <Property Name="AuthorName" Type="nvarchar(max)" />
+    <Property Name="AuthorEmail" Type="nvarchar(max)" />
+    <Property Name="Notes" Type="nvarchar(max)" />
+    <Property Name="Status" Type="bit" />
+    <Property Name="IsSynch" Type="tinyint" Nullable="false" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+    <Property Name="UpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="UpdatedTime" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="tinyint" Nullable="false" />
+    <Property Name="WordCnt" Type="int" />
+  </EntityType>
+  <EntityType Name="TBL_Survey">
+    <Key>
+      <PropertyRef Name="SurveyID" />
+    </Key>
+    <Property Name="SurveyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BookID" Type="int" Nullable="false" />
+    <Property Name="TextAccuracy" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Quality" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Pagination" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CopyEditing" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Delivery" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ProductAccuracy" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Response" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Communication" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ResponseTime" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Clarification" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Submitted" Type="tinyint" Nullable="false" />
+    <Property Name="SubmittedBy" Type="int" Nullable="false" />
+    <Property Name="UserType" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Comment" Type="varchar(max)" />
+    <Property Name="UpdatedTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tbl_TaskCalendar">
+    <Key>
+      <PropertyRef Name="SNo" />
+    </Key>
+    <Property Name="SNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="varchar" MaxLength="255" />
+    <Property Name="StartDate" Type="datetime" />
+    <Property Name="EndDate" Type="datetime" />
+    <Property Name="Url" Type="varchar" MaxLength="200" />
+    <Property Name="Description" Type="varchar" MaxLength="255" />
+    <Property Name="Status" Type="varchar" MaxLength="50" />
+    <Property Name="UsersList" Type="varchar(max)" />
+    <Property Name="Completed" Type="datetime" />
+    <Property Name="CreatedTIme" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedTime" Type="datetime" Nullable="false" />
+    <Property Name="UpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="IsDeleted" Type="tinyint" />
+  </EntityType>
+  <EntityType Name="TBL_UnitType">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UnitType" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="TBL_UserAccess_PublisherList">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="PublisherList" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+    <Property Name="UpdatedBy" Type="int" Nullable="false" />
+    <Property Name="UpdatedTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TBL_WEBAPI_Log">
+    <Key>
+      <PropertyRef Name="SNo" />
+    </Key>
+    <Property Name="SNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClientID" Type="varchar(max)" />
+    <Property Name="WebAPI" Type="varchar(max)" />
+    <Property Name="Parameter" Type="varchar(max)" />
+    <Property Name="EntryDate" Type="datetime" />
+    <Property Name="Status" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="TBL_WEBAPI_UsersList">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="50" />
+    <Property Name="Password" Type="varchar" MaxLength="50" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TBL_WorkFlowActivities">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Activity" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Percentage" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="SmartProcess" Type="tinyint" Nullable="false" />
+    <Property Name="Priority" Type="int" />
+    <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="UpdatedTime" Type="datetime" Nullable="false" />
+    <Property Name="UpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="IsDeleted" Type="tinyint" />
+  </EntityType>
+  <EntityType Name="TBL_WorkFlowList">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="WorkFlowName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="MinDays" Type="int" />
+    <Property Name="MaxDays" Type="int" />
+    <Property Name="PublisherList" Type="varchar(max)" />
+    <Property Name="Description" Type="varchar(max)" />
+    <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="UpdatedTime" Type="datetime" Nullable="false" />
+    <Property Name="UpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="IsDeleted" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TBL_WorkFlowMaster">
+    <Key>
+      <PropertyRef Name="WorkFlowID" />
+      <PropertyRef Name="ActivityID" />
+      <PropertyRef Name="Sequence" />
+    </Key>
+    <Property Name="WorkFlowID" Type="int" Nullable="false" />
+    <Property Name="ActivityID" Type="int" Nullable="false" />
+    <Property Name="Sequence" Type="int" Nullable="false" />
+    <Property Name="ParallelID" Type="int" />
+    <Property Name="Percentage" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Milestone" Type="tinyint" Nullable="false" />
+    <Property Name="UpdatedTime" Type="datetime" />
+    <Property Name="IsDeleted" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserMaster">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LoginID" Type="varchar" MaxLength="100" />
+    <Property Name="Password" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="LoginName" Type="varchar" MaxLength="100" />
+    <Property Name="Gender" Type="varchar" MaxLength="50" />
+    <Property Name="DOB" Type="date" />
+    <Property Name="ActiveStatus" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="DesignationID" Type="int" />
+    <Property Name="DepartmentID" Type="int" />
+    <Property Name="TeamLeadID" Type="int" />
+    <Property Name="ManagerID" Type="int" />
+    <Property Name="Coordinator1" Type="int" />
+    <Property Name="Coordinator2" Type="int" />
+    <Property Name="HRID" Type="int" />
+    <Property Name="RoleID" Type="int" />
+    <Property Name="PhoneNo" Type="varchar" MaxLength="1000" />
+    <Property Name="EmailID" Type="varchar" MaxLength="100" />
+    <Property Name="Address" Type="varchar" MaxLength="255" />
+    <Property Name="LocationID" Type="int" />
+    <Property Name="BloodGroup" Type="varchar" MaxLength="50" />
+    <Property Name="WorkPhone" Type="varchar" MaxLength="100" />
+    <Property Name="WorkExtNo" Type="varchar" MaxLength="100" />
+    <Property Name="Image" Type="varchar(max)" />
+    <Property Name="DefaultPage" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="UserType" Type="varchar" MaxLength="50" />
+    <Property Name="FreelancerID" Type="int" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+    <Property Name="UpdatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="UpdatedTime" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="tinyint" Nullable="false" />
+    <Property Name="PMBookCapacity" Type="int" />
+  </EntityType>
+  <EntityType Name="UserType">
+    <Key>
+      <PropertyRef Name="SNo" />
+    </Key>
+    <Property Name="SNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserType" Type="varchar" MaxLength="50" />
+    <Property Name="Description" Type="varchar" MaxLength="255" />
+    <Property Name="IsView" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_TBL_Cities_TBL_States">
+    <End Role="TBL_States" Type="Self.TBL_States" Multiplicity="0..1" />
+    <End Role="TBL_Cities" Type="Self.TBL_Cities" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_States">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBL_Cities">
+        <PropertyRef Name="StateID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBL_Countries_TBL_Countries">
+    <End Role="TBL_Countries" Type="Self.TBL_Countries" Multiplicity="1" />
+    <End Role="TBL_Countries1" Type="Self.TBL_Countries" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_Countries">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBL_Countries1">
+        <PropertyRef Name="ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tbl_HelpdeskComment_Tbl_HelpDesk">
+    <End Role="Tbl_HelpDesk" Type="Self.Tbl_HelpDesk" Multiplicity="0..1" />
+    <End Role="Tbl_HelpdeskComment" Type="Self.Tbl_HelpdeskComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tbl_HelpDesk">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Tbl_HelpdeskComment">
+        <PropertyRef Name="ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="FUN_AllPublisherList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar(max)" />
+  <Function Name="fun_DueDateWithUK" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="datetime">
+    <Parameter Name="date1" Type="datetime" Mode="In" />
+    <Parameter Name="count" Type="int" Mode="In" />
+    <Parameter Name="WithSat" Type="bit" Mode="In" />
+    <Parameter Name="WithSun" Type="bit" Mode="In" />
+    <Parameter Name="First" Type="int" Mode="In" />
+  </Function>
+  <Function Name="fun_DueDateWithUK_less" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="datetime">
+    <Parameter Name="date1" Type="datetime" Mode="In" />
+    <Parameter Name="count" Type="int" Mode="In" />
+    <Parameter Name="WithSat" Type="bit" Mode="In" />
+    <Parameter Name="WithSun" Type="bit" Mode="In" />
+    <Parameter Name="First" Type="int" Mode="In" />
+  </Function>
+  <Function Name="fun_DueDateWithUK_old" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="datetime">
+    <Parameter Name="date1" Type="datetime" Mode="In" />
+    <Parameter Name="count" Type="int" Mode="In" />
+    <Parameter Name="WithSat" Type="bit" Mode="In" />
+    <Parameter Name="WithSun" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="Fun_FreelancerMonthSummary" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+    <Parameter Name="FreelancerID" Type="int" Mode="In" />
+    <Parameter Name="UploadDate" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="FUN_FreelancerTaskList_FromID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar(max)">
+    <Parameter Name="FreelancerID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="fun_GetActivityBookCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+    <Parameter Name="LoginID" Type="int" Mode="In" />
+    <Parameter Name="ActivityID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="FUN_GetActivityList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar(max)">
+    <Parameter Name="WorkFlowID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="FUN_GetMenuNameList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar(max)">
+    <Parameter Name="MenuList" Type="varchar(max)" Mode="In" />
+  </Function>
+  <Function Name="FUN_GetMinToDays" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="nvarchar">
+    <Parameter Name="minutes" Type="int" Mode="In" />
+  </Function>
+  <Function Name="FUN_PublisherList_FromID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar(max)">
+    <Parameter Name="PublisherList" Type="varchar(max)" Mode="In" />
+  </Function>
+  <Function Name="fun_TotalWorkDaysCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+    <Parameter Name="date1" Type="date" Mode="In" />
+    <Parameter Name="date2" Type="date" Mode="In" />
+    <Parameter Name="BufferDays" Type="int" Mode="In" />
+  </Function>
+  <Function Name="fun_TotalWorkDaysCount_old" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+    <Parameter Name="date1" Type="datetime" Mode="In" />
+    <Parameter Name="date2" Type="datetime" Mode="In" />
+    <Parameter Name="WithSat" Type="bit" Mode="In" />
+    <Parameter Name="WithSun" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="SP_AE_Allocate_History" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LoginID" Type="int" Mode="In" />
+    <Parameter Name="FromDate" Type="datetime" Mode="In" />
+    <Parameter Name="ToDate" Type="datetime" Mode="In" />
+    <Parameter Name="FilterType" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="SP_CreateUSERID_Freelancer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FreelancerID" Type="int" Mode="In" />
+    <Parameter Name="LoginName" Type="varchar" Mode="In" />
+    <Parameter Name="EmailID" Type="nvarchar" Mode="In" />
+    <Parameter Name="Password" Type="nvarchar" Mode="In" />
+    <Parameter Name="UpdatedBy" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_Freelancer_Allocate_Hisotry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LoginID" Type="int" Mode="In" />
+    <Parameter Name="FromDate" Type="datetime" Mode="In" />
+    <Parameter Name="ToDate" Type="datetime" Mode="In" />
+    <Parameter Name="FilterType" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="SP_Freelancer_Master_AddUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ID" Type="int" Mode="In" />
+    <Parameter Name="Name" Type="nvarchar" Mode="In" />
+    <Parameter Name="DOB" Type="datetime" Mode="In" />
+    <Parameter Name="Available" Type="varchar" Mode="In" />
+    <Parameter Name="FromDate" Type="datetime" Mode="In" />
+    <Parameter Name="ToDate" Type="datetime" Mode="In" />
+    <Parameter Name="Gender" Type="varchar" Mode="In" />
+    <Parameter Name="Address" Type="nvarchar" Mode="In" />
+    <Parameter Name="CountryID" Type="int" Mode="In" />
+    <Parameter Name="StateID" Type="int" Mode="In" />
+    <Parameter Name="CityID" Type="int" Mode="In" />
+    <Parameter Name="Pincode" Type="nvarchar" Mode="In" />
+    <Parameter Name="EmailID" Type="nvarchar" Mode="In" />
+    <Parameter Name="EmailID1" Type="nvarchar" Mode="In" />
+    <Parameter Name="SkypeId" Type="nvarchar" Mode="In" />
+    <Parameter Name="MobileNo" Type="nvarchar" Mode="In" />
+    <Parameter Name="Specialization" Type="nvarchar" Mode="In" />
+    <Parameter Name="PerformanceRecord" Type="nvarchar" Mode="In" />
+    <Parameter Name="BankName" Type="nvarchar" Mode="In" />
+    <Parameter Name="AccountNo" Type="nvarchar" Mode="In" />
+    <Parameter Name="IFSCCode" Type="nvarchar" Mode="In" />
+    <Parameter Name="BranchName" Type="nvarchar" Mode="In" />
+    <Parameter Name="NDADocument" Type="nvarchar" Mode="In" />
+    <Parameter Name="PANCard" Type="nvarchar" Mode="In" />
+    <Parameter Name="PublisherList" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="Language" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="Source" Type="nvarchar" Mode="In" />
+    <Parameter Name="Interest" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="Restriction" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="IsActive" Type="tinyint" Mode="In" />
+    <Parameter Name="Image" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="Remarks" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="UpdatedBy" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_FreelancerBooking_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="TaskID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_FreelanceSubMaster_AddUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MainID" Type="int" Mode="In" />
+    <Parameter Name="TaskID" Type="int" Mode="In" />
+    <Parameter Name="Number" Type="nvarchar" Mode="In" />
+    <Parameter Name="FreelancerID" Type="int" Mode="In" />
+    <Parameter Name="MSPages" Type="int" Mode="In" />
+    <Parameter Name="TypesetPages" Type="int" Mode="In" />
+    <Parameter Name="TotalPages" Type="int" Mode="In" />
+    <Parameter Name="TotalWords" Type="int" Mode="In" />
+    <Parameter Name="TotalTables" Type="int" Mode="In" />
+    <Parameter Name="TotalFigures" Type="int" Mode="In" />
+    <Parameter Name="DueDate" Type="datetime" Mode="In" />
+    <Parameter Name="FileName" Type="nvarchar" Mode="In" />
+    <Parameter Name="UpdatedBy" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetActivitiesWise_BooksSummary" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LoginID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetActivity_MilestoneList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LoginID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetActivityList_ProjectPlan" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="WorkFlowID" Type="int" Mode="In" />
+    <Parameter Name="BookID" Type="int" Mode="In" />
+    <Parameter Name="BufferDays" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetAllFreelancerbyTaskID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="BookID" Type="int" Mode="In" />
+    <Parameter Name="TaskID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetArchivalRestoreRpt" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LoginID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetBook_Current_Status" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="BookID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetBookChapterList_AU_ED_FileView" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="BookID" Type="int" Mode="In" />
+    <Parameter Name="Stage" Type="varchar" Mode="In" />
+    <Parameter Name="LoginID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetBookChapterList_AU_ED_Tracking" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="BookID" Type="int" Mode="In" />
+    <Parameter Name="Stage" Type="varchar" Mode="In" />
+    <Parameter Name="LoginID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetBookData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LoginID" Type="int" Mode="In" />
+    <Parameter Name="Type" Type="nvarchar" Mode="In" />
+    <Parameter Name="CallType" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="SP_GetBookDataByArchival" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LoginID" Type="int" Mode="In" />
+    <Parameter Name="Type" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="SP_GetBookDataByBilling" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LoginID" Type="int" Mode="In" />
+    <Parameter Name="Type" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="SP_GetBookDataforPA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetBookDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetBookDetails_ProjectPlan_DateList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetBookDetailsbyCatalog" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Catalog" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="SP_GetBookList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="PublisherID" Type="int" Mode="In" />
+    <Parameter Name="PMName" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="SP_GetBookList_AU_ED_Tracking" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LoginID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetBookList_AU_ED_Tracking_Status" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LoginID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetBookList_For_PA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LoginID" Type="int" Mode="In" />
+    <Parameter Name="Type" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="SP_GetBookList_ManagerTracking" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LoginID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetBookPlanningDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetBooks_CompletedPercentage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LoginID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetBookWorkFlowInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="BookID" Type="int" Mode="In" />
+    <Parameter Name="WorkFlowID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetCommentsHelpDesk" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="tID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetCurrentBookStatusWithUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="BookId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_GetDashBoard_BooksSummaryCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LoginID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetEmailList_QueryTo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Catalog" Type="varchar" Mode="In" />
+    <Parameter Name="LoginID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetEmailToChapter" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="BookID" Type="int" Mode="In" />
+    <Parameter Name="EmailTo" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="SP_GetFeedbackData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LoginID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetFilterOption_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LoginID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetFreelanceAllocationChapter" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="BookID" Type="int" Mode="In" />
+    <Parameter Name="TaskID" Type="int" Mode="In" />
+    <Parameter Name="ViewType" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="SP_GetFreelanceAllocationData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LoginID" Type="int" Mode="In" />
+    <Parameter Name="ViewType" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="SP_GetFreelanceBookTracking" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LoginID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetFreelancer_DashboardCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FreelancerID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_GetFreelancer_InboxList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FreelancerID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_GetFreelancer_Invoice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FreelancerID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_GetFreelancer_Report" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FreelancerID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetFreelancer_UploadedSummary" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FreelancerID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetFreelancerActivities" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LoginID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_GetFreelancerMaster_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="SP_GetFreelancerName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="nvarchar">
+    <Parameter Name="BookID" Type="int" Mode="In" />
+    <Parameter Name="TaskID" Type="int" Mode="In" />
+    <Parameter Name="Chapter" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="SP_GetFreelancerofSelection" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="BookID" Type="int" Mode="In" />
+    <Parameter Name="TaskID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetFreelancerSubMaster_UploadFileList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="SP_GetFreelanceSelectionData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LoginID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetFreelanceSelectionList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="TaskID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetHelpDeskdata_All" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="tStatus" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="SP_GetHelpdeskDetailsbyID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="userID" Type="int" Mode="In" />
+    <Parameter Name="tStatus" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="SP_GetInstructionData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LoginID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetMailContentForQuery" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="catalog" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="SP_GetNewBookList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LoginID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetNofification_ToDo_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LoginID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetOOFHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LoginID" Type="int" Mode="In" />
+    <Parameter Name="FromDate" Type="datetime" Mode="In" />
+    <Parameter Name="ToDate" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_GetPM_PE_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ListType" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="SP_GetProgress_WIP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LoginID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetProjectPlan_beforeupdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Date" Type="datetime" Mode="In" />
+    <Parameter Name="ChangeDays" Type="nvarchar(max)" Mode="In" />
+  </Function>
+  <Function Name="SP_GetProjectPlan_List_FOR_API" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="SP_GetProjectPlan_UpdatedList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="PlanID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetProjectPlan_UpdatedList_New" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="PlanID" Type="int" Mode="In" />
+    <Parameter Name="Sequence" Type="int" Mode="In" />
+    <Parameter Name="Date" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_GetProjectPlan_UpdatedList_Newdays" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="PlanID" Type="int" Mode="In" />
+    <Parameter Name="Sequence" Type="int" Mode="In" />
+    <Parameter Name="ChangeDays" Type="int" Mode="In" />
+    <Parameter Name="Date" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_GetProofTrackingData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="BookID" Type="int" Mode="In" />
+    <Parameter Name="Stage" Type="nvarchar" Mode="In" />
+    <Parameter Name="UType" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="SP_GetQueryCatalogChapterList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LoginID" Type="int" Mode="In" />
+    <Parameter Name="UserType" Type="nvarchar" Mode="In" />
+    <Parameter Name="EmailID" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="SP_GetQueryConversationData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="QueryID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetQueryData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LoginID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetQueryTemplateData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="SP_GetQueryTrackingData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LoginID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetStagewiseChapter" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="BookID" Type="int" Mode="In" />
+    <Parameter Name="Stage" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="SP_GetSurveyMailDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetSurveyResponseData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetTaskDueDateList_ForNotification" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LoginID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetTaskList_Activity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LoginID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetTaskNotifications" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LoginID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetTemplateList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="catlog" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="SP_GetTicketDetailsByTicketID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ticketID" Type="int" Mode="In" />
+    <Parameter Name="ID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetWISH_Book_ActivityList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LoginID" Type="int" Mode="In" />
+    <Parameter Name="FromDate" Type="datetime" Mode="In" />
+    <Parameter Name="ToDate" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_GetWISH_BookList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LoginID" Type="int" Mode="In" />
+    <Parameter Name="FromDate" Type="datetime" Mode="In" />
+    <Parameter Name="ToDate" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_GetWorkFlow_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_GetWorkflowList_ByBookID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="BookID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_GetWorkFlowMaster" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="WorkFlowID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_ProjectPlan_Activity_CompletionDate_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="BookID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_ProjectPlanList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Publisher" Type="varchar" Mode="In" />
+    <Parameter Name="LoginID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_UpdateData_FromAPI" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="QueryString" Type="varchar(max)" Mode="In" />
+    <Parameter Name="ClientID" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="SP_UserLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LoginID" Type="varchar" Mode="In" />
+    <Parameter Name="Password" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="SP_WeeklyReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="BookID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SplitStrings_XML" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="List" Type="varchar(max)" Mode="In" />
+    <Parameter Name="Delimiter" Type="char" Mode="In" />
+    <ReturnType>
+      <CollectionType>
+        <RowType>
+          <Property Name="Item" Type="varchar" MaxLength="8000" />
+        </RowType>
+      </CollectionType>
+    </ReturnType>
+  </Function>
+  <EntityContainer Name="WMSModelStoreContainer">
+    <EntitySet Name="Books" EntityType="Self.Books" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Chapter" EntityType="Self.Chapter" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Holidays" EntityType="Self.Holidays" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Publisher" EntityType="Self.Publisher" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_ActivityInfo" EntityType="Self.Tbl_ActivityInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_ArchiveRestore" EntityType="Self.TBL_ArchiveRestore" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_BookStages" EntityType="Self.TBL_BookStages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_Category" EntityType="Self.TBL_Category" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_Cities" EntityType="Self.TBL_Cities" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_Complexity" EntityType="Self.TBL_Complexity" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_Countries" EntityType="Self.TBL_Countries" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_Edition" EntityType="Self.TBL_Edition" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_errorLog" EntityType="Self.tbl_errorLog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Feedback" EntityType="Self.Tbl_Feedback" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_ForgotPassword" EntityType="Self.Tbl_ForgotPassword" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_FreelanceBooking" EntityType="Self.TBL_FreelanceBooking" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_FreelanceBooks" EntityType="Self.TBL_FreelanceBooks" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_Freelancer_Master" EntityType="Self.TBL_Freelancer_Master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_Freelancer_Task" EntityType="Self.TBL_Freelancer_Task" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_Freelancer_TaskPrice" EntityType="Self.TBL_Freelancer_TaskPrice" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_FreelanceSubMaster" EntityType="Self.TBL_FreelanceSubMaster" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_ftpDetails" EntityType="Self.Tbl_ftpDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_HelpDesk" EntityType="Self.Tbl_HelpDesk" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_HelpdeskComment" EntityType="Self.Tbl_HelpdeskComment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_History" EntityType="Self.TBL_History" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Instruction" EntityType="Self.Tbl_Instruction" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_Invoice" EntityType="Self.TBL_Invoice" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_Languages" EntityType="Self.TBL_Languages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_LoginHistory" EntityType="Self.TBL_LoginHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_MailTemplate" EntityType="Self.TBL_MailTemplate" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_MainMaster" EntityType="Self.TBL_MainMaster" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_MenuList" EntityType="Self.Tbl_MenuList" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_OOFHistory" EntityType="Self.Tbl_OOFHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_Pipeline" EntityType="Self.TBL_Pipeline" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_Platform" EntityType="Self.TBL_Platform" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_PriceGrid" EntityType="Self.TBL_PriceGrid" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_Process" EntityType="Self.TBL_Process" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_ProcessType" EntityType="Self.TBL_ProcessType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_ProjectAnalysis" EntityType="Self.TBL_ProjectAnalysis" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_ProjectAnalysis_CMTS" EntityType="Self.TBL_ProjectAnalysis_CMTS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_ProjectPlanning" EntityType="Self.TBL_ProjectPlanning" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_ProjectPlanning_Flow" EntityType="Self.TBL_ProjectPlanning_Flow" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_ProofDistribution" EntityType="Self.TBL_ProofDistribution" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_ProofDistribution_History" EntityType="Self.TBL_ProofDistribution_History" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_ProofEmail" EntityType="Self.TBL_ProofEmail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_QueryMaster" EntityType="Self.TBL_QueryMaster" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_QuerySubMaster" EntityType="Self.TBL_QuerySubMaster" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_QueryTemplate" EntityType="Self.TBL_QueryTemplate" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_RoleMaster" EntityType="Self.Tbl_RoleMaster" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_RoleMenuAction" EntityType="Self.tbl_RoleMenuAction" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_Signaldetails" EntityType="Self.TBL_Signaldetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_SignalDetails_FromClient" EntityType="Self.TBL_SignalDetails_FromClient" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_SourceList" EntityType="Self.TBL_SourceList" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_States" EntityType="Self.TBL_States" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_Subject" EntityType="Self.TBL_Subject" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_SubMaster" EntityType="Self.TBL_SubMaster" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_Survey" EntityType="Self.TBL_Survey" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_TaskCalendar" EntityType="Self.Tbl_TaskCalendar" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_UnitType" EntityType="Self.TBL_UnitType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_UserAccess_PublisherList" EntityType="Self.TBL_UserAccess_PublisherList" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_WEBAPI_Log" EntityType="Self.TBL_WEBAPI_Log" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_WEBAPI_UsersList" EntityType="Self.TBL_WEBAPI_UsersList" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_WorkFlowActivities" EntityType="Self.TBL_WorkFlowActivities" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_WorkFlowList" EntityType="Self.TBL_WorkFlowList" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_WorkFlowMaster" EntityType="Self.TBL_WorkFlowMaster" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserMaster" EntityType="Self.UserMaster" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserType" EntityType="Self.UserType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Books_JTS" EntityType="Self.Books_JTS" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Books_JTS].[Book_ID] AS [Book_ID], 
+    [Books_JTS].[Book_Number] AS [Book_Number], 
+    [Books_JTS].[Book_Title] AS [Book_Title], 
+    [Books_JTS].[Book_Publisher] AS [Book_Publisher], 
+    [Books_JTS].[Book_AuthorName] AS [Book_AuthorName], 
+    [Books_JTS].[Book_ProdOrMfg] AS [Book_ProdOrMfg], 
+    [Books_JTS].[Book_TrimSize] AS [Book_TrimSize], 
+    [Books_JTS].[Book_PagesEst] AS [Book_PagesEst], 
+    [Books_JTS].[Book_PagesAct] AS [Book_PagesAct], 
+    [Books_JTS].[Book_ISBN] AS [Book_ISBN], 
+    [Books_JTS].[Book_Printer] AS [Book_Printer], 
+    [Books_JTS].[Book_CopyEditing] AS [Book_CopyEditing], 
+    [Books_JTS].[Book_ProofReader] AS [Book_ProofReader], 
+    [Books_JTS].[Book_Indexer] AS [Book_Indexer], 
+    [Books_JTS].[Book_Priority] AS [Book_Priority], 
+    [Books_JTS].[Book_Platform] AS [Book_Platform], 
+    [Books_JTS].[Book_Received] AS [Book_Received], 
+    [Books_JTS].[Book_Uploaded] AS [Book_Uploaded], 
+    [Books_JTS].[Book_TargetedPubDate] AS [Book_TargetedPubDate], 
+    [Books_JTS].[Book_CompletionDate] AS [Book_CompletionDate], 
+    [Books_JTS].[Book_SupplierGraphics] AS [Book_SupplierGraphics], 
+    [Books_JTS].[Book_Notes] AS [Book_Notes], 
+    [Books_JTS].[Book_Delivery] AS [Book_Delivery], 
+    [Books_JTS].[Book_Status] AS [Book_Status], 
+    [Books_JTS].[Book_IsQuery] AS [Book_IsQuery], 
+    [Books_JTS].[Book_IsFeedback] AS [Book_IsFeedback], 
+    [Books_JTS].[Book_IsOnHold] AS [Book_IsOnHold], 
+    [Books_JTS].[Book_OnHoldRemarks] AS [Book_OnHoldRemarks], 
+    [Books_JTS].[LastModifiedDate] AS [LastModifiedDate], 
+    [Books_JTS].[UsrID] AS [UsrID], 
+    [Books_JTS].[Book_Catalog] AS [Book_Catalog], 
+    [Books_JTS].[Book_ArchivalSent] AS [Book_ArchivalSent], 
+    [Books_JTS].[Book_Color] AS [Book_Color], 
+    [Books_JTS].[Book_Layout] AS [Book_Layout], 
+    [Books_JTS].[Book_PTRFiles] AS [Book_PTRFiles], 
+    [Books_JTS].[Book_DARTFiles] AS [Book_DARTFiles], 
+    [Books_JTS].[Book_PublID] AS [Book_PublID], 
+    [Books_JTS].[Book_FolderCreated] AS [Book_FolderCreated], 
+    [Books_JTS].[Book_speInstruction] AS [Book_speInstruction], 
+    [Books_JTS].[Book_Complexity] AS [Book_Complexity], 
+    [Books_JTS].[Book_ProofReaderbk] AS [Book_ProofReaderbk], 
+    [Books_JTS].[Book_PtrComplexity] AS [Book_PtrComplexity], 
+    [Books_JTS].[Book_RevisesComplexity] AS [Book_RevisesComplexity], 
+    [Books_JTS].[Book_Type] AS [Book_Type], 
+    [Books_JTS].[Book_InvoiceStage] AS [Book_InvoiceStage], 
+    [Books_JTS].[Book_ProjectMgmt] AS [Book_ProjectMgmt], 
+    [Books_JTS].[Book_EBookCon] AS [Book_EBookCon], 
+    [Books_JTS].[Book_Reprint] AS [Book_Reprint], 
+    [Books_JTS].[Book_SpecialJob] AS [Book_SpecialJob], 
+    [Books_JTS].[Book_Postage] AS [Book_Postage], 
+    [Books_JTS].[Book_PartInvDtl] AS [Book_PartInvDtl], 
+    [Books_JTS].[Book_ProofReading] AS [Book_ProofReading], 
+    [Books_JTS].[Book_ProjectManager] AS [Book_ProjectManager], 
+    [Books_JTS].[Book_ApprovedDate] AS [Book_ApprovedDate], 
+    [Books_JTS].[Book_InvoiceDate] AS [Book_InvoiceDate], 
+    [Books_JTS].[Book_InvoiceRemarks] AS [Book_InvoiceRemarks], 
+    [Books_JTS].[ID] AS [ID], 
+    [Books_JTS].[Book_InvoiceNo] AS [Book_InvoiceNo], 
+    [Books_JTS].[Book_ArchivalApprovedDate] AS [Book_ArchivalApprovedDate], 
+    [Books_JTS].[Book_ArchivalApproved] AS [Book_ArchivalApproved], 
+    [Books_JTS].[Book_EditorName] AS [Book_EditorName], 
+    [Books_JTS].[Book_Address1] AS [Book_Address1], 
+    [Books_JTS].[Book_Address2] AS [Book_Address2], 
+    [Books_JTS].[Book_Address3] AS [Book_Address3], 
+    [Books_JTS].[Book_city] AS [Book_city], 
+    [Books_JTS].[Book_EditorEmail] AS [Book_EditorEmail], 
+    [Books_JTS].[Book_AuthorEditorName] AS [Book_AuthorEditorName], 
+    [Books_JTS].[Book_AuthorEdtorEmail] AS [Book_AuthorEdtorEmail], 
+    [Books_JTS].[Book_ProcessType] AS [Book_ProcessType], 
+    [Books_JTS].[Book_ProofReturn_DueDt] AS [Book_ProofReturn_DueDt], 
+    [Books_JTS].[Book_ProofReturn_Name] AS [Book_ProofReturn_Name], 
+    [Books_JTS].[Book_ProofReturn_Type] AS [Book_ProofReturn_Type], 
+    [Books_JTS].[Book_Telephone] AS [Book_Telephone], 
+    [Books_JTS].[Book_Proof_CC] AS [Book_Proof_CC], 
+    [Books_JTS].[Book_Proof_BCC] AS [Book_Proof_BCC], 
+    [Books_JTS].[Book_Proof_Approval] AS [Book_Proof_Approval], 
+    [Books_JTS].[Book_ProofReturn_Email] AS [Book_ProofReturn_Email], 
+    [Books_JTS].[Book_Country] AS [Book_Country], 
+    [Books_JTS].[Book_PinCode] AS [Book_PinCode], 
+    [Books_JTS].[Book_ProdEditor_Name] AS [Book_ProdEditor_Name], 
+    [Books_JTS].[Book_ProdEditor_Email] AS [Book_ProdEditor_Email], 
+    [Books_JTS].[Book_EFax] AS [Book_EFax], 
+    [Books_JTS].[Book_ProofReturn_Days] AS [Book_ProofReturn_Days], 
+    [Books_JTS].[Book_ProofReturn_Weeks] AS [Book_ProofReturn_Weeks], 
+    [Books_JTS].[Book_Proof_PECC] AS [Book_Proof_PECC], 
+    [Books_JTS].[Book_download] AS [Book_download], 
+    [Books_JTS].[Book_PEIntroDt] AS [Book_PEIntroDt], 
+    [Books_JTS].[Book_PMIntroDt] AS [Book_PMIntroDt], 
+    [Books_JTS].[Book_ProofSent_User] AS [Book_ProofSent_User], 
+    [Books_JTS].[Book_Acronym] AS [Book_Acronym], 
+    [Books_JTS].[Book_Volume] AS [Book_Volume], 
+    [Books_JTS].[Book_IntroEmail_SentDt] AS [Book_IntroEmail_SentDt], 
+    [Books_JTS].[Book_ProofSendOn_Dt] AS [Book_ProofSendOn_Dt], 
+    [Books_JTS].[Book_Intrlno] AS [Book_Intrlno], 
+    [Books_JTS].[Book_SecondPages_Approve] AS [Book_SecondPages_Approve], 
+    [Books_JTS].[Book_SecondPages_SentDt] AS [Book_SecondPages_SentDt], 
+    [Books_JTS].[Book_FinalPages_Approve] AS [Book_FinalPages_Approve], 
+    [Books_JTS].[Book_FinalPages_SentDt] AS [Book_FinalPages_SentDt], 
+    [Books_JTS].[Book_Tetra] AS [Book_Tetra], 
+    [Books_JTS].[Book_EbkISBN] AS [Book_EbkISBN], 
+    [Books_JTS].[Book_EPubISBN] AS [Book_EPubISBN], 
+    [Books_JTS].[Book_WebPDFISBN] AS [Book_WebPDFISBN], 
+    [Books_JTS].[Book_MobiISBN] AS [Book_MobiISBN], 
+    [Books_JTS].[Book_CoverPath] AS [Book_CoverPath], 
+    [Books_JTS].[Book_FSAPath] AS [Book_FSAPath], 
+    [Books_JTS].[Book_MetaDataPath] AS [Book_MetaDataPath], 
+    [Books_JTS].[Book_InternalDesign] AS [Book_InternalDesign], 
+    [Books_JTS].[Book_TextArea] AS [Book_TextArea], 
+    [Books_JTS].[Book_HBKISBN] AS [Book_HBKISBN], 
+    [Books_JTS].[Book_Color_Insert] AS [Book_Color_Insert], 
+    [Books_JTS].[Book_Color_Ebook] AS [Book_Color_Ebook], 
+    [Books_JTS].[Book_Scatter_Color] AS [Book_Scatter_Color], 
+    [Books_JTS].[Book_CastOff] AS [Book_CastOff], 
+    [Books_JTS].[Book_Color_Plate] AS [Book_Color_Plate], 
+    [Books_JTS].[Book_Dual_Edition] AS [Book_Dual_Edition], 
+    [Books_JTS].[Book_TSPM] AS [Book_TSPM], 
+    [Books_JTS].[Book_PEDueDt] AS [Book_PEDueDt], 
+    [Books_JTS].[Book_CEDueDt] AS [Book_CEDueDt], 
+    [Books_JTS].[Book_GFXDueDt] AS [Book_GFXDueDt], 
+    [Books_JTS].[Book_Location] AS [Book_Location], 
+    [Books_JTS].[Book_SeriesTitle] AS [Book_SeriesTitle], 
+    [Books_JTS].[Book_CEType] AS [Book_CEType], 
+    [Books_JTS].[Book_Initial_Invoice] AS [Book_Initial_Invoice], 
+    [Books_JTS].[Book_EndDelivery_Approve] AS [Book_EndDelivery_Approve], 
+    [Books_JTS].[Book_EndDelivery_SentDt] AS [Book_EndDelivery_SentDt], 
+    [Books_JTS].[Book_KickOff_Status] AS [Book_KickOff_Status]
+    FROM [dbo].[Books_JTS] AS [Books_JTS]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Chapter_JTS" EntityType="Self.Chapter_JTS" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Chapter_JTS].[Chapter_ID] AS [Chapter_ID], 
+    [Chapter_JTS].[Chapter_BookNo] AS [Chapter_BookNo], 
+    [Chapter_JTS].[Chapter_BookID] AS [Chapter_BookID], 
+    [Chapter_JTS].[Chapter_ChapNo] AS [Chapter_ChapNo], 
+    [Chapter_JTS].[Chapter_Title] AS [Chapter_Title], 
+    [Chapter_JTS].[Chapter_AuthorName] AS [Chapter_AuthorName], 
+    [Chapter_JTS].[Chapter_MSReceived] AS [Chapter_MSReceived], 
+    [Chapter_JTS].[Chapter_ArtReceived] AS [Chapter_ArtReceived], 
+    [Chapter_JTS].[Chapter_MSPages] AS [Chapter_MSPages], 
+    [Chapter_JTS].[Chapter_Tables] AS [Chapter_Tables], 
+    [Chapter_JTS].[Chapter_LineArt] AS [Chapter_LineArt], 
+    [Chapter_JTS].[Chapter_HalfTone] AS [Chapter_HalfTone], 
+    [Chapter_JTS].[Chapter_Colour] AS [Chapter_Colour], 
+    [Chapter_JTS].[Chapter_ReKey] AS [Chapter_ReKey], 
+    [Chapter_JTS].[Chapter_eART] AS [Chapter_eART], 
+    [Chapter_JTS].[Chapter_Notes] AS [Chapter_Notes], 
+    [Chapter_JTS].[Chapter_ToCE] AS [Chapter_ToCE], 
+    [Chapter_JTS].[Chapter_FromCE] AS [Chapter_FromCE], 
+    [Chapter_JTS].[Chapter_FirstContact] AS [Chapter_FirstContact], 
+    [Chapter_JTS].[Chapter_IsQuery] AS [Chapter_IsQuery], 
+    [Chapter_JTS].[Chapter_IsFeedback] AS [Chapter_IsFeedback], 
+    [Chapter_JTS].[Chapter_IsOnHold] AS [Chapter_IsOnHold], 
+    [Chapter_JTS].[Chapter_OnHoldRemarks] AS [Chapter_OnHoldRemarks], 
+    [Chapter_JTS].[Chapter_IsCompleted] AS [Chapter_IsCompleted], 
+    [Chapter_JTS].[LastModifiedDate] AS [LastModifiedDate], 
+    [Chapter_JTS].[UsrID] AS [UsrID], 
+    [Chapter_JTS].[Chapter_Complexity] AS [Chapter_Complexity], 
+    [Chapter_JTS].[Chapter_TotalFigures] AS [Chapter_TotalFigures], 
+    [Chapter_JTS].[Chapter_SourceType] AS [Chapter_SourceType], 
+    [Chapter_JTS].[Chapter_Status] AS [Chapter_Status], 
+    [Chapter_JTS].[Chapter_UploadedDt] AS [Chapter_UploadedDt], 
+    [Chapter_JTS].[Chapter_StatusGFX] AS [Chapter_StatusGFX], 
+    [Chapter_JTS].[Chapter_CompletedDt] AS [Chapter_CompletedDt], 
+    [Chapter_JTS].[Chapter_ScheduledDt] AS [Chapter_ScheduledDt], 
+    [Chapter_JTS].[Chapter_ExpectedDt] AS [Chapter_ExpectedDt], 
+    [Chapter_JTS].[Chapter_Schemes] AS [Chapter_Schemes], 
+    [Chapter_JTS].[Chapter_FolderCreated] AS [Chapter_FolderCreated], 
+    [Chapter_JTS].[Chapter_FirstPage] AS [Chapter_FirstPage], 
+    [Chapter_JTS].[Chapter_LastPage] AS [Chapter_LastPage], 
+    [Chapter_JTS].[Chapter_ProofPage] AS [Chapter_ProofPage], 
+    [Chapter_JTS].[Chpater_BlankPage] AS [Chpater_BlankPage], 
+    [Chapter_JTS].[Chapter_BlankPageCount] AS [Chapter_BlankPageCount], 
+    [Chapter_JTS].[Chapter_TICategory] AS [Chapter_TICategory], 
+    [Chapter_JTS].[Chapter_TblLandscape] AS [Chapter_TblLandscape], 
+    [Chapter_JTS].[Chapter_TblPotrait] AS [Chapter_TblPotrait], 
+    [Chapter_JTS].[Chapter_PreULRemarks] AS [Chapter_PreULRemarks], 
+    [Chapter_JTS].[Chapter_TransID] AS [Chapter_TransID], 
+    [Chapter_JTS].[Chapter_TransStatus] AS [Chapter_TransStatus], 
+    [Chapter_JTS].[Chapter_TransTime] AS [Chapter_TransTime], 
+    [Chapter_JTS].[Chapter_TransIDGFX] AS [Chapter_TransIDGFX], 
+    [Chapter_JTS].[Chapter_TransStatusGFX] AS [Chapter_TransStatusGFX], 
+    [Chapter_JTS].[Chapter_TransTimeGFX] AS [Chapter_TransTimeGFX], 
+    [Chapter_JTS].[Chapter_speInstruction] AS [Chapter_speInstruction], 
+    [Chapter_JTS].[Chapter_Invno] AS [Chapter_Invno], 
+    [Chapter_JTS].[Chapter_InvDate] AS [Chapter_InvDate], 
+    [Chapter_JTS].[Chapter_InvBy] AS [Chapter_InvBy], 
+    [Chapter_JTS].[Chapter_InvSys] AS [Chapter_InvSys], 
+    [Chapter_JTS].[Chapter_Comments] AS [Chapter_Comments], 
+    [Chapter_JTS].[Chapter_License] AS [Chapter_License], 
+    [Chapter_JTS].[Chapter_FigComment] AS [Chapter_FigComment], 
+    [Chapter_JTS].[Chapter_FigQueryDt] AS [Chapter_FigQueryDt], 
+    [Chapter_JTS].[Chapter_AuthorMail] AS [Chapter_AuthorMail], 
+    [Chapter_JTS].[Chapter_Actseq] AS [Chapter_Actseq], 
+    [Chapter_JTS].[Chapter_ProofReturn_DueDt] AS [Chapter_ProofReturn_DueDt], 
+    [Chapter_JTS].[Chapter_Proof_Approval] AS [Chapter_Proof_Approval], 
+    [Chapter_JTS].[Chapter_Miscellaneous] AS [Chapter_Miscellaneous], 
+    [Chapter_JTS].[Chapter_Proof_CC] AS [Chapter_Proof_CC], 
+    [Chapter_JTS].[Chapter_Proof_PECC] AS [Chapter_Proof_PECC], 
+    [Chapter_JTS].[Chapter_Proof_EDCC] AS [Chapter_Proof_EDCC], 
+    [Chapter_JTS].[chapter_EstimateHours] AS [chapter_EstimateHours], 
+    [Chapter_JTS].[chapter_EstimateCompleteHours] AS [chapter_EstimateCompleteHours], 
+    [Chapter_JTS].[chapter_EstimateWorkingHours] AS [chapter_EstimateWorkingHours], 
+    [Chapter_JTS].[Chapter_ChapType] AS [Chapter_ChapType], 
+    [Chapter_JTS].[Chapter_InvRemark] AS [Chapter_InvRemark], 
+    [Chapter_JTS].[Chapter_PEAllocate_Emp] AS [Chapter_PEAllocate_Emp], 
+    [Chapter_JTS].[Chapter_CastOff_Pages] AS [Chapter_CastOff_Pages], 
+    [Chapter_JTS].[Chapter_Copyright_Text] AS [Chapter_Copyright_Text], 
+    [Chapter_JTS].[Chapter_Copyright] AS [Chapter_Copyright], 
+    [Chapter_JTS].[Chapter_Pagewidth_fig] AS [Chapter_Pagewidth_fig], 
+    [Chapter_JTS].[Chapter_Columnwidth_fig] AS [Chapter_Columnwidth_fig], 
+    [Chapter_JTS].[Chapter_Midwidth_fig] AS [Chapter_Midwidth_fig], 
+    [Chapter_JTS].[Chapter_Landscape_fig] AS [Chapter_Landscape_fig], 
+    [Chapter_JTS].[Chapter_Noteson_fig] AS [Chapter_Noteson_fig], 
+    [Chapter_JTS].[Chapter_Figshare_doi] AS [Chapter_Figshare_doi], 
+    [Chapter_JTS].[Chapter_MSWord_Count] AS [Chapter_MSWord_Count], 
+    [Chapter_JTS].[Chapter_StatusAMS] AS [Chapter_StatusAMS], 
+    [Chapter_JTS].[Chapter_TransIDAMS] AS [Chapter_TransIDAMS], 
+    [Chapter_JTS].[Chapter_Booking_Method] AS [Chapter_Booking_Method], 
+    [Chapter_JTS].[Chapter_AMSUploadedDt] AS [Chapter_AMSUploadedDt], 
+    [Chapter_JTS].[Chapter_DOI] AS [Chapter_DOI], 
+    [Chapter_JTS].[Chapter_ORCID] AS [Chapter_ORCID]
+    FROM [dbo].[Chapter_JTS] AS [Chapter_JTS]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Scheduler" EntityType="Self.Scheduler" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Scheduler].[Sch_ID] AS [Sch_ID], 
+    [Scheduler].[Sch_BookID] AS [Sch_BookID], 
+    [Scheduler].[Sch_Stage] AS [Sch_Stage], 
+    [Scheduler].[Sch_PlannedDt] AS [Sch_PlannedDt], 
+    [Scheduler].[Sch_RevisedDt] AS [Sch_RevisedDt], 
+    [Scheduler].[Sch_ActualDt] AS [Sch_ActualDt], 
+    [Scheduler].[UpdatedBy] AS [UpdatedBy], 
+    [Scheduler].[UpdatedTime] AS [UpdatedTime]
+    FROM [dbo].[Scheduler] AS [Scheduler]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_TBL_Cities_TBL_States" Association="Self.FK_TBL_Cities_TBL_States">
+      <End Role="TBL_States" EntitySet="TBL_States" />
+      <End Role="TBL_Cities" EntitySet="TBL_Cities" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBL_Countries_TBL_Countries" Association="Self.FK_TBL_Countries_TBL_Countries">
+      <End Role="TBL_Countries" EntitySet="TBL_Countries" />
+      <End Role="TBL_Countries1" EntitySet="TBL_Countries" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tbl_HelpdeskComment_Tbl_HelpDesk" Association="Self.FK_Tbl_HelpdeskComment_Tbl_HelpDesk">
+      <End Role="Tbl_HelpDesk" EntitySet="Tbl_HelpDesk" />
+      <End Role="Tbl_HelpdeskComment" EntitySet="Tbl_HelpdeskComment" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

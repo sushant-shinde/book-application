@@ -1,0 +1,88 @@
+﻿@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    <script src="~/Scripts/Chart/amcharts.js" type="text/javascript"></script>
+    <script src="~/Scripts/Chart/pie.js" type="text/javascript"></script>
+    <script src="~/Scripts/Chart/highcharts.js" type="text/javascript"></script>
+    <script src="~/Scripts/Chart/highcharts-3d.js" type="text/javascript"></script>
+    <script src="~/Scripts/Chart/exporting.js" type="text/javascript"></script>
+
+    <link href="~/css/generalbox.css" rel="stylesheet" />
+
+    @Styles.Render("~/BookGallery/css/style.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/BookGallery/js/modernizr.custom.53451.js?t=" + @DateTime.Now.Ticks.ToString())
+
+    <style type="text/css">
+        .jumbotron p {
+            font-size: 16px !important;
+            white-space: nowrap;
+        }
+       
+    </style>
+}
+
+
+<style>
+    .box_1 {
+        background: #9CECFB;
+        background: -webkit-linear-gradient(to right, #0052D4, #65C7F7, #9CECFB);
+        background: linear-gradient(to right, #0052D4, #65C7F7, #9CECFB);
+        box-shadow: 0 10px 20px lightblue;
+    }
+
+    .box_2 {
+        background: #ee0979;
+        background: -webkit-linear-gradient(to right, #ff6a00, #ee0979);
+        background: linear-gradient(to right, #ff6a00, #ee0979);
+        box-shadow: 0 10px 20px lightcoral;
+    }
+
+    .box_3 {
+        background: #ff00cc;
+        background: -webkit-linear-gradient(to right, #333399, #ff00cc);
+        background: linear-gradient(to right, #333399, #ff00cc);
+        box-shadow: 0 10px 20px lightpink;
+    }
+
+    .box_4 {
+        background: #56ab2f;
+        background: -webkit-linear-gradient(to right, #a8e063, #56ab2f);
+        background: linear-gradient(to right, #a8e063, #56ab2f);
+        box-shadow: 0 10px 20px #a8e063;
+    }
+
+    .box_5 {
+        background: #FFB75E;
+        background: -webkit-linear-gradient(to right, #ED8F03, #FFB75E);
+        background: linear-gradient(to right, #ED8F03, #FFB75E);
+        box-shadow: 0 10px 20px #FFB75E;
+    }
+
+    .box_6 {
+        background: #00C9FF;
+        background: -webkit-linear-gradient(to right, #92FE9D, #00C9FF);
+        background: linear-gradient(to right, #92FE9D, #00C9FF);
+        box-shadow: 0 10px 20px lightskyblue;
+    }
+</style>
+
+<div class="page-content">
+    <div class="jumbotron content" overflow="auto">
+        <center><b><h2>Welcome To Sesame</h2></b></center>
+        <hr />
+
+
+        <div class="wrapper">
+            <div class="page_categories">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div id="divMenulist" style="margin-left: 20px;margin-right: 100px"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script type="text/javascript" src="~/BookGallery/js/jquery.gallery.js"></script>
+

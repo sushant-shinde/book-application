@@ -1,0 +1,107 @@
+﻿
+@{
+    ViewBag.Title = "Out Of Facility";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    @Styles.Render("~/CustomScripts/css/jquery.dataTables.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/CustomScripts/resources/syntax/shCore.css?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Scripts.Render("~/CustomScripts/js/jquery.dataTables.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/js/dataTables.fixedColumns.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/dataTables.buttons.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/jszip.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/pdfmake.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/vfs_fonts.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/buttons.html5.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/date-dd-MMM-yyyy.js?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Styles.Render("~/css/report.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/oof.js?t=" + @DateTime.Now.Ticks.ToString())
+
+    <style type="text/css">
+        .imgCover {
+            width: 60px;
+            border-radius: 10px;
+        }
+
+        .divpaddig {
+            padding-bottom: 10px;
+        }
+
+        .modal-open .modal {
+            top: -10px;
+        }
+
+        #myModal_View .modal-body {
+            font-size: 14px !important;
+            padding-top: 0px;
+        }
+
+        .checkbox {
+            font-size: 14px;
+        }
+    </style>
+}
+<input id="hf_GetPMList" type="hidden" value='@Url.Action("GetPMList", "tracking")'>
+<input id="hf_GetPMBookList" type="hidden" value='@Url.Action("GetPMBookList", "tracking")'>
+<input id="hf_UpdateTransfer" type="hidden" value='@Url.Action("UpdateTransfer", "tracking")'>
+<div class="page-content">
+    <div class="jumbotron content">
+        <br />
+        <div class="row">
+            <div class="col-sm-3">
+                <span><label>Project Manager</label></span>
+                <span> <select id="ddlPMList" class="form-control"></select></span>
+            </div>
+        </div>
+        <table id="example" class="display" width="100%"></table>
+    </div>
+</div>
+
+<div id="myModal_View" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><strong>Transfer Details</strong></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="divpaddig">
+                            <label>Mode</label><em>*</em>
+                            <select id="ddlTransferMode" class="form-control">
+                                <option value="Whole">Whole</option>
+                                <option value="Duration">Duration</option>
+                            </select>
+                            <br />
+                        </div>
+                        <div class="divpaddig">
+                            <label>Transfer PM </label><em>*</em>
+                            <select id="ddlTransferPM" class="form-control"></select>
+                        </div>
+                        <div class="divpaddig">
+                            <label>From Date </label>
+                            <input id="Txt_FromDate" type="text" class="form-control DateValid" readonly="readonly" />
+                        </div>
+                        <div class="divpaddig">
+                            <label>To Date</label>
+                            <input id="Txt_ToDate" type="text" class="form-control DateValid" readonly="readonly" />
+                        </div>
+                        <div class="divpaddig">
+                            <label>Remarks</label><em>*</em>
+                            <textarea id="Txt_Remarks" class="form-control" style="height: 110px;" maxlength="255"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" title="Update" id="btnUpdate">Update</button>
+                <button type="button" class="btn btn-primary" title="Close" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+
+    </div>
+</div>

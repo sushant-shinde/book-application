@@ -1,0 +1,188 @@
+﻿@{
+    ViewBag.Title = "Personal info";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    @Styles.Render("~/css/userInfo.css?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Scripts.Render("~/CustomScripts/UserInfo.js?t=" + @DateTime.Now.Ticks.ToString())
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css?t=@DateTime.Now.Ticks.ToString()" />
+
+}
+<script type="text/javascript">
+    $(window).load(function () {
+        $('#TxtBirthday').datetimepicker({
+            format: 'd M Y',
+            timepicker: false,
+        });
+        PopulateUserDetails($('#hf_UserID').val(), 'Profile');
+    });
+</script>
+<input id="hf_UserInfoPopulate" type="hidden" value='@Url.Action("UserInfoPopulate", "user")'>
+<input id="hf_UserInfoUpdate" type="hidden" value='@Url.Action("UserInfoUpdate", "user")'>
+<div class="page-content">
+    <div class="jumbotron content">
+        @*<center>
+            <header>
+                <br />
+                <div class="divInfo">Basic info, such as your name and photo, that you use on Sesame services</div>
+            </header>
+        </center>*@
+        <br />
+        <div class="divCenterInfo">
+            <div class="form-group col-sm-4">
+                <div class="input-group" style="text-align:center;">
+                    <img src="~/img/user.jpg" alt="user Logo" class="imgProfile" id="imgUserLogo" onerror="onerrorImageLoad()" /> <br /><br />
+                    <input type="file" name="file" id="imageUploadForm" style="width: 100%;" class="btn" onChange="showPreview(this);" />
+                    <span class="btn btn-primary" id="btnImageUpload">Upload</span>
+                    <span class="btn btn-primary" id="btnImageClear">Remove</span>
+                </div>
+
+
+            </div>
+            <div class="col-sm-8">
+
+                <div class="divprofileInfo">
+                    <div class="form-group">
+                        <div class="col-sm-2">
+                            <label>Name</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <label id="LblName"></label>
+                        </div>
+                        <div class="col-sm-2">
+                            <i class="fa fa-pen" aria-hidden="true" data-col="Name"></i>
+                        </div>
+                    </div>
+                    <br />
+                    <hr />
+                    <br />
+                </div>
+                <div class="divprofileInfo">
+                    <div class="form-group">
+                        <div class="col-sm-2">
+                            <label>Birthday</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <label id="LblBirthday"></label>
+                        </div>
+                        <div class="col-sm-2">
+                            <i class="fa fa-pen" aria-hidden="true" data-col="Birthday"></i>
+                        </div>
+                    </div>
+                    <br />
+                    <hr />
+                    <br />
+                </div>
+                <div class="divprofileInfo">
+                    <div class="form-group">
+                        <div class="col-sm-2">
+                            <label>Gender</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <label id="LblGender"></label>
+                        </div>
+                        <div class="col-sm-2">
+                            <i class="fa fa-pen" aria-hidden="true" data-col="Gender"></i>
+                        </div>
+                    </div>
+                    <br />
+                    <hr />
+                    <br />
+                </div>
+                <div class="divprofileInfo">
+                    <div class="form-group">
+                        <div class="col-sm-2">
+                            <label>Password</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <label id="LblPassword">*******</label>
+                        </div>
+                        <div class="col-sm-2">
+                            <i class="fa fa-pen" aria-hidden="true" data-col="Password"></i>
+                        </div>
+
+                    </div>
+                    <br />
+                    <hr />
+                    <br />
+                </div>
+                <div class="divprofileInfo">
+                    <div class="form-group">
+                        <div class="col-sm-2">
+                            <label>Email ID</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <label id="LblEmailID"></label>
+                        </div>
+                        <div class="col-sm-2">
+                            <i class="fa fa-pen" aria-hidden="true" data-col="EmailID"></i>
+                        </div>
+
+                    </div>
+                    <br />
+                    <hr />
+                    <br />
+                </div>
+                <div class="divprofileInfo">
+                    <div class="form-group">
+                        <div class="col-sm-2">
+                            <label>Mobile No.</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <label id="LblMobileNo"></label>
+                        </div>
+                        <div class="col-sm-2">
+                            <i class="fa fa-pen" aria-hidden="true" data-col="MobileNo"></i>
+                        </div>
+                    </div>
+                    <br />
+                    <hr />
+                    <br />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myModal_profile" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id="divTitle">Title</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <input type="text" class="form-control rounded-0 CrtlHide skipSpecialChar" id="TxtName" maxlength="50" style="display:none" />
+
+                    <input type="text" class="form-control rounded-0 CrtlHide inputHandCursor" id="TxtBirthday" maxlength="50" readonly="readonly" style="display:none" />
+
+                    <div class="CrtlHide" id="TxtGender">
+                        <div class="form-group label-floating">
+                            <input id="Rb_Male" type="radio" name="Gender" value="Male" checked />Male&nbsp;
+                            <input id="Rb_Female" type="radio" name="Gender" value="Female" />Female
+                        </div>
+                    </div>
+                    <div class="CrtlHide" id="TxtPassword" style="display:none">
+                        New Password
+                        <input type="password" class="form-control rounded-0" id="TxtPwd" min="5" maxlength="10" />
+                        Confirm Password
+                        <input type="password" class="form-control rounded-0" id="TxtconfirmPwd" min="5" maxlength="10" />
+                    </div>
+
+                    <input type="text" class="form-control rounded-0 CrtlHide" id="TxtEmailID" maxlength="100" style="display:none" />
+
+                    <input type="text" class="form-control rounded-0 CrtlHide IsNumeric" id="TxtMobileNo" maxlength="15" style="display:none" />
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" title="Update" id="btnUpdateProfile">Update</button>
+                <button type="button" class="btn btn-primary" title="Close" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>

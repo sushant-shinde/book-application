@@ -1,0 +1,239 @@
+﻿* {
+    font-family: Arial;
+}
+
+.nav-tabs {
+    font-weight: bold;
+    letter-spacing: .5px;
+}
+
+.iright {
+    font-size: 18px;
+    color: #1d2c99;
+    margin-right: 20px;
+    float: right;
+    position: relative !important;
+    top: 15px !important;
+}
+
+.imgCover {
+    height: 110px;
+    width: 90px;
+    margin-top: 15px;
+    border-radius:10px;
+}
+
+#BkTabul a {
+    color: #070a76;
+}
+
+.divBookWish {
+    margin: 10px;
+    letter-spacing: .5px;
+}
+
+    .divBookWish .divPadd {
+        padding: 5px;
+    }
+
+.DivList img {
+    margin: 10px;
+    border-radius:10px;
+}
+
+.DivList table {
+    margin-top: 10px;
+}
+
+.trOverDue .progress__bar {
+    background-color: red !important;
+}
+
+.spOverDue {
+    color: red;
+    font-weight: bold;
+}
+
+.DivList table tr td {
+    vertical-align: top;
+}
+
+.DivList table tr {
+    border-bottom: #888888 2px solid;
+}
+
+    .DivList table tr:nth-child(odd) {
+        background-color: #c4dbf1;
+        margin-bottom: 5px;
+    }
+
+    .DivList table tr:nth-child(even) {
+        /*background-color: #ffffff;*/
+        margin-bottom: 5px;
+    }
+
+
+/*.progress {
+    height: 20px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+}
+
+.progress-bar {
+    float: left;
+    width: 0;
+    height: 100%;
+    font-size: 12px;
+    line-height: 20px;
+    color: #fff;
+    text-align: center;
+    background-color: #337ab7;
+    -webkit-box-shadow: inset 0 -1px 0 rgba(0,0,0,.15);
+    box-shadow: inset 0 -1px 0 rgba(0,0,0,.15);
+    -webkit-transition: width .6s ease;
+    -o-transition: width .6s ease;
+    transition: width .6s ease;
+}
+
+.progress-bar-info {
+    background-color: #5bc0de;
+    border: 1px solid;
+}
+
+.progress-striped .progress-bar-info {
+    background-image: -webkit-linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
+    background-image: -o-linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
+    background-image: linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
+}
+
+.imgthumb {
+    cursor: pointer;
+    width: 90px;
+    height: 110px;
+}
+
+.progress-bar-success {
+    background-color: #5cb85c;
+}
+
+.progress-striped .progress-bar-success {
+    background-image: -webkit-linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
+    background-image: -o-linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
+    background-image: linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
+}
+
+.progress-bar-warning {
+    background-color: #f0ad4e;
+}
+
+.progress-bar-danger {
+    margin-top: 1px;
+}
+
+.progress-striped .progress-bar-warning {
+    background-image: -webkit-linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
+    background-image: -o-linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
+    background-image: linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
+}*/
+.info-box-icon {
+    border-top-left-radius: 2px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 2px;
+    display: block;
+    float: left;
+    height: 140px;
+    width: 100px;
+    text-align: center;
+    font-size: 45px;
+    line-height: 90px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 10px 0px 0px 10px;
+}
+
+.divTotPercent {
+    position: relative;
+    top: 32%;
+    /* left: -40%; */
+    right: 5%;
+}
+
+.child {
+    position: relative;
+    left: -10px;
+}
+
+
+.bg-yellow {
+    background-color: #f39c12 !important;
+    border-radius: 10px;
+}
+
+.bg-red {
+    background-color: #fdd0d0 !important;
+    border-radius: 10px;
+}
+
+.bg-green {
+    background-color: #00a65a !important;
+    border-radius: 10px;
+}
+
+.bg-aqua {
+    background-color: #90CCF4 !important;
+    border-radius: 10px;
+}
+
+.bg-general {
+    background-color: #83677b !important;
+    border-radius: 10px;
+}
+
+.info-box-content {
+    padding: 5px 10px;
+    margin-left: 100px;
+    margin-top: 10px;
+    color: #000;
+    cursor: pointer;
+}
+
+.info-box-text {
+    text-transform: uppercase;
+}
+
+.info-box-number {
+    display: block;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.info-box .progress, .info-box .progress .progress-bar {
+    border-radius: 0;
+}
+
+.info-box .progress {
+    height: 10px;
+}
+
+.progress, .progress > .progress-bar, .progress .progress-bar, .progress > .progress-bar .progress-bar {
+    border-radius: 1px;
+}
+
+    .progress, .progress > .progress-bar {
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+
+.progress {
+    height: 10px !important;
+    margin-bottom: 0px !important;
+    overflow: hidden;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+}

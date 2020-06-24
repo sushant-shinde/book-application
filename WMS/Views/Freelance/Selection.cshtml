@@ -1,0 +1,208 @@
+﻿@model WMS.Models.FreelanceModel
+@{
+    ViewBag.Title = "Freelancer Selection";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    @Styles.Render("~/CustomScripts/css/jquery.dataTables.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/CustomScripts/resources/syntax/shCore.css?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Scripts.Render("~/CustomScripts/js/jquery.dataTables.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/js/dataTables.fixedColumns.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/dataTables.buttons.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/jszip.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/pdfmake.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/vfs_fonts.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/buttons.html5.min.js?t=" + @DateTime.Now.Ticks.ToString())
+
+
+    @Styles.Render("~/css/report.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/css/WMS.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Freelance.js?t=" + @DateTime.Now.Ticks.ToString())
+    <style>
+        .divFilter {
+            margin-right: 20px;
+            float: right;
+            position: relative !important;
+            /*top: -45px !important;*/
+            top: 10px !important;
+            font-weight: bold;
+        }
+
+        #spFreelancerAdd, #spFileAdd {
+            position: relative;
+            font-size: 20px;
+            color: #337ab7;
+            float: left;
+        }
+
+        .TxtCapacity, .TxtAlloted, .TxtAvailable {
+            height: 30px;
+            text-align: right;
+            width: auto !important;
+        }
+
+        .form-group {
+            font-size: 12px;
+        }
+
+        .form-inline .form-control {
+            width: 100%;
+        }
+
+        .form-inline {
+            padding-top: 5px !important;
+        }
+
+        .fa-cut {
+            font-size: 18px;
+            margin-right: 20px;
+            float: right;
+            margin-bottom: 10px;
+        }
+
+        input.Numbers {
+            text-align: right;
+        }
+    </style>
+}
+<input id="hf_GetSelectionBk" type="hidden" value='@Url.Action("GetSelectionBk",  "Freelance")'>
+<input id="hf_GetFreelancerList" type="hidden" value='@Url.Action("GetFreelancerList",  "Freelance")'>
+<input id="hf_GetFreelanceData" type="hidden" value='@Url.Action("GetFreelanceData", "Freelance")'>
+<input id="hf_GetUnitType" type="hidden" value='@Url.Action("GetUnitType", "Budget")'>
+<input id="hf_UpdateFreelancerSelection" type="hidden" value='@Url.Action("UpdateFreelancerSelection", "Freelance")'>
+<input id="hf_UpdateFreelancerandMail" type="hidden" value='@Url.Action("UpdateFreelancerandMail", "Freelance")'>
+<input id="hf_Fileupload" type="hidden" value='@Url.Action("Fileupload", "Freelance")'>
+<input id="hf_DeleteFile" type="hidden" value='@Url.Action("DeleteFile", "Freelance")'>
+<input id="hf_SkipSelectionData" type="hidden" value='@Url.Action("SkipSelectionData", "Freelance")'>
+<div class="page-content">
+    <div class="jumbotron content">
+        <div class="spIconView">
+            <i class="fa fa-filter iFilter" id="IFitler" aria-hidden="true" title="Filter"></i>
+        </div>
+        <ul class="nav nav-tabs" id="BkTabul">
+            <li class="active" id="divBkWIP"><a data-toggle="tab" href="#BkWIP">WIP</a></li>
+        </ul>
+
+        <table id="tblSelectionBk" class="display" width="100%"></table>
+    </div>
+</div>
+
+<div id="sideNavi_Filter">
+    <div class="side-navi-data">
+        <div class="side-navi-tab active" id="divQuickNav_filter">
+            <div class="divQuickList">
+                <i class="fas fa-times" id="isideClose_fitler"></i><span style="font-size:15px;">Filter</span>
+                <hr />
+                <div>
+                    <center class="ctContent">
+                        <div class="col-3">
+                            <select id="ddlWIPSearch" class="form-control">
+                                <option value="All">Clear</option>
+                                <option value="Number">Number</option>
+                                <option value="ISBN">ISBN</option>
+                                <option value="Catalog">Catalog</option>
+                                <option value="Publisher">Publisher</option>
+                                <option value="Task">Task</option>
+                            </select>
+                        </div>
+
+                        <div id="divFilter">
+                            <div id="divNumberFilter" style="display:none">
+                                @Html.ListBoxFor(m => m.NumberList, new SelectList(Model.NumberList, "Value", "Text"), new { Multiple = "multiple", id = "lstNumberList", @class = "form-control" })
+                            </div>
+                            <div id="divCatalogFilter" style="display:none">
+                                @Html.ListBoxFor(m => m.CatalogList, new SelectList(Model.CatalogList, "Value", "Text"), new { Multiple = "multiple", id = "lstCatalogList", @class = "form-control" })
+                            </div>
+                            <div id="divISBNFilter" style="display:none">
+                                @Html.ListBoxFor(m => m.ISBNList, new SelectList(Model.ISBNList, "Value", "Text"), new { Multiple = "multiple", id = "lstISBNList", @class = "form-control" })
+                            </div>
+                            <div id="divPublisherFilter" style="display:none">
+                                @Html.ListBoxFor(m => m.PublisherList, new SelectList(Model.PublisherList, "Value", "Text"), new { Multiple = "multiple", id = "lstPublisherList", @class = "form-control" })
+                            </div>
+                            <div id="divTaskFilter" style="display:none">
+                                @Html.ListBoxFor(m => m.TaskList, new SelectList(Model.TaskList, "Value", "Text"), new { Multiple = "multiple", id = "lstTaskList", @class = "form-control" })
+                            </div>
+                        </div>
+                        <br />
+                        <div>
+                            <span class="btn btn-primary" title="Get" id="btnBkGet">Get</span>
+                        </div>
+                    </center>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<div id="myModal" class="modal fade myModalView" role="dialog">
+    <div class="modal-dialog" id="mymodel_art">
+
+        <!-- Modal content-->
+        <div class="modal-content" id="modal_contentArt">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><strong><label id="lblTitle"></label></strong></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row form-inline">
+                    <div class="form-group label-floating col-md-2">
+                        <label class="control-label">Total Volume</label><em>*</em>
+                        <input id="txtVolume" type="text" class="form-control Numbers" maxlength="10" />
+                    </div>
+                    <div class="form-group label-floating col-md-2">
+                        <label class="control-label">Total Cost</label><em>*</em>
+                        <input id="txtCost" type="text" class="form-control Numbers" maxlength="10" />
+                    </div>
+                    <div class="form-group label-floating col-md-2">
+                        <label class="control-label">Unit Type</label><em>*</em>
+                        <select id="ddlUnitType" class="form-control col-sm-2"></select>
+                    </div>
+                    <div class="form-group label-floating col-md-2">
+                        <label class="control-label">Due Date</label><em>*</em>
+                        <input id="txtDueDate" type="text" readonly class="form-control inputHandCursor" />
+                    </div>
+
+                </div>
+                <div class="row form-inline">
+                    <div class="col-md-8" id="divLoadFreelance"></div>
+                    <div class="col-md-4" id="divFiles"></div>
+                    <input id="file-input" type="file" name="name" style="display: none;" multiple />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" title="Update" id="btnUpdate">Update</button>
+                <button type="button" class="btn btn-primary" title="Send Email" id="btnEmail">Send Email</button>
+                <button type="button" class="btn btn-primary" title="Close" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="myModal_Review" class="modal fade" role="dialog">
+    <div class="modal-dialog" id="mymodel_Review">
+
+        <!-- Modal content-->
+        <div class="modal-content" id="mymodel_contentReview">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title"><strong>Mail Content</strong></h3>
+            </div>
+            <div class="modal-body">
+
+                <div class="col-sm-12">
+                    <div class="form-group" id="Divmail">
+                        <textarea class="form-control rounded-0" id="TxtMailBody" rows="50"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnSendEmail">Ok</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

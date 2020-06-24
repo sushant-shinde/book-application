@@ -1,0 +1,244 @@
+﻿@model WMS.Models.BookModels
+
+@{
+    ViewBag.Title = "Query Template";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+    @Styles.Render("~/CustomScripts/css/jquery.dataTables.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/CustomScripts/resources/syntax/shCore.css?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Scripts.Render("~/CustomScripts/js/jquery.dataTables.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/js/dataTables.fixedColumns.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/dataTables.buttons.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/jszip.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/pdfmake.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/vfs_fonts.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/buttons.html5.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/date-dd-MMM-yyyy.js?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Styles.Render("~/css/report.css?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Styles.Render("~/Scripts/FullCalendar/fullcalendar.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/FullCalendar/lib/moment.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/FullCalendar/fullcalendar.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/css/userInfo.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/FullCalendar/theme-chooser.js?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Styles.Render("~/css/WMS.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/General.js?t=" + @DateTime.Now.Ticks.ToString())
+    <link href="~/css/helpdesk.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="~/CustomScripts/Mail/jquery.emailinput.min.css">
+    <script type="text/javascript" src="~/CustomScripts/Mail/jquery.emailinput.min.js"></script>
+    <link href="~/css/a.css" rel="stylesheet" />
+
+    @*<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">*@
+    @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">*@
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <style type="text/css">
+        .bs-example {
+            margin: 20px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+        .ui-draggable{
+            cursor: pointer;
+        }
+        .bs-example td:hover{
+            background-color:#b3d4fc ;
+        }
+       
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            $("#DragWordList td").draggable({ helper: 'clone' });
+            $(".txtDropTarget").droppable({
+                accept: "#DragWordList td",
+                drop: function (ev, ui) {
+                    $(this).insertAtCaret(ui.draggable.text());
+                }
+            });
+        });
+
+        $.fn.insertAtCaret = function (myValue) {
+            return this.each(function () {
+                //IE support
+                if (document.selection) {
+                    this.focus();
+                    sel = document.selection.createRange();
+                    sel.text = myValue;
+                    this.focus();
+                }
+                //MOZILLA / NETSCAPE support
+                else if (this.selectionStart || this.selectionStart == '0') {
+                    var startPos = this.selectionStart;
+                    var endPos = this.selectionEnd;
+                    var scrollTop = this.scrollTop;
+                    this.value = this.value.substring(0, startPos) + myValue + this.value.substring(endPos, this.value.length);
+                    this.focus();
+                    this.selectionStart = startPos + myValue.length;
+                    this.selectionEnd = startPos + myValue.length;
+                    this.scrollTop = scrollTop;
+                } else {
+                    this.value += myValue;
+                    this.focus();
+                }
+            });
+        };
+    </script>
+
+    <style>
+        .form-group {
+            font-size: 12px;
+        }
+
+        .form-inline .form-control {
+            width: 100%;
+        }
+
+        #spFileAdd {
+            position: relative;
+            font-size: 20px;
+            color: #337ab7;
+            float: right;
+        }
+
+        .fa-paperclip {
+            font-size: 18px;
+            color: #FF6347;
+            margin: 2px;
+        }
+
+        #btnchat {
+            float: right !important;
+        }
+
+        .panel-footer {
+            height: 100px !important;
+        }
+
+        .modal-dialog {
+            top: -15px;
+        }
+
+        #myModal_Chat .modal-body {
+            padding-top: 5px;
+        }
+    </style>
+
+
+
+}
+
+<input id="hf_GetQueryTemplate" type="hidden" value='@Url.Action("GetQueryTemplate",  "General")'>
+<input id="hf_UpdateQueryDetails" type="hidden" value='@Url.Action("UpdateQueryDetails",  "General")'>
+<input id="hf_CheckExistingDataQuery" type="hidden" value='@Url.Action("CheckExistingDataQuery",  "General")'>
+<input id="hf_PopulateQueryTempByID" type="hidden" value='@Url.Action("PopulateQueryTempByID",  "General")'>
+
+<div class="page-content">
+    <div class="jumbotron content">
+        <table id="QueryTemplate" class="display" width="100%"></table>
+    </div>
+</div>
+
+
+<div id="myModal_QueryTemplate" class="modal fade myModalView" role="dialog">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                @*<button type="button" class="close" data-dismiss="modal" id="btnclose">&times;</button>*@
+                <h4 class="modal-title"><strong>Query Template</strong></h4>
+            </div>
+            <div>
+                <div class="modal-body">
+                    <div class="form-group row" id="divQueryTemp">
+                        <div class="col-md-8">
+                            <div class="form-group label-floating col-sm-12">
+                                <label class="control-label">Publisher</label><em>*</em>
+                                @Html.DropDownListFor(m => m.PublisherList, new SelectList(Model.PublisherList, "Value", "Text"), new { @id = "ddlPublisherList", @class = "form-control" })
+                            </div>
+
+                            <div class="form-group label-floating col-sm-12">
+                                <label class="control-label">Template Name</label><em>*</em>
+                                <input type="text" class="form-control" maxlength="30" id="txttemplatename" style="width:100%" />
+                            </div>
+
+                            <div class="form-group label-floating col-sm-12">
+                                <label class="control-label">Subject</label><em>*</em>
+                                <input type="text" class="form-control txtDropTarget" maxlength="30" id="txtQuerysubject" style="width:100%" />
+                            </div>
+                            <div class="form-group label-floating col-sm-12">
+                                <label class="control-label">Mail Content</label><em>*</em>
+                                <textarea style="width: 100%;height: 250px;" id="txtmailbody" class="form-control txtDropTarget"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            
+                            <div class="bs-example">
+                                <table class="table table-hover">
+                                   
+                                    <tbody>
+                                        <tr id="DragWordList">
+                                            <td class="ui-draggable" data-toggle="tooltip" data-placement="bottom" title="Drag and Drop Text">{BookNo}</td>
+                                        </tr>
+                                        <tr id="DragWordList">
+                                            <td class="ui-draggable" data-toggle="tooltip" data-placement="bottom" title="Drag and Drop Text">{ISBN}</td>
+                                        </tr>
+                                        <tr id="DragWordList">
+                                            <td class="ui-draggable" data-toggle="tooltip" data-placement="bottom" title="Drag and Drop Text">{Catalog}</td>
+                                        </tr>
+                                        <tr id="DragWordList">
+                                            <td class="ui-draggable" data-toggle="tooltip" data-placement="bottom" title="Drag and Drop Text">{ChapterNo}</td>
+                                        </tr>
+                                        <tr id="DragWordList">
+                                            <td class="ui-draggable" data-toggle="tooltip" data-placement="bottom" title="Drag and Drop Text">{Author}</td>
+                                        </tr>
+                                        <tr id="DragWordList">
+                                            <td class="ui-draggable" data-toggle="tooltip" data-placement="bottom" title="Drag and Drop Text">{Editor}</td>
+                                        </tr>
+                                        <tr id="DragWordList">
+                                            <td class="ui-draggable" data-toggle="tooltip" data-placement="bottom" title="Drag and Drop Text">{Journal}</td>
+                                        </tr>
+                                        <tr id="DragWordList">
+                                            <td class="ui-draggable" data-toggle="tooltip" data-placement="bottom" title="Drag and Drop Text">{ProductionEditor}</td>
+                                        </tr>
+                                        <tr id="DragWordList">
+                                            <td class="ui-draggable" data-toggle="tooltip" data-placement="bottom" title="Drag and Drop Text">{PMName}</td>
+                                        </tr>
+
+                                        <tr id="DragWordList">
+                                            <td class="ui-draggable" data-toggle="tooltip" data-placement="bottom" title="Drag and Drop Text">{TSPMName}</td>
+                                        </tr>
+                                        <tr id="DragWordList">
+                                            <td class="ui-draggable" data-toggle="tooltip" data-placement="bottom" title="Drag and Drop Text">{Vendor}</td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            @*<ul id="DragWordList">
+                                <li class="ui-draggable">Hello world!</li>
+                                <li class="ui-draggable">All your base</li>
+                                <li class="ui-draggable">Lorem ipsum dolor sit amet...</li>
+                            </ul>*@
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" value="Save" id="btnSave_QueryTemp">Add/Update</button>
+                    <button type="button" class="btn btn-primary" title="Close" id="btn_closeQuery" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

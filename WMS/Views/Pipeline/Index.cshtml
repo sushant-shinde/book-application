@@ -1,0 +1,108 @@
+﻿@model WMS.Models.PipelineModel
+@{
+    ViewBag.Title = "Pipeline";
+    @Styles.Render("~/CustomScripts/css/jquery.dataTables.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/CustomScripts/resources/syntax/shCore.css?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Scripts.Render("~/CustomScripts/js/jquery.dataTables.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/js/dataTables.fixedColumns.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/dataTables.buttons.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/jszip.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/pdfmake.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/vfs_fonts.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Export/buttons.html5.min.js?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/Scripts/date-dd-MMM-yyyy.js?t=" + @DateTime.Now.Ticks.ToString())
+
+    @Styles.Render("~/css/report.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Styles.Render("~/css/WMS.css?t=" + @DateTime.Now.Ticks.ToString())
+    @Scripts.Render("~/CustomScripts/Pipeline.js?t=" + @DateTime.Now.Ticks.ToString())
+
+
+    <style>
+        .modal {
+            width: 500px !important;
+            left: 30%;
+        }
+
+        h4 {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .modal-body {
+            font-size: 14px !important;
+            font-weight: 300 !important;
+        }
+    </style>
+}
+<input id="hf_GetPipeline" type="hidden" value='@Url.Action("GetPipelineData",  "Pipeline")'>
+<input id="hf_PipelineInfo" type="hidden" value='@Url.Action("GetPipelineDetails",  "Pipeline")'>
+<input id="hf_PipelineUpdate" type="hidden" value='@Url.Action("PipelineUpdate", "Pipeline")'>
+<input id="hf_PipelineDelete" type="hidden" value='@Url.Action("PipelineDelete", "Pipeline")'>
+<input id="hf_CheckExistingData" type="hidden" value='@Url.Action("CheckExistingData", "Pipeline")'>
+<div class="page-content">
+    <div class="jumbotron content">
+        <br />
+        <div class="row">
+            <div class="col-sm-2">
+                From
+                <input id="Txt_SearchFromDate" type="text" readonly class="form-control inputHandCursor" />
+            </div>
+            <div class="col-sm-2">
+                To
+                <input id="Txt_SearchToDate" type="text" readonly class="form-control inputHandCursor" />
+            </div>
+            <div class="col-sm-2">
+                <br />
+                <span class="btn btn-primary" title="Get" id="btnGet">Get</span>
+            </div>
+        </div>
+        <table id="example" class="display" width="100%"></table>
+    </div>
+</div>
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog" id="mymodel_art">
+
+        <div class="modal-content" id="modal_contentArt">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Book Details</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+                    <div id="divContent" class="col-sm-12">
+                        <div class="form-group label-floating">
+                            <label class="control-label">Publisher</label><em>*</em>
+                            @Html.DropDownListFor(m => m.PublisherList, new SelectList(Model.PublisherList, "Value", "Text"), new { @id = "ddlPublisherList", @class = "form-control" })
+                        </div>
+
+                        <div class="form-group label-floating">
+                            <label class="control-label">ISBN</label><em>*</em>
+                            @Html.TextBoxFor(Model => Model.aPipeline.ISBN, new { @id = "txtISBN", @class = "form-control", @maxlength = 13 })
+                        </div>
+                        <div class="form-group label-floating">
+                            <label class="control-label">Title</label><em>*</em>
+                            @Html.TextAreaFor(Model => Model.aPipeline.Title, new { @id = "txtTitle", @class = "form-control", @maxlength = 100 })
+                        </div>
+                        <div class="form-group label-floating">
+                            <label class="control-label">Author</label><em>*</em>
+                            @Html.TextBoxFor(Model => Model.aPipeline.AuthorName, new { @id = "txtAuthor", @class = "form-control", @maxlength = 15 })
+                        </div>
+                        <div class="form-group label-floating">
+                            <label class="control-label">Expected Date</label><em>*</em>
+                            <input id="txtExpectedDt" type="text" readonly class="form-control inputHandCursor" />
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnUpdate">Update</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
